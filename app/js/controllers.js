@@ -5,7 +5,7 @@
 angular.module('myApp.controllers', ["kendo.directives"])
   .controller('MyCtrl', ['$scope', function($scope) {
     $scope.selectOptions = {
-        placeholder: "Select products...",
+        placeholder: "Select at least two careers...",
         dataTextField: "ProductName",
         dataValueField: "ProductID",
         autoBind: false,
@@ -20,6 +20,10 @@ angular.module('myApp.controllers', ["kendo.directives"])
         }
     };
     $scope.selectedIds = [];
+
+    $scope.compare = function(){
+      console.log('this');
+    }
   }])
   .controller('MyCtrl2', ['$scope', function($scope) {
 

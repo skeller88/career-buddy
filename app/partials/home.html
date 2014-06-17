@@ -1,5 +1,9 @@
-<div>
+<div class="career-selector">
   <p>Choose careers to compare.</p>
   <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedIds"></select>
   <p ng-show="selectedIds.length">Selected: {{ selectedIds }}</p>
+  <button kendo-button class="k-primary" ng-click="compare()">Compare Selected</button>
 </div>
+
+<div class="career-visualizer">
+</div>  
