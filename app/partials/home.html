@@ -1,1 +1,5 @@
-<p>This is the home page</p>
+<div>
+  <p>Choose careers to compare.</p>
+  <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedIds"></select>
+  <p ng-show="selectedIds.length">Selected: {{ selectedIds }}</p>
+</div>
