@@ -1,3 +1,12 @@
+# Career Buddy
+
+# Notes on the data
+
+### Descriptive Stats
+career_2012_emp
+- min: 0
+- max: 22470
+
 # angular-seed — the seed for AngularJS apps
 
 This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
