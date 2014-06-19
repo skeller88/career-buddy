@@ -1,49 +1,64 @@
-var pg = require('pg');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-var actions = {
-  'GET': getCareers,
-  'OPTIONS': options
-};
+  // var pg = require('pg').native;
 
-var headers = {
-  "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 10, // seconds
-  "Content-Type": "application/json"
-};
-
-exports.sendResponse = function(res, object, statusCode) {
-  statusCode = statusCode || 200;
-  res.writeHead(statusCode, headers);
-
-  res.end(JSON.stringify(object));
-};
-
-function options(req, res){
-  exports.sendResponse(res, {a: 'options object'});
-};
-
-function getCareers(req, res) {
-  statusCode = 200;
-
-  // pg.connect(process.env.DATABASE_URL, function(err, client) {
-  //   var query = client.query('SELECT * FROM careers LIMIT 5');
-
-  //   query.on('row', function(row) {
-  //     console.log(JSON.stringify(row));
-  //   });
+  // var client = new pg.Client({
+  //   host: 'ec2-54-243-49-204.compute-1.amazonaws.com',
+  //   port: '5432',
+  //   database: 'da8g81b6klacig',
+  //   user: 'gbucxcgyytxjfu',
+  //   password: 'EJ8f0r_idtBFxhXqqz8kQ814SX'
   // });
 
-  exports.sendResponse(res, {results: 'getCareers object'} );
-};
+  // var knex = require('knex')({
+  //   client: 'pg',
+  //   connection: "dbname=d79onnfkt300fv host=ec2-54-204-32-91.compute-1.amazonaws.com port=5432 user=jitpluhwkhnmfi password=SFqDPMve7-IXcGZij-bY6WeoK2 sslmode=require"
+  // });
 
-exports.handler = function(req, res) {
-  console.log(res.output);
-  if(actions[req.method]){
-    var action = actions[req.method];
-    action(req, res);
-  }else{
-    exports.sendResponse(res, null, 404);
-  }
-};
+module.exports = (function(app) {
+  // var knex = require('knex')({
+  //   host: 'ec2-54-243-49-204.compute-1.amazonaws.com',
+  //   port: '5432',
+  //   database: 'da8g81b6klacig',
+  //   user: 'gbucxcgyytxjfu',
+  //   password: 'EJ8f0r_idtBFxhXqqz8kQ814SX'
+  // });
+
+  // var pg = require('pg');
+
+  // "postgres://*USERNAME*:*PASSWORD*@*HOST*:*PORT:/*DATABASE*"
+  var database_url = "postgres://jitpluhwkhnmfi:SFqDPMve7-IXcGZij-bY6WeoK2@ec2-54-204-32-91.compute-1.amazonaws.com:5432:/d79onnfkt300fv"
+  // var database_url = "postgres://jitpluhwkhnmfi:SFqDPMve7-IXcGZij-bY6WeoK2@ec2-54-204-32-91.compute-1.amazonaws.com:5432/d79onnfkt300fv";
+
+  app.use(express.static(__dirname + '/../app'));
+  app.use(bodyParser({strict: false}));
+
+  app.get('/', function(req,res){
+    // check to see if there's a user id parameter
+    // if there is, run a query through the DB to see if that user id exists; return with data if it does
+    // send res.redirect to '/new with information'
+
+    res.send('/index.html');
+  });
+
+  function serveIndex(req, res) {
+    statusCode = 200;
+
+    // client.connect();
+
+    // knex.select('*').table('careers').limit(2)
+    //   .then(function(rows) {
+    //     console.log('rows', rows);
+    //   });
+
+    console.log(process.env.HEROKU_POSTGRESQL_DBNAME_URL)
+    pg.connect(database_url, function(err, client) {
+      var query = client.query('SELECT * FROM careers');
+
+      query.on('row', function(row) {
+        console.log(JSON.stringify(row));
+      });
+    });
+  };
+});
