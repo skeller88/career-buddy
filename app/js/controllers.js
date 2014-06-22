@@ -3,7 +3,8 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ["kendo.directives"])
-  .controller('MyCtrl', ['$scope', function($scope) {
+  .controller('HomeCtrl', ['$scope', function($scope) {
+    $scope.pageClass = "page-home";
     $scope.selectOptions = {
         placeholder: "Select at least two careers...",
         dataTextField: "ProductName",
@@ -44,6 +45,9 @@ angular.module('myApp.controllers', ["kendo.directives"])
     }
 
   }])
-  .controller('MyCtrl2', ['$scope', function($scope) {
-
+  .controller('AboutCtrl', ['$scope', function($scope) {
+    $scope.pageClass = "page-about";
+  }])
+  .controller('ContactCtrl', ['$scope', function($scope) {
+    $scope.pageClass = "page-contact";
   }]);

@@ -1,5 +1,66 @@
 /* app css stylesheet */
 
+.nav-options > li:hover {
+  background-color: #eee;
+}
+
+.container {
+  position: relative;
+}
+
+.career-selector {
+  text-align: center;
+}
+
+/*.career-selector.ng-enter,
+.career-selector.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.career-selector.ng-enter,
+.career-selector.ng-leave.ng-leave-active {
+  opacity:0;
+}
+.career-selector.ng-leave,
+.career-selector.ng-enter.ng-enter-active {
+  opacity:1;
+}*/
+
 .k-button {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+/* ANIMATIONS
+============================================================================= */
+
+.ng-enter  { -webkit-animation: moveFromBottomFade 0.5s ease-in; z-index: 8888; }
+.ng-leave  { -webkit-animation: moveToTopFade 0.5s ease-out; z-index: 8887; }
+
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* page specific animations ------------------------ */
+
+
+/* about ------------------------ */
+/*.page-about.ng-enter    { -webkit-animation:slideInRight 0.5s both ease-in; }
+.page-about.ng-leave        { -webkit-animation:slideOutLeft 0.5s both ease-in; }*/
+
+@-webkit-keyframes moveFromBottomFade {
+  from { opacity: 0.3; -webkit-transform: translateY(100%); }
+}
+@keyframes moveFromBottomFade {
+  from { opacity: 0.3; -webkit-transform: translateY(100%); transform: translateY(100%); }
+}
+
+@-webkit-keyframes moveToTopFade {
+  from { }
+  to { opacity: 0.3; -webkit-transform: translateY(-100%); }
+}
+@keyframes moveToTopFade {
+  from { }
+  to { opacity: 0.3; -webkit-transform: translateY(-100%); transform: translateY(-100%); }
 }
