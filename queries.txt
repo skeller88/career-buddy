@@ -2,7 +2,7 @@
 -- Create Careers table
 --------------------------
 
-CREATE TABLE local_careers
+CREATE TABLE careers
 (
   career_name     varchar(80) NOT NULL,
   career_occ_code     varchar(10) NOT NULL,

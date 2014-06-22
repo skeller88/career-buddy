@@ -77,6 +77,14 @@ angular.module('myApp.directives', []).
           .call(yAxis)
           .attr('transform', 'translate(' + chartWidthStart + ',0)');
 
+        console.log(vis);
+        // vis.append('svg:text')
+        //   .attr("class", "x label")
+        //   .attr("text-anchor", "end")
+        //   .attr("x", width)
+        //   .attr("y", height - 6)
+        //   .text("income per capita, inflation-adjusted (dollars)");
+
         //event handlers
         // var mouseMove = function() {
         //   var infobox = d3.select(".infobox");
@@ -145,9 +153,9 @@ angular.module('myApp.directives', []).
             var pc = d.percentChange;
 
             if(pc < 0) {
-              return 'red';
+              return 'rgba(128, 0, 128, 0.75)';
             } else {
-              return 'blue';
+              return 'rgba(255, 0, 0, 0.75)';
             }
           });
 
