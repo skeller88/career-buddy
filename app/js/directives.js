@@ -11,74 +11,84 @@ angular.module('myApp.directives', []).
         var sampleData = [
           {
             'title': 'Management occupations',
-            'numberEmployeed': 8861.5,
+            'numberEmployed': 8861.5,
             'percentChange': 7.2,
             'annualSalary': 93910
           },
           {
             'title': 'Management occupations-duplicate',
-            'numberEmployeed': 8861.5,
+            'numberEmployed': 8861.5,
             'percentChange': 7.6,
             'annualSalary': 93910
           },
           {
             'title': 'Chief executives',
-            'numberEmployeed': 330.5,
+            'numberEmployed': 330.5,
             'percentChange': 5.3,
             'annualSalary': 168140
           },
           {
             'title': 'Human resources managers',
-            'numberEmployeed': 102.7,
+            'numberEmployed': 102.7,
             'percentChange': -13.2,
             'annualSalary': 99720
           },
           {
             'title': 'Nurses',
-            'numberEmployeed': 200,
+            'numberEmployed': 200,
             'percentChange': 2,
             'annualSalary': 60000
           }
         ]
 
         //chart configuration
-        var vis = d3.select(element[0])
-          .append('svg')
-          .style('width', '500px')
-          .style('height', '500px');
-
         //todo- use chart options for range
-        var chartWidthStart = 60;
-        var chartWidthEnd = 480;
-        var chartHeight = 400;
-        var chartXAxisVertTranslation = 474;
+        var w = 500;
+        var h = 500;
+        var p = 60;
+
+        var svg = d3.select(element[0])
+          .append('svg')
+          .attr('width', w)
+          .attr('height', h);
 
         var xlabel = "Projected Growth (%)";
         var ylabel = "Median Salary ($)";
         var rlabel = "Number Employeed (1k)";
 
         //career_percent_emp_change
-        var xRange = d3.scale.linear().range([chartWidthStart, chartWidthEnd]).domain([-44, 54]);
+        var xScale = d3.scale.linear()
+                     .domain([-40, 60])
+                     .range([p, w - p * 2]);
         //career_med_ann_wage
-        // var yRange = d3.scale.linear().range([40, chartWidthEnd]).domain([18000, 173000]);
-        var yRange = d3.scale.linear().range([chartWidthStart, chartWidthEnd]).domain([173000, 18000]);
+        var yScale = d3.scale.linear()
+                     .domain([15000, 175000])
+                     .range([h - p, p]);
+        //career_2012_emp
+        var rScale = d3.scale.linear()
+                     .domain([0, d3.max(sampleData, function(d) { return d.numberEmployed; })])
+                     .range([4, 15]);
 
         var xAxis = d3.svg.axis()
-          .scale(xRange);
+          .scale(xScale)
+          .orient('bottom');
 
         var yAxis = d3.svg.axis()
-          .scale(yRange)
+          .scale(yScale)
           .orient('left');
 
-        vis.append("svg:g")
-          .call(xAxis)
-          .attr('transform', 'translate(0,' + chartXAxisVertTranslation + ')');
-        vis.append("svg:g")
-          .call(yAxis)
-          .attr('transform', 'translate(' + chartWidthStart + ',0)');
+        svg.append("svg:g")
+          .attr('class', 'axis')
+          .attr('transform', 'translate(0,' + (h - p) + ')')
+          .call(xAxis);
 
-        console.log(vis);
-        // vis.append('svg:text')
+        svg.append("svg:g")
+          .attr('class', 'axis')
+          .attr('transform', 'translate(' + p + ',0)')
+          .call(yAxis);
+
+        console.log(svg);
+        // svg.append('svg:text')
         //   .attr("class", "x label")
         //   .attr("text-anchor", "end")
         //   .attr("x", width)
@@ -129,25 +139,15 @@ angular.module('myApp.directives', []).
           .attr("class", "ydata" );
 
         //add data
-        var circles = vis.selectAll('circle').data(sampleData);
+        var circles = svg.selectAll('circle').data(sampleData);
 
         circles
           .enter()
-          .insert('circle')
-          .attr('cx', function(d) { return xRange(d.percentChange); })
-          .attr('cy', function(d) { return yRange(d.annualSalary); })
+          .append('circle')
+          .attr('cx', function(d) { return xScale(d.percentChange); })
+          .attr('cy', function(d) { return yScale(d.annualSalary); })
           .attr('r', function(d) {
-            var ne = d.numberEmployeed;
-
-            if(ne < 10) {
-              return 2;
-            } else if(ne < 100) {
-              return 5;
-            } else if(ne < 1000) {
-              return 10;
-            } else {
-              return 15;
-            }
+            return rScale(d.numberEmployed);
           })
           .style('fill', function(d) {
             var pc = d.percentChange;
