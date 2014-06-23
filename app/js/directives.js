@@ -45,25 +45,32 @@ angular.module('myApp.directives', []).
         //todo- use chart options for range
         var w = 500;
         var h = 500;
-        var p = 60;
+
+        //padding between axes and edges of svg
+        var xp = 90;
+        var yp = 40;
+
+        //padding between labels and axes
+        var lpx = 5;
+        var lpy = 5;
 
         var svg = d3.select(element[0])
           .append('svg')
-          .attr('width', w)
-          .attr('height', h);
+          .attr('width', w + xp)
+          .attr('height', h + yp);
 
-        var xlabel = "Projected Growth (%)";
+        var xlabel = "Projected Job Growth: 2012-2022 (%)";
         var ylabel = "Median Salary ($)";
         var rlabel = "Number Employeed (1k)";
 
         //career_percent_emp_change
         var xScale = d3.scale.linear()
                      .domain([-40, 60])
-                     .range([p, w - p * 2]);
+                     .range([xp, w]);
         //career_med_ann_wage
         var yScale = d3.scale.linear()
                      .domain([15000, 175000])
-                     .range([h - p, p]);
+                     .range([h - yp, yp]);
         //career_2012_emp
         var rScale = d3.scale.linear()
                      .domain([0, d3.max(sampleData, function(d) { return d.numberEmployed; })])
@@ -77,23 +84,38 @@ angular.module('myApp.directives', []).
           .scale(yScale)
           .orient('left');
 
-        svg.append("svg:g")
+        //axes
+        svg.append('svg:g')
           .attr('class', 'axis')
-          .attr('transform', 'translate(0,' + (h - p) + ')')
+          .attr('transform', 'translate(0,' + (h - yp) + ')')
           .call(xAxis);
 
-        svg.append("svg:g")
+        svg.append('svg:g')
           .attr('class', 'axis')
-          .attr('transform', 'translate(' + p + ',0)')
+          .attr('transform', 'translate(' + xp + ',0)')
           .call(yAxis);
 
-        console.log(svg);
+        //labels
+        svg.append('svg:text')
+          .attr('class', 'x-label label')
+          .attr('text-anchor', 'end')
+          .attr('transform', 'translate(' + (w - xp) + ',' + (h + lpx) + ')')
+          .text(xlabel);
+
         // svg.append('svg:text')
-        //   .attr("class", "x label")
-        //   .attr("text-anchor", "end")
-        //   .attr("x", width)
-        //   .attr("y", height - 6)
-        //   .text("income per capita, inflation-adjusted (dollars)");
+        //   .attr('transform', 'rotate(90)')
+        //   .attr('class', 'y-label label')
+        //   .attr('text-anchor', 'end')
+        //   .attr('transform', 'translate(' + (w - xp) + ',' + (h + lpx) + ')')
+        //   // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
+        //   .text(ylabel);
+
+        svg.append('svg:text')
+          .attr('class', 'y-label label')
+          .attr('text-anchor', 'end')
+          .attr('transform', 'translate(' + (w - xp) + ',' + (h + 4*lpx) + ')')
+          // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
+          .text(ylabel);
 
         //event handlers
         // var mouseMove = function() {
