@@ -4,6 +4,7 @@
 
 angular.module('myApp.controllers', ["kendo.directives"])
   .controller('HomeCtrl', ['$scope', function($scope) {
+    $scope.tooltipContent = 'Tooltip';
     $scope.pageClass = "page-home";
     $scope.selectOptions = {
         placeholder: "Select at least two careers...",

@@ -2,11 +2,11 @@
 
 /* Directives */
 
-angular.module('myApp.directives', []).
+angular.module('myApp.directives', ["kendo.directives"]).
   directive('epChart', [function() {
     return {
       restrict: 'EA',
-      link: function(scope, element, attrs) {
+    link: function(scope, element, attrs) {
         //sample data
         var sampleData = [
           {
@@ -179,7 +179,9 @@ angular.module('myApp.directives', []).
             } else {
               return 'rgba(255, 0, 0, 0.75)';
             }
-          });
+          })
+          .attr('k-content', 'I\'m a tooltip')
+          .attr('kendo-tooltip');
 
         circles
           .exit()
