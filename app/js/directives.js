@@ -46,6 +46,10 @@ angular.module('myApp.directives', ["kendo.directives"]).
         var w = 500;
         var h = 500;
 
+        //sizes of bubbles 
+        var rmin = 4;
+        var rmax = 15;
+
         //padding between axes and edges of svg
         var xp = 90;
         var yp = 40;
@@ -56,6 +60,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
 
         var svg = d3.select(element[0])
           .append('svg')
+          .attr('class', 'chart')
           .attr('width', w + xp)
           .attr('height', h + yp);
 
@@ -74,7 +79,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
         //career_2012_emp
         var rScale = d3.scale.linear()
                      .domain([0, d3.max(sampleData, function(d) { return d.numberEmployed; })])
-                     .range([4, 15]);
+                     .range([rmin, rmax]);
 
         var xAxis = d3.svg.axis()
           .scale(xScale)
@@ -84,6 +89,10 @@ angular.module('myApp.directives', ["kendo.directives"]).
           .scale(yScale)
           .orient('left');
 
+        svg.append('text')
+          .attr('transform', 'translate(' + w + ',10)')
+          .text('BLAH');
+          
         //axes
         svg.append('svg:g')
           .attr('class', 'axis')
@@ -110,12 +119,12 @@ angular.module('myApp.directives', ["kendo.directives"]).
         //   // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
         //   .text(ylabel);
 
-        svg.append('svg:text')
-          .attr('class', 'y-label label')
-          .attr('text-anchor', 'end')
-          .attr('transform', 'translate(' + (w - xp) + ',' + (h + 4*lpx) + ')')
-          // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
-          .text(ylabel);
+        // svg.append('svg:text')
+        //   .attr('class', 'y-label label')
+        //   .attr('text-anchor', 'end')
+        //   .attr('transform', 'translate(' + (w - xp) + ',' + (h + 4*lpx) + ')')
+        //   // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
+        //   .text(ylabel);
 
         //event handlers
         // var mouseMove = function() {

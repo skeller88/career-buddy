@@ -2,9 +2,6 @@
   "name": "career-buddy",
   "private": true,
   "version": "0.0.0",
-  "engines": {
-
-  },
   "description": "Choose the best career for you.",
   "repository": "https://github.com/skeller88/career-buddy",
   "devDependencies": {

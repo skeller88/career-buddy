@@ -32,6 +32,20 @@ html, body {
   margin-top: 10px;
 }
 
+/* CHART */
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
+.chart {
+  background-color: white;
+}
+
 /* ANIMATIONS
 ============================================================================= */
 

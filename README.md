@@ -1,5 +1,15 @@
 # Career Buddy
 
+User accounts
+Save comparisons
+NewRelic - analytics, error-reporting service
+git - tracking client-side errors in the browser
+multiple servers 
+server-side templating - jade 
+in-memory caching - show data on load 
+in-browser behavior analytics - heap, mixpanel 
+page optimization
+
 # Notes on the data
 
 ### Descriptive Stats
