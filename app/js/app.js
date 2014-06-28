@@ -5,6 +5,7 @@
 angular.module('myApp', [
   'ngAnimate',
   'ui.router',
+  'ngResource',
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
@@ -16,6 +17,11 @@ config(['$stateProvider', function($stateProvider) {
       url: '/',
       templateUrl: 'partials/home.html', 
       controller: 'HomeCtrl'
+      // resolve: {
+      //   careerNames: function(careerNamesResource) {
+      //     return careerNamesResource.query();
+      //   }
+      // }
     })
     .state('about', {
       url: '/about',

@@ -3,22 +3,29 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ["kendo.directives"])
-  .controller('HomeCtrl', ['$scope', function($scope) {
-    $scope.selectOptions = {
-        placeholder: "Select at least two careers...",
-        dataTextField: "CareerName",
-        dataValueField: "CareerCode",
-        autoBind: false,
-        dataSource: {
-            type: "odata",
-            serverFiltering: true,
-            transport: {
-                read: {
-                    url: "http://career-buddy.herokuapp.com/careers",
-                }
-            }
-        }
-    };
+  .controller('HomeCtrl', ['$scope', 'Careers', function($scope, Careers) {
+    console.log('in home');
+    Careers.query(function(names) {
+        console.log('queried');
+        console.log(names);
+        $scope.careerNames = names;
+    });
+
+    // $scope.selectOptions = {
+    //     placeholder: "Select at least two careers...",
+    //     dataTextField: "CareerName",
+    //     dataValueField: "CareerCode",
+    //     autoBind: false,
+    //     dataSource: {
+    //         type: "odata",
+    //         serverFiltering: true,
+    //         transport: {
+    //             read: {
+    //                 url: "http://career-buddy.herokuapp.com/careers",
+    //             }
+    //         }
+    //     }
+    // };
 
     //stub
     // $scope.selectOptions = {
@@ -45,6 +52,7 @@ angular.module('myApp.controllers', ["kendo.directives"])
 
   }])
   .controller('AboutCtrl', ['$scope', function($scope) {
+    console.log('in about');
     $scope.pageClass = "page-about";
   }])
   .controller('ContactCtrl', ['$scope', function($scope) {
