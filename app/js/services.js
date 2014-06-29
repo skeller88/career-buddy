@@ -8,6 +8,16 @@
 angular.module('myApp.services', [])
   .value('version', '0.1')
 
-  .factory('Careers', ['$q', '$resource', function($q, $resource) {
-    return $resource('/careers', {getNames: {method: 'GET', cache: true}});
+  .factory('careers', ['$http', '$q', '$resource', function($http, $q, $resource) {
+    function getCareerNames() {
+      return $http({
+        url: '/careers',
+        method: 'GET',
+        cache: true
+      });
+    }
+
+    return {
+      getCareerNames: getCareerNames
+    }
   }]);
