@@ -14,7 +14,7 @@ angular.module('myApp.controllers', ["kendo.directives"])
     $scope.selectOptions = {
         placeholder: "Select at least two careers...",
         dataTextField: "careerNames",
-        dataValueField: "CareerCode",
+        dataValueField: "careerNames",
         autoBind: false,
         dataSource: {
             type: "odata",

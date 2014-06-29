@@ -9,6 +9,9 @@ module.exports = function(Promise) {
       if(cache[key]) {
         resolve(cache[key]);
       } else {
+        if(!missHandler) {
+          reject('no missHandler');
+        }
         missHandler().then(function(result) {
           set(key, result);
           resolve(result);
@@ -17,7 +20,7 @@ module.exports = function(Promise) {
     });
   }
 
-  function set(value, key) {
+  function set(key, value) {
     cache[key] = value;
   }
 

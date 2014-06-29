@@ -1,6 +1,7 @@
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
+var _ = require('underscore');
 
 var nearCache = require('./server/nearCache.js');
 
@@ -12,22 +13,29 @@ var knex = require('knex')({
   connection: pgConnectionString
 });
 
+var getCareerNames = function(req,res){
+
+  function queryCareerNames() {
+    return knex
+    .select('career_name')
+    .from('careers')
+    .then(function(names) {
+      names = _.indexBy(names, 'career_name');
+      return names;
+    });
+  }
+
+  nearCache.get('careerNames', queryCareerNames)
+    .then(function(names) {
+      res.send(names);
+    });
+};
+
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname + '/app'));
 
-app.get('/careers', function(req,res){
-
-  function getCareerNames() {
-    return knex
-    .select('career_name')
-    .from('careers');
-  }
-
-  nearCache.get('careerNames', getCareerNames).then(function(names) {
-    res.send(names);
-  });
-});
+app.get('/careers', getCareerNames);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Server now listening on port ' + app.get('port'));
