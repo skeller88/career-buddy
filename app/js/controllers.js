@@ -5,6 +5,7 @@
 angular.module('myApp.controllers', ["kendo.directives"])
   .controller('HomeCtrl', ['$scope', 'careers', function($scope, careers) {
     $scope.selectedCareers = [];
+    $scope.selectedCareersData = [];
 
     var dataSource = new kendo.data.DataSource({
       data: []
@@ -19,7 +20,6 @@ angular.module('myApp.controllers', ["kendo.directives"])
         console.log('getCareerNames error: ', data, status);
       });
 
-
     $scope.selectOptions = {
         placeholder: "Select at least two careers...",
         dataTextField: "career_name",
@@ -29,8 +29,14 @@ angular.module('myApp.controllers', ["kendo.directives"])
     };
 
     $scope.compare = function(){
-      careers.getCareerData($scope.selectedCareers);
-    }
+      careers.getCareerData($scope.selectedCareers)
+        .success(function(data, status, headers, config) {
+        $scope.selectedCareersData = data;
+
+      }).error(function(data, status, headers, config) {
+        console.log('getCareerData error: ', data, status);
+      });
+    };
 
   }])
   .controller('AboutCtrl', ['$scope', function($scope) {

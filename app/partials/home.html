@@ -3,9 +3,9 @@
     <h2>Comparing careers is hard.</h2>
     <h3>Let Career Buddy help choose the best career for you.</h3>
     <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareers"></select>
-    <button kendo-button class="k-primary" ng-click="compare()">Compare</button>
+    <button kendo-button class="k-primary" ng-disabled="selectedCareers.length < 2" ng-click="compare()">Compare</button>
   </div>
 
-  <div ep-chart class="career-visualizer">
+  <div ep-chart selected-careers-data="selectedCareersData" class="career-visualizer">
   </div>  
 </section>
