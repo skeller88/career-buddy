@@ -11,13 +11,24 @@ angular.module('myApp.services', [])
   .factory('careers', ['$http', '$q', '$resource', function($http, $q, $resource) {
     function getCareerNames() {
       return $http({
-        url: '/careers',
-        method: 'GET',
-        cache: true
+        url: '/careers/names',
+        method: 'GET'
       });
     }
 
+    //careers is an array of career names
+    function getCareerData(careers) {
+      return $http({
+        url:'/careers',
+        method: 'GET',
+        params: {
+          careers: JSON.stringify(careers)
+        }
+      })
+    }
+
     return {
-      getCareerNames: getCareerNames
+      getCareerNames: getCareerNames,
+      getCareerData: getCareerData
     }
   }]);
