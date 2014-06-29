@@ -5,6 +5,8 @@ module.exports = function(Promise) {
 
   //missHandler should be a promise
   function get(key, missHandler) {
+    var args = Array.prototype.slice.call(arguments, 2);
+
     return new Promise(function(resolve, reject) {
       if(cache[key]) {
         resolve(cache[key]);
@@ -12,7 +14,7 @@ module.exports = function(Promise) {
         if(!missHandler) {
           reject('no missHandler');
         }
-        missHandler().then(function(result) {
+        missHandler.apply(undefined, args).then(function(result) {
           set(key, result);
           resolve(result);
         });

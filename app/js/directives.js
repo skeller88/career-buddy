@@ -64,8 +64,8 @@ angular.module('myApp.directives', ["kendo.directives"]).
           var yp = 40;
 
           //padding between labels and axes
-          var lpx = 5;
-          var lpy = 5;
+          var xlp = 5;
+          var ylp = 5;
 
           var svg = d3.select(element[0])
             .append('svg')
@@ -74,7 +74,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
             .attr('height', h + yp);
 
           var xlabel = "Projected Job Growth: 2012-2022 (%)";
-          var ylabel = "Median Salary ($)";
+          var ylabel = "Median Annual Salary ($)";
           var rlabel = "Number Employeed (1k)";
 
           //career_percent_emp_change
@@ -111,13 +111,19 @@ angular.module('myApp.directives', ["kendo.directives"]).
           svg.append('svg:g')
             .attr('class', 'axis')
             .attr('transform', 'translate(' + xp + ',0)')
-            .call(yAxis);
+            .call(yAxis)
+            .append('text')
+            .attr('class', 'y-label label')
+            .attr('transform', 'rotate(-90)')
+            // .attr('transform', 'translate(' + (0 - ylp) + ',0)')
+            .style('text-anchor', 'end')
+            .text(ylabel);
 
           //labels
           svg.append('svg:text')
             .attr('class', 'x-label label')
             .attr('text-anchor', 'end')
-            .attr('transform', 'translate(' + (w - xp) + ',' + (h + lpx) + ')')
+            .attr('transform', 'translate(' + (w - xp) + ',' + (h + xlp) + ')')
             .text(xlabel);
 
           if(!scope.selectedCareersData.length) {
@@ -148,26 +154,26 @@ angular.module('myApp.directives', ["kendo.directives"]).
           //   infobox.style("top", coord[1] + "px");
           // };
 
-          var mouseOver = function(d) {
-            var bubble = d3.select(this);
-            bubble.attr("stroke", "#000")
-              .attr("stroke-width", 4 );
-            var infobox = d3.select(".infobox")
-              .style("display", "block" );
-            infobox.select("p.state")
-              .text( d.state );
-            infobox.select("p.xdata")
-              .text( xlabel + ": " + d[xlabel] );
-            infobox.select("p.ydata")
-              .text( ylabel + ": " + d[ylabel] );
-          };
+          // var mouseOver = function(d) {
+          //   var bubble = d3.select(this);
+          //   bubble.attr("stroke", "#000")
+          //     .attr("stroke-width", 4 );
+          //   var infobox = d3.select(".infobox")
+          //     .style("display", "block" );
+          //   infobox.select("p.state")
+          //     .text( d.state );
+          //   infobox.select("p.xdata")
+          //     .text( xlabel + ": " + d[xlabel] );
+          //   infobox.select("p.ydata")
+          //     .text( ylabel + ": " + d[ylabel] );
+          // };
            
-          var mouseOut = function() {
-            var infobox = d3.select(".infobox");
-            infobox.style("display", "none" )
-            var bubble = d3.select(this);
-            bubble.attr("stroke", "none")
-          };
+          // var mouseOut = function() {
+          //   var infobox = d3.select(".infobox");
+          //   infobox.style("display", "none" )
+          //   var bubble = d3.select(this);
+          //   bubble.attr("stroke", "none")
+          // };
          
           // attach function to run when mouse is moved anywhere on svg
           // d3.select("svg")
