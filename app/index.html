@@ -6,27 +6,25 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>Career Buddy</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- kendo -->
+
+  <!-- modernizr -->
+  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+
+  <!-- bootstrap css-->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- kendo css -->
   <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.common.min.css">
   <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.default.min.css">
   <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.rtl.min.css">
   <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.silver.min.css">
   <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.silver.mobile.min.css">
-  <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.min.css">
-  <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.default.min.css">
-
-  <!-- bootstrap -->
-  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- modernizr -->
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
-
-  <!-- d3 -->
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <!-- <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.min.css"> -->
+  <!-- <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.default.min.css"> -->
 
   <!-- custom stylesheet -->
   <link rel="stylesheet" href="css/app.css"/>
@@ -52,7 +50,7 @@
     <![endif]-->
 
     <!-- Main content -->
-    <div class="page {{ pageClass }}" ui-view></div>
+    <div class="page" ui-view></div>
 
   </section> <!-- /container -->
 
@@ -61,7 +59,13 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+  <!-- kendo -->
   <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.all.min.js"></script>
+
+  <!-- d3 -->
+  <script src="bower_components/d3/d3.js" charset="utf-8"></script>
+
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>

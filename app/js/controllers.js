@@ -6,6 +6,7 @@ angular.module('myApp.controllers', ["kendo.directives"])
   .controller('HomeCtrl', ['$scope', 'careers', function($scope, careers) {
     $scope.selectedCareers = [];
     $scope.selectedCareersData = [];
+    $scope.isShowChart = false;
 
     var dataSource = new kendo.data.DataSource({
       data: []
@@ -28,14 +29,16 @@ angular.module('myApp.controllers', ["kendo.directives"])
         dataSource: dataSource
     };
 
-    $scope.compare = function(){
+    $scope.compare = function() {
       careers.getCareerData($scope.selectedCareers)
         .success(function(data, status, headers, config) {
         $scope.selectedCareersData = data;
+        $scope.isShowChart = true; 
 
       }).error(function(data, status, headers, config) {
         console.log('getCareerData error: ', data, status);
       });
+
     };
 
   }])

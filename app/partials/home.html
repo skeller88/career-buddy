@@ -6,6 +6,6 @@
     <button kendo-button class="k-primary" ng-disabled="selectedCareers.length < 2" ng-click="compare()">Compare</button>
   </div>
 
-  <div ep-chart selected-careers-data="selectedCareersData" class="career-visualizer">
+  <div ep-chart selected-careers-data="selectedCareersData" ng-show="isShowChart" class="career-visualizer">
   </div>  
 </section>

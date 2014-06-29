@@ -49,23 +49,23 @@ html, body {
 /* ANIMATIONS
 ============================================================================= */
 
-.ng-enter  { -webkit-animation: moveFromRight 0.5s ease-in; z-index: 8888; }
-.ng-leave  { -webkit-animation: moveToLeft 0.5s ease-out; z-index: 8887; }
+.ng-enter  { -webkit-animation: fadeIn 0.5s ease-in; z-index: 8888; }
+.ng-leave  { -webkit-animation: fadeOut 0.5s ease-out; z-index: 8887; }
 
-@-webkit-keyframes moveFromRight {
+@-webkit-keyframes fadeIn {
   0% { opacity: 0; -webkit-transform: translateX(100%); }
   100% { opacity: 1; }
 }
-@keyframes moveFromRight {
+@keyframes fadeIn {
   from { opacity: 0; -webkit-transform: translateX(100%); }
   to { opacity: 1; }
 }
 
-@-webkit-keyframes moveToLeft {
+@-webkit-keyframes fadeOut {
   from { }
   to { opacity: 0; -webkit-transform: translateX(-100%); }
 }
-@keyframes moveToLeft {
+@keyframes fadeOut {
   from { }
   to { opacity: 0; -webkit-transform: translateX(-100%); }
 }
