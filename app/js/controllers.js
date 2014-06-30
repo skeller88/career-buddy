@@ -88,18 +88,17 @@ angular.module('myApp.controllers', ["kendo.directives"])
 
     $scope.compare = function() {
       careersAPI.getCareerData($scope.selectedCareers)
-        .success(function(data, status, headers, config) {
+        .success(function(data) {
         $scope.selectedCareersData = data;
         $scope.isShowChart = true; 
 
-      }).error(function(data, status, headers, config) {
+      }).error(function(data, status) {
         console.log('getCareerData error: ', data, status);
       });
 
     };
 
     $scope.$watch('selectedCareers', function() {
-      console.log($scope.selectedCareers);
       selectedCareersStorage = $scope.selectedCareers;
     });
 

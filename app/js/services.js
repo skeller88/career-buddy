@@ -12,7 +12,8 @@ angular.module('myApp.services', [])
     function getCareerNames() {
       return $http({
         url: '/careers/names',
-        method: 'GET'
+        method: 'GET',
+        cache: true
       });
     }
 

@@ -3,7 +3,7 @@
 --------------------------
 
 -- Copy .csv file into table
-COPY careers from '/Users/Shane/career-buddy-data/ep-tables-cleaned-csv.csv' with delimeter as ' ' with header as false with null as ' ';
+COPY careers from '/Users/Shane/career-buddy-data/ep-tables-cleaned-csv.csv' with delimiter as ' ' with header as false with null as ' ';
 
 --Current problem, can't copy .csv file into psql database 
 https://issues.alfresco.com/jira/browse/ALF-14726

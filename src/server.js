@@ -9,7 +9,20 @@ var nearCache = require('./server/nearCache.js');
 var app = express();
 // var knex = dbHelpers.connectToDB();
 
-function getCareerNames(req,res) {
+function sendWithJSONProtection(req, res, next) {
+  var padding = ')]}\',\n';
+  var send = res.send; // save the existing res.send()
+
+  res.send = function (object) { // override res.send()
+    // var body = string instanceof Buffer ? string.toString() : string;
+    var body = object instanceof Object ? JSON.stringify(object) : object; 
+    send.call(this, padding + body); // call the original res.send()
+  };
+
+  next();
+}
+
+function getCareerNames(req,res, next) {
   console.time('careerNames');
 
   nearCache.get('careerNames', dbHelpers.queryCareerNames)
@@ -36,6 +49,7 @@ function getCareerData(req, res) {
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname + '/../app'));
+app.use(sendWithJSONProtection);
 
 //routes
 app.get('/careers/names', getCareerNames);
