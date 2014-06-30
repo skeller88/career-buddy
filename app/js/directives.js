@@ -3,52 +3,24 @@
 /* Directives */
 
 angular.module('myApp.directives', ["kendo.directives"]).
-  directive('epChart', [function() {
+  directive('skEpChart', [function() {
     return {
       restrict: 'EA',
       scope: {
-        selectedCareersData: '='
+        selectedCareersData: '=',
+        dummy: '='
       },
       link: function(scope, element, attrs) {
-          //sample data
-          // var sampleData = [
-          //   {
-          //     'title': 'Management occupations',
-          //     'numberEmployed': 8861.5,
-          //     'percentChange': 7.2,
-          //     'annualSalary': 93910
-          //   },
-          //   {
-          //     'title': 'Management occupations-duplicate',
-          //     'numberEmployed': 8861.5,
-          //     'percentChange': 7.6,
-          //     'annualSalary': 93910
-          //   },
-          //   {
-          //     'title': 'Chief executives',
-          //     'numberEmployed': 330.5,
-          //     'percentChange': 5.3,
-          //     'annualSalary': 168140
-          //   },
-          //   {
-          //     'title': 'Human resources managers',
-          //     'numberEmployed': 102.7,
-          //     'percentChange': -13.2,
-          //     'annualSalary': 99720
-          //   },
-          //   {
-          //     'title': 'Nurses',
-          //     'numberEmployed': 200,
-          //     'percentChange': 2,
-          //     'annualSalary': 60000
-          //   }
-          // ]
 
           scope.$watch('selectedCareersData', function(newData, oldData) {
             if(scope.selectedCareersData.length) {
               updateGraph(newData);
             }
           });
+          
+          console.log(scope);
+          console.log(scope.dummy);
+          console.log(scope.selectedCareersData);
 
           //chart configuration
           //todo- use chart options for range

@@ -17,11 +17,6 @@ config(['$stateProvider', function($stateProvider) {
       url: '/',
       templateUrl: 'partials/home.html', 
       controller: 'HomeCtrl'
-      // resolve: {
-      //   careerNames: function(careerNamesResource) {
-      //     return careerNamesResource.query();
-      //   }
-      // }
     })
     .state('about', {
       url: '/about',

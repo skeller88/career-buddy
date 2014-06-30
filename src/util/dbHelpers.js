@@ -23,7 +23,6 @@ module.exports = function() {
   }
 
   function queryCareerData(careerNames) {
-    console.info(careerNames);
     return knex.select().from('careers')
     .whereIn('career_name', careerNames)
     .then(function(matchedCareers) {

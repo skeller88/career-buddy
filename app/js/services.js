@@ -8,7 +8,7 @@
 angular.module('myApp.services', [])
   .value('version', '0.1')
 
-  .factory('careers', ['$http', '$q', '$resource', function($http, $q, $resource) {
+  .factory('careersAPI', ['$http', function($http) {
     function getCareerNames() {
       return $http({
         url: '/careers/names',
@@ -31,4 +31,8 @@ angular.module('myApp.services', [])
       getCareerNames: getCareerNames,
       getCareerData: getCareerData
     }
-  }]);
+  }])
+  .factory('selectedCareersStorage', [function() {
+    return [];
+  }])
+  ;

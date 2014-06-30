@@ -49,3 +49,11 @@ select career_med_ann_wage from careers order by career_med_ann_wage desc limit 
 --------------------------
 -- Column names
 select * from careers limit 1;
+
+-- rows with a certain occ code
+select career_name from careers where career_occ_code like '29%';
+
+--------------------------
+-- Entries missing from inital upload
+--------------------------
+--Any entries with career_med_ann_wage = '>=$187,200'. 8 occurrences. All of these entries were changed to '$187,200'. 

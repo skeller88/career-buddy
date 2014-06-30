@@ -35,7 +35,7 @@ function getCareerData(req, res) {
 
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded());
-app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname + '/../app'));
 
 //routes
 app.get('/careers/names', getCareerNames);
