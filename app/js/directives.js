@@ -7,8 +7,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
     return {
       restrict: 'EA',
       scope: {
-        selectedCareersData: '=',
-        dummy: '='
+        selectedCareersData: '='
       },
       link: function(scope, element, attrs) {
 
@@ -17,10 +16,6 @@ angular.module('myApp.directives', ["kendo.directives"]).
               updateGraph(newData);
             }
           });
-          
-          console.log(scope);
-          console.log(scope.dummy);
-          console.log(scope.selectedCareersData);
 
           //chart configuration
           //todo- use chart options for range
@@ -161,7 +156,6 @@ angular.module('myApp.directives', ["kendo.directives"]).
             .attr("class", "ydata" );
 
           function updateGraph(data) {
-            console.log('update', data);
             //add data
             var circles = svg.selectAll('circle').data(data);
 

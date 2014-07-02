@@ -10,14 +10,14 @@ var app = express();
 // var knex = dbHelpers.connectToDB();
 
 function sendWithJSONProtection(req, res, next) {
-  var padding = ')]}\',\n';
-  var send = res.send; // save the existing res.send()
+    var padding = ')]}\',\n';
+    var send = res.send; // save the existing res.send()
 
-  res.send = function (object) { // override res.send()
-    // var body = string instanceof Buffer ? string.toString() : string;
-    var body = object instanceof Object ? JSON.stringify(object) : object; 
-    send.call(this, padding + body); // call the original res.send()
-  };
+    res.send = function (object) { // override res.send()
+        // var body = string instanceof Buffer ? string.toString() : string;
+        var body = object instanceof Object ? JSON.stringify(object) : object; 
+        send.call(this, padding + body); // call the original res.send()
+    };
 
   next();
 }

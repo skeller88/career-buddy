@@ -2,10 +2,10 @@
   <div class="career-selector">
     <h2>Comparing careers is hard.</h2>
     <h3>Let Career Buddy help choose the best career for you.</h3>
-    <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareers"></select>
-    <button kendo-button class="k-primary" ng-disabled="selectedCareers.length < 1" ng-click="compare()">Chart</button>
+    <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
+    <button kendo-button class="k-primary" ng-disabled="selectedCareerNames.length < 1" ng-click="compare()">Chart</button>
   </div>
 
-  <div sk-ep-chart dummy="dummy" selected-careers-data="selectedCareersData" ng-show="isShowChart" class="career-visualizer">
+  <div sk-ep-chart selected-careers-data="selectedCareersData" ng-show="isShowChart" class="career-visualizer">
   </div>  
 </section>

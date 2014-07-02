@@ -4,15 +4,14 @@
 
 angular.module('myApp.controllers', ["kendo.directives"])
   .controller('HomeCtrl', ['$scope', 'careersAPI', 'selectedCareersStorage', function($scope, careersAPI, selectedCareersStorage) {
-    $scope.dummy = 'dummy';
-    $scope.selectedCareers = selectedCareersStorage;
+    //variables
+    $scope.selectedCareerNames = selectedCareersStorage.get();
     $scope.selectedCareersData = [];
     $scope.isShowChart = false;
-
     var isStubbedD3 = false;
 
     if(isStubbedD3) {
-      var stubData = 
+        var stubData = 
           [ { career_name: 'Software developers and programmers',
               career_occ_code: '15-1130',
               career_2012_emp: 1503.1,
@@ -61,24 +60,17 @@ angular.module('myApp.controllers', ["kendo.directives"])
               career_edu: null,
               career_work_exp: null,
               career_job_training: null } ];
-      $scope.selectedCareersData = stubData;
-      var dataSource = new kendo.data.DataSource({
-        data: stubData
-      });
+        $scope.selectedCareersData = stubData;
+        var dataSource = new kendo.data.DataSource({
+            data: stubData
+        });
     } else {
-      var dataSource = new kendo.data.DataSource({
-        data: []
-      });
+        var dataSource = new kendo.data.DataSource({
+            data: []
+        });
     }
 
-    careersAPI.getCareerNames().success(function(data) {
-      $scope.names = data;
-      dataSource.data(data);
-    }).error(function(err) {
-      console.log('getCareerNames error: ', err);
-    });
-
-    $scope.selectOptions = {
+    $scope.selectOptions = {    
         placeholder: "Select at least two careers...",
         dataTextField: "career_name",
         dataValueField: "career_name",
@@ -86,22 +78,38 @@ angular.module('myApp.controllers', ["kendo.directives"])
         dataSource: dataSource
     };
 
+    //functions
+    $scope.getCareerNames = function() {
+        careersAPI.getCareerNames().success(function(data) {
+            console.log('success', data);
+            $scope.names = data;
+            dataSource.data(data);
+        }).error(function(err) {
+            console.log('getCareerNames error: ', err);
+        });
+    }
+
+    $scope.getDataAndShowChart = function() {
+        careersAPI.getCareerData($scope.selectedCareerNames)
+            .success(function(data) {
+            $scope.selectedCareersData = data;
+            $scope.isShowChart = true;    
+        }).error(function(data, status) {
+            console.log('getCareerData error: ', data, status);
+        });
+    }
+
     $scope.compare = function() {
-      careersAPI.getCareerData($scope.selectedCareers)
-        .success(function(data) {
-        $scope.selectedCareersData = data;
-        $scope.isShowChart = true; 
+        selectedCareersStorage.set($scope.selectedCareerNames);
 
-      }).error(function(data, status) {
-        console.log('getCareerData error: ', data, status);
-      });
-
+        $scope.getDataAndShowChart();
     };
 
-    $scope.$watch('selectedCareers', function() {
-      selectedCareersStorage = $scope.selectedCareers;
-    });
+    $scope.getCareerNames();
 
+    if($scope.selectedCareerNames.length) {
+        $scope.getDataAndShowChart();
+    }
   }])
   .controller('AboutCtrl', ['$scope', function($scope) {
   }])

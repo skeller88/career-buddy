@@ -34,6 +34,22 @@ angular.module('myApp.services', [])
     }
   }])
   .factory('selectedCareersStorage', [function() {
-    return [];
+
+      var storage = {
+        careerNames: []
+      };
+
+      function get() {
+          return storage['careerNames'];
+      }
+
+      function set(value) {
+          storage['careerNames'] = value;
+      }
+
+      return {
+          get: get,
+          set: set
+      }
   }])
   ;
