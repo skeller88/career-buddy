@@ -32,7 +32,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
 
           //padding between labels and axes
           var xlp = 5;
-          var ylp = 5;
+          var ylp = 1;
 
           var svg = d3.select(element[0])
             .append('svg')
@@ -64,10 +64,6 @@ angular.module('myApp.directives', ["kendo.directives"]).
           var yAxis = d3.svg.axis()
             .scale(yScale)
             .orient('left');
-
-          // svg.append('text')
-          //   .attr('transform', 'translate(' + w + ',10)')
-          //   .text('BLAH');
             
           //axes
           svg.append('svg:g')
@@ -82,7 +78,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
             .append('text')
             .attr('class', 'y-label label')
             .attr('transform', 'rotate(-90)')
-            // .attr('transform', 'translate(' + (0 - ylp) + ',0)')
+            .attr('transform', 'translate(' + (0 - ylp) + ',0)')
             .style('text-anchor', 'end')
             .text(ylabel);
 
