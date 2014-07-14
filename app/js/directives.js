@@ -11,12 +11,6 @@ angular.module('myApp.directives', ["kendo.directives"]).
       },
       link: function(scope, element, attrs) {
 
-          scope.$watch('selectedCareersData', function(newData, oldData) {
-            if(scope.selectedCareersData.length) {
-              updateGraph(newData);
-            }
-          });
-
           //chart configuration
           //todo- use chart options for range
           var w = 500;
@@ -78,7 +72,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
             .append('text')
             .attr('class', 'y-label label')
             .attr('transform', 'rotate(-90)')
-            .attr('transform', 'translate(' + (0 - ylp) + ',0)')
+            // .attr('transform', 'translate(' + '0,' + (0 - ylp) + ')')
             .style('text-anchor', 'end')
             .text(ylabel);
 

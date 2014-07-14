@@ -58,9 +58,6 @@ entries with career_edu containing "'" changed to "''"
 
 ### Run the Application
 
-We have preconfigured the project with a simple development web server.  The simplest way to start
-this server is:
-
 ```
 node src/server.js
 ```
@@ -73,23 +70,6 @@ nodemon src/server.js
 
 Now browse to the app at `http://localhost:3000/#/`.
 
-## Directory Layout
-
-    app/                --> all of the files to be used in production
-      css/              --> css files
-        app.css         --> default stylesheet
-      img/              --> image files
-      index.html        --> app layout file (the main html template file of the app)
-      index-async.html  --> just like index.html, but loads js files asynchronously
-      js/               --> javascript files
-        app.js          --> application
-        controllers.js  --> application controllers
-        directives.js   --> application directives
-        filters.js      --> custom angular filters
-        services.js     --> custom angular services
-      partials/             --> angular view partials (partial html templates)
-        partial1.html
-        partial2.html
 
 ## Updating Angular
 
