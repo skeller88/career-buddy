@@ -85,9 +85,6 @@ angular.module('myApp.directives', ["kendo.directives"]).
 
 
           scope.$watch('selectedCareersData', function() {
-              if(!scope.selectedCareersData || !scope.selectedCareersData.length) {
-                return;
-              }
               updateGraph();
           });
 
@@ -106,48 +103,14 @@ angular.module('myApp.directives', ["kendo.directives"]).
           //   // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
           //   .text(ylabel);
 
-          //event handlers
-          // var mouseMove = function() {
-          //   var infobox = d3.select(".infobox");
-          //   var coord = d3.svg.mouse(this);
-          //   // now we just position the infobox roughly where our mouse is
-          //   infobox.style("left", coord[0] + 15  + "px" );
-          //   infobox.style("top", coord[1] + "px");
-          // };
-
-          // var mouseOver = function(d) {
-          //   var bubble = d3.select(this);
-          //   bubble.attr("stroke", "#000")
-          //     .attr("stroke-width", 4 );
-          //   var infobox = d3.select(".infobox")
-          //     .style("display", "block" );
-          //   infobox.select("p.state")
-          //     .text( d.state );
-          //   infobox.select("p.xdata")
-          //     .text( xlabel + ": " + d[xlabel] );
-          //   infobox.select("p.ydata")
-          //     .text( ylabel + ": " + d[ylabel] );
-          // };
-           
-          // var mouseOut = function() {
-          //   var infobox = d3.select(".infobox");
-          //   infobox.style("display", "none" )
-          //   var bubble = d3.select(this);
-          //   bubble.attr("stroke", "none")
-          // };
-         
-          // attach function to run when mouse is moved anywhere on svg
-          // d3.select("svg")
-          //   .on("mousemove", mouseMove );
-         
           // add <p> elements to our infobox. later we will enter our crime data there
-          var infobox = d3.select(".infobox");
-          infobox.append("p")
-            .attr("class", "state" );
-          infobox.append("p")
-            .attr("class", "xdata" );
-          infobox.append("p")
-            .attr("class", "ydata" );
+          // var infobox = d3.select(".infobox");
+          // infobox.append("p")
+          //   .attr("class", "state" );
+          // infobox.append("p")
+          //   .attr("class", "xdata" );
+          // infobox.append("p")
+          //   .attr("class", "ydata" );
 
           function updateGraph() {
             //add data
@@ -158,9 +121,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
               .append('circle')
               .attr('cx', function(d) { return xScale(d.career_percent_emp_change); })
               .attr('cy', function(d) { return yScale(d.career_med_ann_wage); })
-              .attr('r', function(d) {
-                return rScale(d.career_2012_emp);
-              })
+              .attr('r', function(d) { return rScale(d.career_2012_emp); })
               .style('fill', function(d) {
                 var pc = d.career_percent_emp_change;
 
@@ -170,8 +131,14 @@ angular.module('myApp.directives', ["kendo.directives"]).
                   return 'rgba(255, 0, 0, 0.75)';
                 }
               });
-              // .attr('k-content', 'I\'m a tooltip')
-              // .attr('kendo-tooltip');
+
+            circles
+              .enter()
+              .append('text')
+              .text(function(d, i){ return i; })
+              .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
+              //why is the origin of this element in the bottom left corner, rather than the top left? 
+              .attr('y', function(d) { return yScale(d.career_med_ann_wage) - rScale(d.career_2012_emp); });
 
             circles
               .exit()
