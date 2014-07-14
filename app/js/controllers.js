@@ -3,12 +3,15 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ["kendo.directives"])
-  .controller('HomeCtrl', ['$scope', 'careersAPI', 'selectedCareersStorage', function($scope, careersAPI, selectedCareersStorage) {
+  .controller('HomeCtrl', ['$log', '$scope', 'careersAPI', 'selectedCareersStorage', function($log, $scope, careersAPI, selectedCareersStorage) {
     //variables
     $scope.selectedCareerNames = selectedCareersStorage.get();
     $scope.selectedCareersData = [];
     $scope.isShowChart = false;
     var isStubbedD3 = true;
+    var dataSource = new kendo.data.DataSource({
+        data: []
+    });
 
     $scope.selectOptions = {    
         placeholder: "Select at least two careers...",
@@ -21,21 +24,22 @@ angular.module('myApp.controllers', ["kendo.directives"])
     //functions
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {
-            console.log('success', data);
+            $log.debug('getCareerNames success', data);
             $scope.names = data;
             dataSource.data(data);
         }).error(function(err) {
-            console.log('getCareerNames error: ', err);
+            $log.error('getCareerNames error: ', err);
         });
     }
 
     $scope.getDataAndShowChart = function() {
         careersAPI.getCareerData($scope.selectedCareerNames)
             .success(function(data) {
+            $log.debug('getDataAndShowChart success', data);
             $scope.selectedCareersData = data;
             $scope.isShowChart = true;    
         }).error(function(data, status) {
-            console.log('getCareerData error: ', data, status);
+            $log.error('getCareerData error: ', data, status);
         });
     }
 
@@ -47,17 +51,14 @@ angular.module('myApp.controllers', ["kendo.directives"])
 
     $scope.getCareerNames();
 
-    var dataSource = new kendo.data.DataSource({
-        data: []
-    });
-
     if(isStubbedD3) {
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
 
     if($scope.selectedCareerNames.length) {
-        $scope.getDataAndShowChart();
+        $scope.compare();
     }
+
   }])
   .controller('AboutCtrl', ['$scope', function($scope) {
   }])

@@ -83,9 +83,13 @@ angular.module('myApp.directives', ["kendo.directives"]).
             .attr('transform', 'translate(' + (w - xp) + ',' + (h + xlp) + ')')
             .text(xlabel);
 
-          if(!scope.selectedCareersData.length) {
-            return;
-          }
+
+          scope.$watch('selectedCareersData', function() {
+              if(!scope.selectedCareersData || !scope.selectedCareersData.length) {
+                return;
+              }
+              updateGraph();
+          });
 
           // svg.append('svg:text')
           //   .attr('transform', 'rotate(90)')
@@ -145,9 +149,9 @@ angular.module('myApp.directives', ["kendo.directives"]).
           infobox.append("p")
             .attr("class", "ydata" );
 
-          function updateGraph(data) {
+          function updateGraph() {
             //add data
-            var circles = svg.selectAll('circle').data(data);
+            var circles = svg.selectAll('circle').data(scope.selectedCareersData);
 
             circles
               .enter()
@@ -174,7 +178,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
               .remove();
           }
 
-          updateGraph(scope.selectedCareersData);
+          updateGraph();
       }
     }
   }]);
