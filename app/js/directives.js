@@ -2,8 +2,8 @@
 
 /* Directives */
 
-angular.module('myApp.directives', ["kendo.directives"]).
-  directive('skEpChart', [function() {
+angular.module('myApp.directives', ['kendo.directives']).
+  directive('skEpChart', ['$window', function($window) {
     return {
       restrict: 'EA',
       scope: {
@@ -11,28 +11,36 @@ angular.module('myApp.directives', ["kendo.directives"]).
       },
       link: function(scope, element, attrs) {
 
-          //chart configuration
-          //todo- use chart options for range
-          var w = 500;
-          var h = 500;
-
-          //sizes of bubbles 
-          var rmin = 4;
-          var rmax = 15;
+          //chart dimensions
+          var w = $window.innerWidth;
+          var h = $window.innerHeight;
 
           //padding between axes and edges of svg
           var xp = 90;
           var yp = 40;
 
+          //svg dimensions
+          var sw = w + xp;
+          var sh = h + yp;
+
           //padding between labels and axes
           var xlp = 5;
           var ylp = 1;
 
+          //legend dimensions
+          var lw = sw/5;
+          var lh = sh/5;
+
+          //sizes of bubbles 
+          var rmin = 4;
+          var rmax = 15;
+
           var svg = d3.select(element[0])
             .append('svg')
-            .attr('class', 'chart')
-            .attr('width', w + xp)
-            .attr('height', h + yp);
+            .attr('class', 'sk-chart')
+            .attr('viewBox','0 0 '+Math.min(w,h) +' '+Math.min(w,h))
+            .attr('preserveAspectRatio','xMinYMin')
+            .append("g")
 
           var xlabel = "Projected Job Growth: 2012-2022 (%)";
           var ylabel = "Median Annual Salary ($)";
@@ -41,7 +49,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
           //career_percent_emp_change
           var xScale = d3.scale.linear()
                        .domain([-40, 60])
-                       .range([xp, w]);
+                       .range([xp, xp + w]);
           //career_med_ann_wage
           var yScale = d3.scale.linear()
                        .domain([15000, 175000])
@@ -83,6 +91,15 @@ angular.module('myApp.directives', ["kendo.directives"]).
             .attr('transform', 'translate(' + (w - xp) + ',' + (h + xlp) + ')')
             .text(xlabel);
 
+          //legend 
+          var legend = svg.append('svg:g')
+            .attr('class', 'chartLegend')
+            .attr('width', lw)
+            .attr('height', lh)
+            .attr('transform', 'translate(' + (sw - lw) + ',' + (lh) + ')');
+
+          legend.append('text')
+            .text('Legend');
 
           scope.$watch('selectedCareersData', function() {
               updateGraph();
@@ -115,6 +132,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
           function updateGraph() {
             //add data
             var circles = svg.selectAll('circle').data(scope.selectedCareersData);
+            var legendData = legend.selectAll('text').data(scope.selectedCareersData);
 
             circles
               .enter()
@@ -135,6 +153,7 @@ angular.module('myApp.directives', ["kendo.directives"]).
             circles
               .enter()
               .append('text')
+              .attr('class', 'careerBubbleLabel')
               .text(function(d, i){ return i; })
               .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
               //why is the origin of this element in the bottom left corner, rather than the top left? 
@@ -143,6 +162,12 @@ angular.module('myApp.directives', ["kendo.directives"]).
             circles
               .exit()
               .remove();
+
+            legendData
+              .enter()
+              .append('text')
+              .attr('y', function(d, i) { return i*15; })
+              .text(function(d, i) { return i + ": " + d.career_name; });
           }
 
           updateGraph();
