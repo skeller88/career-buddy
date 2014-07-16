@@ -10,11 +10,14 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- normalize -->
+  <link href="bower_components/normalize-css/normalize.css" rel="stylesheet">
+
   <!-- modernizr -->
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+  <!-- // <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script> -->
 
   <!-- bootstrap css-->
-  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
   <!-- kendo css -->
   <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.common.min.css">
@@ -25,21 +28,20 @@
   <!-- <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.min.css"> -->
   <!-- <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.default.min.css"> -->
 
-  <!-- custom stylesheet -->
+  <!-- custom stylesheets -->
+  <!-- <link rel="stylesheet" href="css/font-sizes.css"/> -->
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand active" href="#/">Career Buddy</a>
+  <nav class="sk-navbar-background" role="navigation">
+    <div class="sk-navbar sk-container">
+      <div class="sk-navbar-header">
+        <a class="sk-navbar-link navbar-brand active" href="#/">Career Buddy</a>
       </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav nav-options">
-          <li><a href="#/about">About</a></li>
-          <li><a href="#/contact">Contact</a></li>
+        <ul class="sk-navbar-options">
+          <li><a class="sk-navbar-link" href="#/about">About</a></li>
+          <li><a class="sk-navbar-link" href="#/contact">Contact</a></li>
         </ul>
-      </div>
     </div>
   </nav>
   <section class="container">

@@ -1,0 +1,54 @@
+/* Gridlover settings: '5:8 minor sixth', 'font-size: 20px' */
+body {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+h1 {
+  font-size: 5.125rem;
+  line-height: 5.25rem;
+  margin-top: 5.25rem;
+  margin-bottom: 1.75rem;
+}
+h2 {
+  font-size: 3.1875rem;
+  line-height: 3.5rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.75rem;
+}
+h3 {
+  font-size: 2rem;
+  line-height: 3.5rem;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+h4 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+p, ul, ol, pre, table, blockquote {
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+/* Sanitation */
+hr {
+  border: 1px solid;
+  margin: -1px 0;
+}
+ul ul, ol ol, ul ol, ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+b, strong, em, small, code {
+  line-height: 1;
+}
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub {
+  top: 0.4em;
+}
