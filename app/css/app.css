@@ -19,6 +19,7 @@ html, body {
     position: relative;
 }
 
+/* height must equal 50px */
 .sk-navbar-header {
     display: inline-block;
     float: left;
@@ -36,12 +37,19 @@ html, body {
 
 .sk-navbar-options li {
     float: left;
-    padding: 15px 25px;
+    padding: 15px 10px;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+/* height must equal 50px */
+.sk-navbar-options li > a {
+    padding: 15px 15px;
     font-size: 16px;
     line-height: 20px;
 }  
 
-.sk-navbar-options li:hover {
+.sk-navbar-options li > a:hover {
     background-color: #eee;
 }  
 
