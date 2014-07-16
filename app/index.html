@@ -29,14 +29,15 @@
   <!-- <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.default.min.css"> -->
 
   <!-- custom stylesheets -->
-  <!-- <link rel="stylesheet" href="css/font-sizes.css"/> -->
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="css/font-sizes.css"/>
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
   <nav class="sk-navbar-background" role="navigation">
     <div class="sk-navbar sk-container">
       <div class="sk-navbar-header">
-        <a class="sk-navbar-link navbar-brand active" href="#/">Career Buddy</a>
+        <a class="sk-navbar-link" href="#/">Career Buddy</a>
       </div>
         <ul class="sk-navbar-options">
           <li><a class="sk-navbar-link" href="#/about">About</a></li>
@@ -44,14 +45,15 @@
         </ul>
     </div>
   </nav>
-  <section class="container">
+  <!-- sk- section parent element is needed for ui-router to work. Not sure why. -->
+  <section class="sk-container">
 
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Main content -->
-    <div class="page" ui-view></div>
+    <div class="sk-container sk-page-content" ui-view></div>
 
   </section> <!-- /container -->
 
