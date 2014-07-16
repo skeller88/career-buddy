@@ -1,11 +1,9 @@
-<section class="jumbotron">
-  <div class="career-selector">
+<div class="sk-career-selector">
     <h2>Finding a good career is hard.</h2>
     <h3>Let Career Buddy help choose the best career for you.</h3>
     <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
     <button kendo-button class="k-primary" ng-disabled="selectedCareerNames.length < 2" ng-click="compare()">Chart</button>
-  </div>
+</div>
 
-  <div sk-ep-chart selected-careers-data="selectedCareersData" ng-show="isShowChart" class="career-visualizer">
-  </div>  
-</section>
+<div sk-ep-chart selected-careers-data="selectedCareersData" ng-show="isShowChart" class="sk-career-visualizer">
+</div>  

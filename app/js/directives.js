@@ -11,21 +11,19 @@ angular.module('myApp.directives', ['kendo.directives']).
       },
       link: function(scope, element, attrs) {
 
-          //chart dimensions
-          var w = $window.innerWidth;
-          var h = $window.innerHeight;
+          //svg dimensions
+          var sw = element.width();
+          var sh = element.height();
 
           //padding between axes and edges of svg
-          var xp = 90;
-          var yp = 40;
-
-          //svg dimensions
-          var sw = w + xp;
-          var sh = h + yp;
+          var leftPadding = sw*0.2;
+          var rightPadding = 10;
+          var bottomPadding = sh*0.2;
+          var topPadding = 10;
 
           //padding between labels and axes
-          var xlp = 5;
-          var ylp = 1;
+          var xlp = 10;
+          var ylp = 10;
 
           //legend dimensions
           var lw = sw/5;
@@ -37,23 +35,23 @@ angular.module('myApp.directives', ['kendo.directives']).
 
           var svg = d3.select(element[0])
             .append('svg')
-            .attr('class', 'sk-chart')
-            .attr('viewBox','0 0 '+Math.min(w,h) +' '+Math.min(w,h))
+            .attr('class', 'sk-chart-svg')
+            .attr('viewBox','0 0 '+Math.min(sw,sh) +' '+Math.min(sw,sh))
             .attr('preserveAspectRatio','xMinYMin')
-            .append("g")
+            .append("g");
 
           var xlabel = "Projected Job Growth: 2012-2022 (%)";
-          var ylabel = "Median Annual Salary ($)";
-          var rlabel = "Number Employeed (1k)";
+          var ylabel = "Median Annual Salary: 2012 ($)";
+          var rlabel = "Number Employeed: 2012 (1k)";
 
           //career_percent_emp_change
           var xScale = d3.scale.linear()
                        .domain([-40, 60])
-                       .range([xp, xp + w]);
+                       .range([leftPadding, sw - rightPadding]);
           //career_med_ann_wage
           var yScale = d3.scale.linear()
                        .domain([15000, 175000])
-                       .range([h - yp, yp]);
+                       .range([sh - bottomPadding, topPadding]);
           //career_2012_emp
           var rScale = d3.scale.linear()
                        .domain([.4,145355])
@@ -70,12 +68,12 @@ angular.module('myApp.directives', ['kendo.directives']).
           //axes
           svg.append('svg:g')
             .attr('class', 'axis')
-            .attr('transform', 'translate(0,' + (h - yp) + ')')
+            .attr('transform', 'translate(0,' + (sh - bottomPadding) + ')')
             .call(xAxis);
 
           svg.append('svg:g')
             .attr('class', 'axis')
-            .attr('transform', 'translate(' + xp + ',0)')
+            .attr('transform', 'translate(' + leftPadding + ',0)')
             .call(yAxis)
             .append('text')
             .attr('class', 'y-label label')
@@ -88,7 +86,7 @@ angular.module('myApp.directives', ['kendo.directives']).
           svg.append('svg:text')
             .attr('class', 'x-label label')
             .attr('text-anchor', 'end')
-            .attr('transform', 'translate(' + (w - xp) + ',' + (h + xlp) + ')')
+            .attr('transform', 'translate(' + (sw - leftPadding) + ',' + (sh + xlp) + ')')
             .text(xlabel);
 
           //legend 

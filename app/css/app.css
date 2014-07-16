@@ -86,13 +86,42 @@ html, body {
     text-decoration: none;    
 } 
 
-
+/* SELECTOR
+============================================================================= */
+.sk-career-selector {
+    height: 20%;
+}
 
 .k-button {
     margin-top: 10px;
 }
 
-/* CHART */
+/* CHART
+============================================================================= */
+.sk-career-visualizer {
+    height: 80%;
+}
+
+.sk-chart-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+}
+
+.axis text, .label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.chartLegend {
+    border: 2px solid black;
+}
 
 .grid .tick {
     stroke: lightgrey;
@@ -132,27 +161,4 @@ html, body {
 @keyframes fadeOut {
     from { }
     to { opacity: 0; -webkit-transform: translateX(-100%); }
-}
-
-/* CHART
-============================================================================= */
-.sk-chart {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: black;
-}
-
-.axis text, .label {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-}
-
-.chartLegend {
-    border: 2px solid black;
 }
