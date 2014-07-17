@@ -31,16 +31,18 @@ angular.module('myApp.directives', ['kendo.directives']).
               var sh = element.height();
               var sw = element.width();
 
-              //chart margins
-              var margin = {top: 10, right: 10, bottom: 20, left: 20};
-
               //chart dimensions
+              var margin = {top: 15, right: 15, bottom: 15, left: 15};
+              var padding = {top: 0, right: 0, bottom: 40, left: 50};
+
               var w = sw - margin.left - margin.right;
               var h = sh - margin.top - margin.bottom;
+              var iw = w - padding.left - padding.right;
+              var ih = h - padding.top - padding.bottom;
 
-              //Margin between labels and axes
-              var xlp = 10;
-              var ylp = 10;
+              //Margin between labels and axes of chart
+              var xlp = 15;
+              var ylp = 40;
 
               //sizes of bubbles 
               var rmin = 4;
@@ -49,23 +51,31 @@ angular.module('myApp.directives', ['kendo.directives']).
               var svg = d3.select(element[0])
                 .append('svg')
                 .attr('class', 'sk-chart-svg')
+                .style('border', '1px solid red')
                 // .attr('viewBox','0 0 '+ Math.min(sw,sh) +' '+ Math.min(sw,sh))
                 // .attr('preserveAspectRatio','xMinYMin')
-              .append("g")
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+              
+              var outerChart = svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                .style('background-color', '1px solid green');
+
+              var innerChart = outerChart.append('g')
+                .attr('transform', 'translate(' + padding.left + ',' + padding.top + ')');
 
               var xlabel = "Projected Job Growth: 2012-2022 (%)";
-              var ylabel = "Median Annual Salary: 2012 ($)";
+              var ylabel = "Median Annual Salary: 2012 ($1000s)";
               var rlabel = "Number Employeed: 2012 (1k)";
 
-              //career_percent_emp_change
+              //career_percent_emp_change in %
               var xScale = d3.scale.linear()
                            .domain([-40, 60])
-                           .range([0, w]);
-              //career_med_ann_wage
+                           .range([0, iw]);
+
+              //career_med_ann_wage in $1000s
               var yScale = d3.scale.linear()
-                           .domain([15000, 175000])
-                           .range([h, 0]);
+                           .domain([15, 175])
+                           .range([ih, 0]);
+
               //career_2012_emp
               var rScale = d3.scale.log()
                            .domain([.4,145355])
@@ -80,38 +90,40 @@ angular.module('myApp.directives', ['kendo.directives']).
                 .orient('left');
                 
               //axes
-              svg.append('svg:g')
+              innerChart.append('g')
                 .attr('class', 'axis')
-                .attr('transform', 'translate(0,' + (h) + ')')
+                .attr('transform', 'translate(0,' + (ih) + ')')
                 .call(xAxis);
 
-              svg.append('svg:g')
+              innerChart.append('g')
                 .attr('class', 'axis')
                 .attr('transform', 'translate(0,0)')
-                .call(yAxis)
-                .append('text')
-                .attr('class', 'y-label label')
-                .attr('transform', 'rotate(-90)')
-                // .attr('transform', 'translate(' + '0,' + (0 - ylp) + ')')
-                .style('text-anchor', 'end')
-                .text(ylabel);
+                .call(yAxis);
 
-              //labels
-              svg.append('svg:text')
+              //labels - clearer to append to outerChart instead?
+              innerChart.append('text')
                 .attr('class', 'x-label label')
-                .attr('text-anchor', 'end')
-                .attr('transform', 'translate(' + (w/2) + ',' + (sh - xlp) + ')')
+                .attr('text-anchor', 'middle')
+                .attr('transform', 'translate(' + (iw/2) + ',' + (h) + ')')
                 .text(xlabel);
+
+              innerChart.append('g')
+                .attr('class', 'y-label label')
+                .attr('transform', 'translate(' + (0 - ylp) + ',' + (ih/2) + ')')
+              .append('text')
+                .style('text-anchor', 'middle')
+                .attr('transform', 'rotate(-90)')
+                .text(ylabel);
 
               function updateGraph() {
                 //add data
-                var circles = svg.selectAll('circle').data(scope.selectedCareersData);
+                var circles = innerChart.selectAll('circle').data(scope.selectedCareersData);
 
                 circles
                   .enter()
                   .append('circle')
                   .attr('cx', function(d) { return xScale(d.career_percent_emp_change); })
-                  .attr('cy', function(d) { return yScale(d.career_med_ann_wage); })
+                  .attr('cy', function(d) { return yScale(d.career_med_ann_wage/1000); })
                   .attr('r', function(d) { return rScale(d.career_2012_emp); })
                   .style('fill', function(d) {
                     var pc = d.career_percent_emp_change;
