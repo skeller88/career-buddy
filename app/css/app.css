@@ -90,8 +90,9 @@ html, body {
 ============================================================================= */
 .sk-career-selector {
     border: 1px solid black;
-    padding: 2rem 0;
-    height: 150px;
+    padding: 20px 0;
+    /* does not include margin or padding. Height of .k-button is 38px. 38 + 132 = 170. */
+    max-height: 170px;
     text-align: center;
 }
 
@@ -106,8 +107,13 @@ html, body {
 
 /* CHART
 ============================================================================= */
+
 .sk-career-visualizer {
-    
+    position: absolute;
+    top: 210px;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .sk-chart-svg {

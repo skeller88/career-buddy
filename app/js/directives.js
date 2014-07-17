@@ -14,13 +14,21 @@ angular.module('myApp.directives', ['kendo.directives']).
           drawChart();
 
           d3.select($window).on('resize', drawChart);
+          $('.sk-career-selector').resize(drawChart);
 
           function drawChart() {
               if(d3.select('svg')) d3.select('svg').remove();
 
+              console.log($window.innerHeight);
+              console.log($('.sk-multi-select-container').css('height'));
+              console.log($('.sk-career-selector').height());
+              console.log($('.sk-navbar-background').css('height'));
+
               //svg dimensions
-              var sw = element.width();
+              // var sh = $window.innerHeight - 210 - $('.sk-navbar-background').height();
+              // var sh = $window.innerHeight - $('.sk-career-selector').height() - $('.sk-navbar-background').height();
               var sh = element.height();
+              var sw = element.width();
 
               console.log(sw, sh);
 
