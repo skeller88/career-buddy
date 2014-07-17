@@ -89,7 +89,6 @@ html, body {
 /* SELECTOR
 ============================================================================= */
 .sk-career-selector {
-    border: 1px solid black;
     padding: 20px 0;
     /* does not include margin or padding. Height of .k-button is 38px. 38 + 132 = 170. */
     max-height: 170px;
@@ -108,11 +107,19 @@ html, body {
 /* CHART
 ============================================================================= */
 
-.sk-career-visualizer {
+.sk-career-visualizer-container {
     position: absolute;
     top: 210px;
     right: 0;
     bottom: 0;
+    left: 0;
+}
+
+.sk-career-visualizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 250px;
     left: 0;
 }
 
@@ -147,6 +154,35 @@ html, body {
 
 .chart {
     background-color: white;
+}
+
+.sk-legend {
+    position: absolute;
+    height: 250px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 250px;
+}
+
+.sk-legend-visualized-careers {
+    float: left;
+    height: 100%;
+    width: 50%;
+    max-height: 250px;
+    overflow: auto;
+}
+
+.sk-legend-bubble-sizes {
+    float: left;
+    height: 100%;
+    width: 50%;
+    max-height: 250px;
+    overflow: auto;
+}
+
+.sk-legend-header {
+    text-align: center;
 }
 
 /* ANIMATIONS

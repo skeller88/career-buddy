@@ -1,11 +1,22 @@
-<div class="sk-career-selector">
+<section class="sk-career-selector">
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
     <div class="sk-multi-select-container">
         <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
     </div>
     <button kendo-button class="k-primary" ng-disabled="selectedCareerNames.length < 2" ng-click="compare()">Chart</button>
-</div>
+</section>
 
-<div sk-ep-chart selected-careers-data="selectedCareersData" ng-show="isShowChart" class="sk-career-visualizer">
-</div>  
+<section class="sk-career-visualizer-container">
+    <div sk-ep-chart selected-careers-data="selectedCareersData" ng-show="isShowChart" class="sk-career-visualizer">
+    </div>  
+    <div class="sk-legend">
+        <div class="sk-legend-visualized-careers">
+            <h4 class="sk-legend-header">Visualized Careers</h4>
+            <div class="sk-legend-career" ng-repeat="(careerNum, career) in selectedCareersData">{{careerNum}}: {{career.career_name}}</div>
+        </div>
+        <div class="sk-legend-bubble-sizes">
+            <h4 class="sk-legend-header">Bubble Sizes</h4>
+        </div>
+    </div>
+</section>

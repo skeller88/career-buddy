@@ -25,12 +25,11 @@ angular.module('myApp.directives', ['kendo.directives']).
               console.log($('.sk-navbar-background').css('height'));
 
               //svg dimensions
+              /* .sk-career-selector has a total height of 210px */
               // var sh = $window.innerHeight - 210 - $('.sk-navbar-background').height();
               // var sh = $window.innerHeight - $('.sk-career-selector').height() - $('.sk-navbar-background').height();
               var sh = element.height();
               var sw = element.width();
-
-              console.log(sw, sh);
 
               //chart margins
               var margin = {top: 10, right: 10, bottom: 20, left: 20};
@@ -43,10 +42,6 @@ angular.module('myApp.directives', ['kendo.directives']).
               var xlp = 10;
               var ylp = 10;
 
-              //legend dimensions
-              var lw = sw/5;
-              var lh = sh/5;
-
               //sizes of bubbles 
               var rmin = 4;
               var rmax = 15;
@@ -54,8 +49,8 @@ angular.module('myApp.directives', ['kendo.directives']).
               var svg = d3.select(element[0])
                 .append('svg')
                 .attr('class', 'sk-chart-svg')
-                .attr('viewBox','0 0 '+ Math.min(sw,sh) +' '+ Math.min(sw,sh))
-                .attr('preserveAspectRatio','xMinYMin')
+                // .attr('viewBox','0 0 '+ Math.min(sw,sh) +' '+ Math.min(sw,sh))
+                // .attr('preserveAspectRatio','xMinYMin')
               .append("g")
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -108,20 +103,9 @@ angular.module('myApp.directives', ['kendo.directives']).
                 .attr('transform', 'translate(' + (w/2) + ',' + (sh - xlp) + ')')
                 .text(xlabel);
 
-              //legend 
-              var legend = svg.append('svg:g')
-                .attr('class', 'chartLegend')
-                .attr('width', lw)
-                .attr('height', lh)
-                .attr('transform', 'translate(' + (sw - lw) + ',' + (lh) + ')');
-
-              legend.append('text')
-                .text('Legend');
-
               function updateGraph() {
                 //add data
                 var circles = svg.selectAll('circle').data(scope.selectedCareersData);
-                var legendData = legend.selectAll('text').data(scope.selectedCareersData);
 
                 circles
                   .enter()
@@ -151,12 +135,6 @@ angular.module('myApp.directives', ['kendo.directives']).
                 circles
                   .exit()
                   .remove();
-
-                legendData
-                  .enter()
-                  .append('text')
-                  .attr('y', function(d, i) { return i*15; })
-                  .text(function(d, i) { return i + ": " + d.career_name; });
               }
 
               updateGraph();
@@ -189,8 +167,6 @@ angular.module('myApp.directives', ['kendo.directives']).
           //   .attr("class", "xdata" );
           // infobox.append("p")
           //   .attr("class", "ydata" );
-
-          
       }
     }
   }]);
