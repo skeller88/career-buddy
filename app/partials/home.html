@@ -1,7 +1,9 @@
 <div class="sk-career-selector">
-    <h2>Finding a good career is hard.</h2>
-    <h3>Let Career Buddy help choose the best career for you.</h3>
-    <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
+    <!-- <h3>Finding a good career is hard.</h3> -->
+    <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
+    <div class="sk-multi-select-container">
+        <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
+    </div>
     <button kendo-button class="k-primary" ng-disabled="selectedCareerNames.length < 2" ng-click="compare()">Chart</button>
 </div>
 
