@@ -3,8 +3,9 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ["kendo.directives"])
-  .controller('HomeCtrl', ['$log', '$scope', 'careersAPI', 'selectedCareersStorage', function($log, $scope, careersAPI, selectedCareersStorage) {
+  .controller('HomeCtrl', ['$log', '$scope', 'alphabet', 'careersAPI', 'selectedCareersStorage', function($log, $scope, alphabet, careersAPI, selectedCareersStorage) {
     //variables
+    $scope.alphabet = alphabet;
     $scope.selectedCareerNames = selectedCareersStorage.get();
     $scope.selectedCareersData = [];
     $scope.isShowChart = false;

@@ -1,10 +1,21 @@
 <section class="sk-career-selector">
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
-    <div class="sk-multi-select-container">
-        <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
+    <div class="sk-career-selector-content">
+        <div class="sk-multi-select-container sk-table-cell">
+        <!-- Multi-select -->
+            <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
+        </div>
+        <div class="sk-button-container sk-table-cell">
+            <button k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
+            <!-- uncomment below when browse functionality exists --> 
+            <!-- &nbsp; &nbsp; -->
+            <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
+        </div>
+        <div class="sk-table-cell sk-multi-select-error" ng-show="selectedCareerNames.length > 20">
+            Please select less than 20 careers. That many careers won't look good on the chart!
+        </div>
     </div>
-    <button kendo-button class="k-primary" ng-disabled="selectedCareerNames.length < 2" ng-click="compare()">Chart</button>
 </section>
 
 <section class="sk-career-visualizer-container">
@@ -13,10 +24,11 @@
     <div class="sk-legend">
         <div class="sk-legend-visualized-careers">
             <h4 class="sk-legend-header">Visualized Careers</h4>
-            <div class="sk-legend-career" ng-repeat="(careerNum, career) in selectedCareersData">{{careerNum}}: {{career.career_name}}</div>
+            <div class="sk-legend-career" ng-repeat="(careerNum, career) in selectedCareersData">{{alphabet[careerNum]}}: {{career.career_name}}</div>
         </div>
         <div class="sk-legend-bubble-sizes">
             <h4 class="sk-legend-header">Bubble Sizes</h4>
         </div>
     </div>
 </section>
+<!--  -->

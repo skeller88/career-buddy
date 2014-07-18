@@ -3,7 +3,7 @@
 /* Directives */
 
 angular.module('myApp.directives', ['kendo.directives']).
-  directive('skEpChart', ['$window', function($window) {
+  directive('skEpChart', ['$window', 'alphabet', function($window, alphabet) {
     return {
       restrict: 'EA',
       scope: {
@@ -50,14 +50,10 @@ angular.module('myApp.directives', ['kendo.directives']).
 
               var svg = d3.select(element[0])
                 .append('svg')
-                .attr('class', 'sk-chart-svg')
-                .style('border', '1px solid red')
-                // .attr('viewBox','0 0 '+ Math.min(sw,sh) +' '+ Math.min(sw,sh))
-                // .attr('preserveAspectRatio','xMinYMin')
+                .attr('class', 'sk-chart-svg');
               
               var outerChart = svg.append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-                .style('background-color', '1px solid green');
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
               var innerChart = outerChart.append('g')
                 .attr('transform', 'translate(' + padding.left + ',' + padding.top + ')');
@@ -107,12 +103,10 @@ angular.module('myApp.directives', ['kendo.directives']).
                 .attr('transform', 'translate(' + (iw/2) + ',' + (h) + ')')
                 .text(xlabel);
 
-              innerChart.append('g')
+              innerChart.append('text')
                 .attr('class', 'y-label label')
-                .attr('transform', 'translate(' + (0 - ylp) + ',' + (ih/2) + ')')
-              .append('text')
+                .attr('transform', 'translate(' + (0 - ylp) + ',' + (ih/2) + ') rotate(-90)')
                 .style('text-anchor', 'middle')
-                .attr('transform', 'rotate(-90)')
                 .text(ylabel);
 
               function updateGraph() {
@@ -122,27 +116,19 @@ angular.module('myApp.directives', ['kendo.directives']).
                 circles
                   .enter()
                   .append('circle')
+                  .attr('class', 'sk-data-point')
                   .attr('cx', function(d) { return xScale(d.career_percent_emp_change); })
                   .attr('cy', function(d) { return yScale(d.career_med_ann_wage/1000); })
-                  .attr('r', function(d) { return rScale(d.career_2012_emp); })
-                  .style('fill', function(d) {
-                    var pc = d.career_percent_emp_change;
-
-                    if(pc < 0) {
-                      return 'rgba(128, 0, 128, 0.75)';
-                    } else {
-                      return 'rgba(255, 0, 0, 0.75)';
-                    }
-                  });
+                  .attr('r', function(d) { return rScale(d.career_2012_emp); });
 
                 circles
                   .enter()
                   .append('text')
                   .attr('class', 'careerBubbleLabel')
-                  .text(function(d, i){ return i; })
+                  .text(function(d, i){ return alphabet[i]; })
                   .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
                   //why is the origin of this element in the bottom left corner, rather than the top left? 
-                  .attr('y', function(d) { return yScale(d.career_med_ann_wage) - rScale(d.career_2012_emp); });
+                  .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - rScale(d.career_2012_emp); });
 
                 circles
                   .exit()
