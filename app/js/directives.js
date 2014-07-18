@@ -24,8 +24,12 @@ angular.module('myApp.directives', ['kendo.directives']).
               console.log($('.sk-career-selector').height());
               console.log($('.sk-navbar-background').css('height'));
 
+              scope.blah = function() {
+                  console.log('blah');
+              }
+
               //svg dimensions
-              /* .sk-career-selector has a total height of 210px */
+              /* .sk-career-selector has a total height of 172px */
               // var sh = $window.innerHeight - 210 - $('.sk-navbar-background').height();
               // var sh = $window.innerHeight - $('.sk-career-selector').height() - $('.sk-navbar-background').height();
               var sh = element.height();
@@ -40,9 +44,12 @@ angular.module('myApp.directives', ['kendo.directives']).
               var iw = w - padding.left - padding.right;
               var ih = h - padding.top - padding.bottom;
 
-              //Margin between labels and axes of chart
-              var xlp = 15;
-              var ylp = 40;
+              //Margin between labels and chart axes
+              var yLabelP = 45;
+
+              //Margin between legend and chart axes
+              var xLegendP = 15;
+              var yLegendP = 15;
 
               //sizes of bubbles 
               var rmin = 4;
@@ -61,6 +68,7 @@ angular.module('myApp.directives', ['kendo.directives']).
               var xlabel = "Projected Job Growth: 2012-2022 (%)";
               var ylabel = "Median Annual Salary: 2012 ($1000s)";
               var rlabel = "Number Employeed: 2012 (1k)";
+              var legendText = "Legend";
 
               //career_percent_emp_change in %
               var xScale = d3.scale.linear()
@@ -105,9 +113,15 @@ angular.module('myApp.directives', ['kendo.directives']).
 
               innerChart.append('text')
                 .attr('class', 'y-label label')
-                .attr('transform', 'translate(' + (0 - ylp) + ',' + (ih/2) + ') rotate(-90)')
+                .attr('transform', 'translate(' + (0 - yLabelP) + ',' + (ih/2) + ') rotate(-90)')
                 .style('text-anchor', 'middle')
                 .text(ylabel);
+
+              innerChart.append('div')
+                .attr('class', 'sk-legend')
+                .attr('ng-click', 'blah')
+                .attr('transform', 'translate(' + xLegendP + ',' + (ih - yLegendP) + ')')
+                .text(legendText);
 
               function updateGraph() {
                 //add data

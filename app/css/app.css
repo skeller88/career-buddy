@@ -94,8 +94,6 @@ html, body {
 .sk-career-selector {
     padding: 20px 0;
     display: table;
-    /* does not include margin or padding. Height of .k-button is 38px. 38 + 132 = 170. */
-    max-height: 170px;
     text-align: center;
 }
 
@@ -103,9 +101,16 @@ html, body {
     display: table-row;
 }
 
+.sk-overflow-table-cell {
+    /* does not include margin or padding. Height of multiselect
+    with 3 rows of careers selected (4 careers per row) on a typical  
+    laptop is 113px. Add 2px so scrollbar does not appear for 3 rows. */
+    max-height: 115px;
+    overflow: auto;
+}
+
 .sk-multi-select-container {
-    min-width: 250px;
-    max-height: 132px;
+    min-width: 450px;
 }
 
 .sk-button-container, .sk-multi-select-error {
@@ -119,20 +124,18 @@ html, body {
 /* CHART
 ============================================================================= */
 
+/* .sk-career-selector has a total height of 172px */
 .sk-career-visualizer-container {
     position: absolute;
-    top: 210px;
+    top: 154px;
     right: 0;
     bottom: 0;
     left: 0;
 }
 
 .sk-career-visualizer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 250px;
-    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .sk-chart-svg {
