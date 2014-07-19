@@ -149,6 +149,10 @@ html, body {
     stroke: black;
 }
 
+.label {
+    text-anchor: middle;
+}
+
 .axis text, .label {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -219,13 +223,18 @@ html, body {
 
 /* LEGEND
 ============================================================================= */
-.sk-legend {
-    position: absolute;
-    height: 250px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    max-height: 250px;
+#sk-legend-link {
+    font-size: 2rem;
+}
+
+#sk-legend:hover {
+    background-color: black;
+    color: white;
+}
+
+#sk-legend-border {
+    border: 1px solid black;
+    fill: red;
 }
 
 .sk-legend-visualized-careers {

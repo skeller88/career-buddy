@@ -45,8 +45,8 @@ angular.module('myApp.directives', ['kendo.directives']).
               var yLabelP = 45;
 
               //Margin between legend and chart axes
-              var xLegendP = 15;
-              var yLegendP = 15;
+              var xLegendP = 85;
+              var yLegendP = 35;
 
 
               var xlabel = "Projected Job Growth: 2012-2022 (%)";
@@ -125,21 +125,34 @@ angular.module('myApp.directives', ['kendo.directives']).
               //labels - clearer to append to outerChart instead?
               innerChart.append('text')
                 .attr('class', 'x-label label')
-                .attr('text-anchor', 'middle')
                 .attr('transform', 'translate(' + (iw/2) + ',' + (h) + ')')
                 .text(xlabel);
 
               innerChart.append('text')
                 .attr('class', 'y-label label')
                 .attr('transform', 'translate(' + (0 - yLabelP) + ',' + (ih/2) + ') rotate(-90)')
-                .style('text-anchor', 'middle')
                 .text(ylabel);
 
-              var legend = innerChart.append('div')
-                .attr('class', 'sk-legend')
-                .attr('ng-click', 'blah')
-                .attr('transform', 'translate(' + xLegendP + ',' + (ih - yLegendP) + ')')
+              var legend = innerChart.append('g')
+                .attr('transform', 'translate(' + (iw - xLegendP) + ',' + (yLegendP) + ')')
+
+              // var legendDiv = legend.append('foreignObject')
+              //   .attr('width', 200)
+              //   .attr('height', 200)
+              // .append('xhtml:div')
+              //   .style('fill', 'red');
+                // .style("stroke-width", 2).style("stroke", "black");
+
+              // legendDiv.append('rect')
+              //   .attr('width', xLegendP)
+              //   .attr('height', yLegendP)
+              //   .attr('id', 'sk-legend-border');
+
+              legend.append('text')
+                .attr('id', 'sk-legend-link')
                 .text(legendText);
+
+              d3.select("#sk-legend-link").on("click", showLegend);
 
               function updateGraph() {
                 //add data
@@ -168,6 +181,10 @@ angular.module('myApp.directives', ['kendo.directives']).
                 circles
                   .exit()
                   .remove();
+              }
+
+              function showLegend() {
+
               }
 
               updateGraph();
