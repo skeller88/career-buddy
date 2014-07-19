@@ -170,6 +170,30 @@ html, body {
     fill: #00348c;
 }
 
+.sk-data-point:hover {
+    fill: rgba(0, 0, 0, 0.8);
+}
+
+.sk-tooltip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+
+.sk-tooltip:after {
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: lightgrey;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
 /* LEGEND
 ============================================================================= */
 .sk-legend {
