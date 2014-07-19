@@ -148,11 +148,11 @@ angular.module('myApp.directives', ['kendo.directives']).
               //   .attr('height', yLegendP)
               //   .attr('id', 'sk-legend-border');
 
-              legend.append('text')
-                .attr('id', 'sk-legend-link')
-                .text(legendText);
+              // legend.append('text')
+              //   .attr('id', 'sk-legend-link')
+              //   .text(legendText);
 
-              d3.select("#sk-legend-link").on("click", showLegend);
+              // d3.select("#sk-legend-link").on("click", showLegend);
 
               function updateGraph() {
                 //add data

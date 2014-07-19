@@ -227,7 +227,7 @@ html, body {
     font-size: 2rem;
 }
 
-#sk-legend:hover {
+#sk-legend-link:hover {
     background-color: black;
     color: white;
 }
@@ -237,21 +237,14 @@ html, body {
     fill: red;
 }
 
-.sk-legend-visualized-careers {
+.sk-legend-wrapper {
     float: left;
-    height: 100%;
-    width: 50%;
-    max-height: 250px;
-    overflow: auto;
 }
 
-.sk-legend-bubble-sizes {
-    float: left;
-    height: 100%;
-    width: 50%;
-    max-height: 250px;
-    overflow: auto;
+.sk-legend-content {
+    width: 400px;
 }
+
 
 .sk-legend-header {
     display: block;
