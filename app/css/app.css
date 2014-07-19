@@ -245,6 +245,20 @@ html, body {
     width: 400px;
 }
 
+.sk-legend-careers {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.sk-legend-career-id {
+    font-weight: bold;
+    opacity: 1;
+}
+
+.sk-legend-career-name {
+    opacity: 0.8;
+}
+
 
 .sk-legend-header {
     display: block;

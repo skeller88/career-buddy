@@ -1,4 +1,4 @@
-choose career -->
+<!-- choose career -->
 <section class="sk-career-selector">
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
@@ -23,26 +23,27 @@ choose career -->
     </div>
     <div class="sk-legend-wrapper">
         <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-on-close="chartLegendVisible = false">
-            <div class="k-content">
-                <div class="sk-legend-content k-content">
-                   <ul kendo-panel-bar>
-                     <li>
-                       Career Names
-                       <ul>
-                         <li ng-repeat="(careerNum, career) in selectedCareersData">{{alphabet[careerNum]}}: {{career.career_name}}</li>
-                       </ul>
-                     </li>
-                     <li>
-                       Bubble Sizes
-                       <ul>
-                         <li>Big</li>
-                         <li>Small</li>
-                         <li>WTF</li>
-                       </ul>
-                     </li>
+            <div class="sk-legend-content k-content" kendo-tab-strip>
+                <!-- tab list -->
+                <ul>
+                  <li class="k-state-active">Career Names</li>
+                  <li>Bubble Sizes</li>
+                </ul>
+               <div class="sk-legend-careers">
+                   <ul>
+                     <div class="sk-legend-career" ng-repeat="(careerNum, career) in selectedCareersData">
+                        <span class="sk-legend-career-id">{{alphabet[careerNum]}}: </span><span class="sk-legend-career-name">{{career.career_name}}</span>
+                     </div>
                    </ul>
-                   </div>
-            </div>
+                </div>
+                <div>
+                   <ul>
+                     <li>Big</li>
+                     <li>Small</li>
+                     <li>WTF</li>
+                   </ul>
+                </div>
+           </div>
         </div>
     </div>
   
