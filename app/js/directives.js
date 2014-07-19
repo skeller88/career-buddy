@@ -81,19 +81,21 @@ angular.module('myApp.directives', ['kendo.directives']).
 
               /* DRAW CHART */
 
-              //tooltip
-              // var tooltip = d3.select('body')
-              //   .append('div')
-              //   .attr('class', 'sk-tooltip')
-              //   .style('opacity', 1);
               var tip = d3.tip()
                   .attr('class', 'sk-tooltip')
-                  .offset([-15, -13])
+                  .offset([-17, -12])
                   .html(function(d) {
-                    return '<div class="sk-career-name">' + d.career_name + '</div>' +
-                        '<div class="sk-emp-change">Expected 10-year Growth: ' + d.career_percent_emp_change + '%</div>' +
-                        '<div class="sk-ann-wage">Annual wage: $' + d.career_med_ann_wage + '</div>' +
-                        '<div class="sk-ann-wage">People employed: ' + d.career_2012_emp + '</div>'
+
+                    return '<h4 class="sk-career-name">' + d.career_name + '</h4>' +
+                        '<div >' +
+                            '<span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">' + d.career_2012_emp + '</span>' +
+                        '</div>' +
+                        '<div class="sk-emp-change">' +
+                            '<span class="sk-tooltip-label">Expected change in demand : </span><span class="sk-tooltip-data">' + d.career_percent_emp_change + '%</span>' +
+                        '</div>' +
+                        '<div>' +
+                            '<span class="sk-tooltip-label">Annual wage: </span><span class="sk-tooltip-data">$' + d.career_med_ann_wage + '</span>' +
+                        '</div>'
                   })
 
               var svg = d3.select(element[0])
@@ -150,25 +152,6 @@ angular.module('myApp.directives', ['kendo.directives']).
                   .attr('cx', function(d) { return xScale(d.career_percent_emp_change); })
                   .attr('cy', function(d) { return yScale(d.career_med_ann_wage/1000); })
                   .attr('r', function(d) { return rScale(d.career_2012_emp); })
-                  // .on('mouseover', function(){ console.log('over');})
-                  // .on('mouseout', function(){ console.log('out');})
-                  // .on('mouseenter', function(d) {
-                  //   console.log('enter');
-                  //     tooltip.transition()
-                  //         .duration(500)  
-                  //         .style("opacity", 0);
-                  //     tooltip.transition()
-                  //         .duration(200)
-                  //         .style('opacity', 0.9);
-                  //     tooltip.html(
-                  //       '<span class="sk-career-name">' + d.career_name + '</span>' +
-                  //       '<span class="sk-emp-change">Growth: ' + d.career_percent_emp_change + '</span>' +
-                  //       '<span class="sk-ann-wage">Annual Wage: ' + d.career_med_ann_wage + '</span>' +
-                  //       '<span class="sk-ann-wage">People employed: ' + d.career_2012_emp + '</span>'
-                  //       )
-                  //       .style("left", (d3.event.pageX) + "px")      
-                  //       .style("top", (d3.event.pageY - tth) + "px");
-                  // });
                   .on('mouseover', tip.show)
                   .on('mouseout', tip.hide);
 
@@ -176,10 +159,11 @@ angular.module('myApp.directives', ['kendo.directives']).
                   .enter()
                   .append('text')
                   .attr('class', 'careerBubbleLabel')
+                  .attr('text-anchor', 'middle')
                   .text(function(d, i){ return alphabet[i]; })
                   .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
-                  //why is the origin of this element in the bottom left corner, rather than the top left? 
-                  .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - rScale(d.career_2012_emp); });
+                  //2 is arbitrary distance to provide space between bubble and label 
+                  .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - rScale(d.career_2012_emp) - 2; });
 
                 circles
                   .exit()
