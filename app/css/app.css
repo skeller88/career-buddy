@@ -52,7 +52,7 @@ html, body {
     display: inline-block;
     float: left;
     padding: 15px 15px 15px 0;
-    font-size: 18px;
+    font-size: 28px;
     line-height: 20px;
 }
 
@@ -186,10 +186,11 @@ html, body {
     padding: 12px;
     background: white;
     border: 2px solid #6D6D6D;
-    box-shadow: 1px 1px 2px #808080;
     -webkit-box-shadow: 1px 1px 2px #808080;
+            box-shadow: 1px 1px 2px #808080;
     color: black;
-    border-radius: 2px;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
 }
 
 .sk-tooltip:after {
@@ -253,10 +254,6 @@ html, body {
 .sk-legend-career-id {
     font-weight: bold;
     opacity: 1;
-}
-
-.sk-legend-career-name {
-    opacity: 0.8;
 }
 
 

@@ -3,14 +3,14 @@
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
     <div class="sk-career-selector-content">
-        <div class="sk-multi-select-container sk-table-cell">
+        <div id="welcomeTip" class="sk-multi-select-container sk-table-cell">
             <div class="sk-overflow-table-cell">
                 <!-- Multi-select -->
                 <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
             </div>
         </div>
         <div class="sk-button-container sk-table-cell">
-            <button k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
+            <button id="chartTip" k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
             <!-- temporary fix until legend added to d3 chart -->
             <button k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="chartLegend.center().open()">Legend</button>
             <!-- uncomment below when browse functionality exists --> 

@@ -14,7 +14,6 @@ angular.module('myApp.directives', ['kendo.directives']).
           drawChart();
 
           d3.select($window).on('resize', drawChart);
-          $('.sk-career-selector').resize(drawChart);
 
           function drawChart() {
               if(d3.select('svg')) d3.select('svg').remove();
@@ -88,7 +87,7 @@ angular.module('myApp.directives', ['kendo.directives']).
 
                     return '<h4 class="sk-career-name">' + d.career_name + '</h4>' +
                         '<div >' +
-                            '<span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">' + d.career_2012_emp + '</span>' +
+                            '<span class="sk-tooltip-label">People employed (thousands): </span><span class="sk-tooltip-data">' + d.career_2012_emp + '</span>' +
                         '</div>' +
                         '<div class="sk-emp-change">' +
                             '<span class="sk-tooltip-label">Expected change in demand : </span><span class="sk-tooltip-data">' + d.career_percent_emp_change + '%</span>' +
@@ -181,10 +180,6 @@ angular.module('myApp.directives', ['kendo.directives']).
                 circles
                   .exit()
                   .remove();
-              }
-
-              function showLegend() {
-
               }
 
               updateGraph();
