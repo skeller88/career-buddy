@@ -3,10 +3,11 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ["kendo.directives"])
-  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'selectedCareersStorage', function($log, $scope, $timeout, alphabet, careersAPI, selectedCareersStorage) {
+  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'localStorage', function($log, $scope, $timeout, alphabet, careersAPI, localStorage) {
     //variables
     $scope.alphabet = alphabet;
-    $scope.selectedCareerNames = selectedCareersStorage.get();
+    $scope.selectedCareerNames =['Mathematicians'];
+    // $scope.selectedCareerNames = localStorage.get('careerNames');
     $scope.selectedCareersData = [];
     $scope.isShowChart = false;
     $scope.showWelcomeTip = false;
@@ -24,7 +25,6 @@ angular.module('myApp.controllers', ["kendo.directives"])
         autoBind: false,
         dataSource: dataSource
     };
-
 
     //get career data 
     $scope.getCareerNames = function() {
@@ -50,23 +50,26 @@ angular.module('myApp.controllers', ["kendo.directives"])
 
     //event handlers
     $scope.compare = function() {
-        selectedCareersStorage.set($scope.selectedCareerNames);
+        localStorage.set('careerNames', $scope.selectedCareerNames);
 
         $scope.getDataAndShowChart();
     };
 
     $scope.getCareerNames();
 
-    $timeout(function() {
-        $scope.showWelcomeTip = true;
+    if(localStorage.get('showTooltips')) {
+        localStorage.set('showTooltips', false);
         $timeout(function() {
-            $scope.showWelcomeTip = false;
-            $scope.showChartTip = true;
+            $scope.showWelcomeTip = true;
             $timeout(function() {
-                $scope.showChartTip = false;
+                $scope.showWelcomeTip = false;
+                $scope.showChartTip = true;
+                $timeout(function() {
+                    $scope.showChartTip = false;
+                }, 3000);
             }, 3000);
-        }, 3000);
-    }, 1000);
+        }, 1000);
+    }
 
     if(isStubbedD3) {
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
@@ -76,8 +79,4 @@ angular.module('myApp.controllers', ["kendo.directives"])
         $scope.compare();
     }
 
-  }])
-  .controller('AboutCtrl', ['$scope', function($scope) {
-  }])
-  .controller('ContactCtrl', ['$scope', function($scope) {
   }]);

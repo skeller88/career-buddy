@@ -18,12 +18,12 @@ angular.module('myApp', [
       state('about', {
         url: '/about',
         templateUrl: 'partials/about.html', 
-        controller: 'AboutCtrl'
+        controller: 'HomeCtrl'
       }).
       state('contact', {
         url: '/contact',
         templateUrl: 'partials/contact.html', 
-        controller: 'ContactCtrl'
+        controller: 'HomeCtrl'
       }).
       state('otherwise', {
         url: '*path',

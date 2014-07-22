@@ -31,26 +31,55 @@ angular.module('myApp.services', [])
     return {
       getCareerNames: getCareerNames,
       getCareerData: getCareerData
-    }
+    };
   }])
-  .factory('selectedCareersStorage', [function() {
+  .factory('localStorage', ['$rootScope', '$window', function($rootScope, $window) {
 
-      var storage = {
-        careerNames: []
-      };
+      var localStorageKeys = {};
 
-      function get() {
-          return storage['careerNames'];
+      angular.element($window).on('storage', function(event) {
+          console.log(event.key);
+          //avoid unnecessary triggers of digest cycle for any localStorage change
+          if (event.key in localStorageKeys) {
+              $rootScope.$apply();
+          }
+      });
+
+      function get(key) {
+          if($window.localStorage) {
+              //coerce into type Array
+              if(key === 'careerNames') {
+                  var careerNames = $window.localStorage.getItem(key);
+                  return careerNames.split(',');
+              //coerce into type Boolean
+              } else if(key === 'showTooltips') {
+                  var showTooltips = $window.localStorage.getItem(key);
+                  console.log('inside get', showTooltips);
+                  return showTooltips === 'true' ? true : false;
+              }
+          }
       }
 
-      function set(value) {
-          storage['careerNames'] = value;
+      function set(key, value) {
+          if($window.localStorage){
+              $window.localStorage.setItem(key, value);
+              localStorageKeys[key] = true;
+          }
+      }
+
+      //initialize
+      if($window.localStorage) {
+          var careerNames = get('careerNames');
+          var showTooltips = get('showTooltips');
+          if(!careerNames) set('careerNames', []);
+          //showTooltips can === false
+          if(showTooltips === undefined) set('showTooltips', true);
       }
 
       return {
           get: get,
           set: set
-      }
+      };
   }])
   .factory('alphabet', [function() {
       //20 may be too many
