@@ -81,7 +81,7 @@ angular.module('myApp.directives', ['kendo.directives']).
               /* DRAW CHART */
 
               var tip = d3.tip()
-                  .attr('class', 'sk-tooltip')
+                  .attr('class', 'sk-tooltip-chart')
                   .offset([-17, -12])
                   .html(function(d) {
 

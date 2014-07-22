@@ -8,9 +8,9 @@ angular.module('myApp.controllers', ["kendo.directives"])
     $scope.alphabet = alphabet;
     $scope.selectedCareerNames = selectedCareersStorage.get();
     $scope.selectedCareersData = [];
-    $scope.welcomeTip = 'Search for careers you\'d like to compare in the search box above.'
     $scope.isShowChart = false;
-    var chartTip;
+    $scope.showWelcomeTip = false;
+    $scope.showChartTip = false;
     var isStubbedD3 = false;
     var dataSource = new kendo.data.DataSource({
         data: []
@@ -18,30 +18,13 @@ angular.module('myApp.controllers', ["kendo.directives"])
 
     //kendo widgets
     $scope.selectOptions = {    
-        placeholder: "Select at least two careers...",
+        placeholder: "Click or type in this box to start browsing careers...",
         dataTextField: "career_name",
         dataValueField: "career_name",
         autoBind: false,
         dataSource: dataSource
     };
 
-    var welcomeTip = $('#welcomeTip').kendoTooltip({
-        autoHide: false,
-        content: 'Welcome to Career Buddy, the app that helps you find the perfect career for you. ',
-        hide: function() {
-            $("#welcomeTip").data("kendoTooltip").destroy();
-            chartTip = $('#chartTip').kendoTooltip({
-                autoHide: false,
-                // callOut: false,
-                content: 'When you\'ve selected at least 2 careers, click this button to compare them.',
-                hide: function() {
-                    $("#chartTip").data("kendoTooltip").destroy();
-                }
-            });
-            console.log(chartTip);
-            chartTip.show();
-        }
-    });
 
     //get career data 
     $scope.getCareerNames = function() {
@@ -74,7 +57,16 @@ angular.module('myApp.controllers', ["kendo.directives"])
 
     $scope.getCareerNames();
 
-    $timeout(welcomeTip.show, 1000);
+    $timeout(function() {
+        $scope.showWelcomeTip = true;
+        $timeout(function() {
+            $scope.showWelcomeTip = false;
+            $scope.showChartTip = true;
+            $timeout(function() {
+                $scope.showChartTip = false;
+            }, 3000);
+        }, 3000);
+    }, 1000);
 
     if(isStubbedD3) {
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
