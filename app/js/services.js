@@ -54,7 +54,6 @@ angular.module('myApp.services', [])
               //coerce into type Boolean
               } else if(key === 'showTooltips') {
                   var showTooltips = $window.localStorage.getItem(key);
-                  console.log('inside get', showTooltips);
                   return showTooltips === 'true' ? true : false;
               }
           }

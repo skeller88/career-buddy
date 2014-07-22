@@ -155,31 +155,47 @@ angular.module('myApp.directives', ['kendo.directives']).
 
               function updateGraph() {
                 //add data
-                var circles = innerChart.selectAll('circle').data(scope.selectedCareersData);
+                var circles = innerChart.selectAll('circle')
+                    .data(scope.selectedCareersData, function(d) { return d.career_name; })
 
-                circles
-                  .enter()
-                  .append('circle')
+                var labels = innerChart.selectAll('text.careerBubbleLabel')
+                    .data(scope.selectedCareersData, function(d) { return d.career_name; })
+
+                circles.enter().append('circle')
                   .attr('class', 'sk-data-point')
                   .attr('cx', function(d) { return xScale(d.career_percent_emp_change); })
                   .attr('cy', function(d) { return yScale(d.career_med_ann_wage/1000); })
-                  .attr('r', function(d) { return rScale(d.career_2012_emp); })
+                  .attr('r', 0)
                   .on('mouseover', tip.show)
-                  .on('mouseout', tip.hide);
+                  .on('mouseout', tip.hide)
+                  .transition()
+                    .delay(function(d, i) { return i * 100; })
+                    .duration(1000)
+                    .attr('r', function(d) { return rScale(d.career_2012_emp); });
 
-                circles
-                  .enter()
-                  .append('text')
-                  .attr('class', 'careerBubbleLabel')
-                  .attr('text-anchor', 'middle')
-                  .text(function(d, i){ return alphabet[i]; })
-                  .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
-                  //2 is arbitrary distance to provide space between bubble and label 
-                  .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - rScale(d.career_2012_emp) - 2; });
+                labels.enter().append('text')
+                    .attr('class', 'careerBubbleLabel')
+                    .attr('text-anchor', 'middle')
+                    .text(function(d, i){ return alphabet[i]; })
+                    .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
+                    //2 is arbitrary distance to provide space between bubble and label 
+                    .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - rScale(d.career_2012_emp) - 2; })
+                    .attr('opacity', 0)
+                    .transition()
+                      .delay(function(d, i) { return i * 100; })
+                      .duration(1000)
+                      .attr('opacity', 1);
 
-                circles
-                  .exit()
-                  .remove();
+                circles.exit().transition()
+                    .duration(500)
+                    .attr('r', 0)
+                    .remove();
+
+                labels.exit().transition()
+                    .duration(500)
+                    .attr('opacity', 0)
+                    .remove();
+
               }
 
               updateGraph();

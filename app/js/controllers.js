@@ -6,10 +6,9 @@ angular.module('myApp.controllers', ["kendo.directives"])
   .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'localStorage', function($log, $scope, $timeout, alphabet, careersAPI, localStorage) {
     //variables
     $scope.alphabet = alphabet;
-    $scope.selectedCareerNames =['Mathematicians'];
-    // $scope.selectedCareerNames = localStorage.get('careerNames');
     $scope.selectedCareersData = [];
     $scope.isShowChart = false;
+    $scope.selectedCareerNames = localStorage.get('careerNames');
     $scope.showWelcomeTip = false;
     $scope.showChartTip = false;
     var isStubbedD3 = false;
@@ -75,7 +74,7 @@ angular.module('myApp.controllers', ["kendo.directives"])
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
 
-    if($scope.selectedCareerNames.length) {
+    if($scope.selectedCareerNames.length > 1) {
         $scope.compare();
     }
 

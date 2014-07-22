@@ -10,23 +10,24 @@ angular.module('myApp', [
   ]).
   config(['$stateProvider', function($stateProvider) {
     $stateProvider.
-      state('home', {
+      state('app', {
         url: '/',
         templateUrl: 'partials/home.html', 
         controller: 'HomeCtrl'
       }).
       state('about', {
         url: '/about',
-        templateUrl: 'partials/about.html', 
+        templateUrl: 'partials/about.html',
         controller: 'HomeCtrl'
       }).
       state('contact', {
         url: '/contact',
-        templateUrl: 'partials/contact.html', 
-        controller: 'HomeCtrl'
+        templateUrl: 'partials/contact.html',
+        controller: 'HomeCtrl' 
       }).
       state('otherwise', {
         url: '*path',
-        templateUrl: 'partials/home.html'
+        templateUrl: 'partials/home.html',
+        controller: 'HomeCtrl'
       });
   }]);
