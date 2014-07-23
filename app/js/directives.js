@@ -3,7 +3,35 @@
 /* Directives */
 
 angular.module('myApp.directives', ['kendo.directives']).
-  directive('skEpChart', ['$window', 'alphabet', function($window, alphabet) {
+  directive('skBubbleLegend', ['d3Scales', function(d3Scales) {
+      return {
+          restrict: 'EA',
+          link: function(scope, element, attrs) {
+              var bubbleSizes = [10000, 1000000, 10000000];
+              var sh = element.height();
+              var sw = element.width();
+
+              var margin = {top: 5, right: 5, bottom: 5, left: 5};
+              var w = sw - margin.left - margin.right;
+              var h = sh - margin.top - margin.bottom;
+
+              var svg = d3.select(element[0])
+                .append('svg')
+                .attr('class', 'sk-chart-svg');
+
+              var outerChart = svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+              var circles = outerChart.selectAll('circle')
+                  .data(bubbleSizes);
+
+              circles.enter().append('circle')
+                  .attr('class', 'sk-data-point')
+                  .attr('r', function(d){ return d3Scales.bubbleRadiusScale(d); })
+          }
+      }
+  }]).
+  directive('skEpChart', ['$window', 'alphabet', 'd3Scales', function($window, alphabet, d3Scales) {
     return {
       restrict: 'EA',
       scope: {
@@ -47,7 +75,6 @@ angular.module('myApp.directives', ['kendo.directives']).
               var xLegendP = 85;
               var yLegendP = 35;
 
-
               var xlabel = "Projected Job Growth: 2012-2022 (%)";
               var ylabel = "Median Annual Salary: 2012 ($1000s)";
               var rlabel = "Number Employeed: 2012 (1k)";
@@ -64,11 +91,6 @@ angular.module('myApp.directives', ['kendo.directives']).
               var yScale = d3.scale.linear()
                            .domain([15, 175])
                            .range([ih, 0]);
-
-              //career_2012_emp
-              var rScale = d3.scale.log()
-                           .domain([.4,145355])
-                           .range([rmin, rmax]);
 
               var xAxis = d3.svg.axis()
                 .scale(xScale)
@@ -123,12 +145,12 @@ angular.module('myApp.directives', ['kendo.directives']).
 
               //labels - clearer to append to outerChart instead?
               innerChart.append('text')
-                .attr('class', 'x-label label')
+                .classed('x-label label', true)
                 .attr('transform', 'translate(' + (iw/2) + ',' + (h) + ')')
                 .text(xlabel);
 
               innerChart.append('text')
-                .attr('class', 'y-label label')
+                .classed('y-label label', true)
                 .attr('transform', 'translate(' + (0 - yLabelP) + ',' + (ih/2) + ') rotate(-90)')
                 .text(ylabel);
 
@@ -162,29 +184,31 @@ angular.module('myApp.directives', ['kendo.directives']).
                     .data(scope.selectedCareersData, function(d) { return d.career_name; })
 
                 circles.enter().append('circle')
-                  .attr('class', 'sk-data-point')
+                  .classed( 'sk-data-point', true)
                   .attr('cx', function(d) { return xScale(d.career_percent_emp_change); })
                   .attr('cy', function(d) { return yScale(d.career_med_ann_wage/1000); })
                   .attr('r', 0)
+                  .attr('opacity', 0)
                   .on('mouseover', tip.show)
                   .on('mouseout', tip.hide)
                   .transition()
                     .delay(function(d, i) { return i * 100; })
                     .duration(1000)
-                    .attr('r', function(d) { return rScale(d.career_2012_emp); });
+                    .attr('r', function(d) { return d3Scales.bubbleRadiusScale(d.career_2012_emp); })
+                    .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp); });
 
                 labels.enter().append('text')
-                    .attr('class', 'careerBubbleLabel')
+                    .classed('careerBubbleLabel', true)
                     .attr('text-anchor', 'middle')
-                    .text(function(d, i){ return alphabet[i]; })
+                    .text(function(d, i){ console.log(i); return alphabet[i]; })
                     .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
                     //2 is arbitrary distance to provide space between bubble and label 
-                    .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - rScale(d.career_2012_emp) - 2; })
+                    .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - d3Scales.bubbleRadiusScale(d.career_2012_emp) - 2; })
                     .attr('opacity', 0)
                     .transition()
                       .delay(function(d, i) { return i * 100; })
                       .duration(1000)
-                      .attr('opacity', 1);
+                      .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp)});
 
                 circles.exit().transition()
                     .duration(500)

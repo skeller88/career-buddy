@@ -33,6 +33,23 @@ angular.module('myApp.services', [])
       getCareerData: getCareerData
     };
   }])
+  .factory('d3Scales', function() {
+      var rmin = 4;
+      var rmax = 15;
+
+      var bubbleRadiusScale = d3.scale.log()
+          .domain([.4,145355])
+          .range([rmin, rmax]);
+
+      var bubbleOpacityScale = d3.scale.log()
+          .domain([.4,145355])
+          .range([1,.1]);
+
+      return {
+        bubbleRadiusScale: bubbleRadiusScale,
+        bubbleOpacityScale: bubbleOpacityScale
+      }
+  })
   .factory('localStorage', ['$rootScope', '$window', function($rootScope, $window) {
 
       var localStorageKeys = {};

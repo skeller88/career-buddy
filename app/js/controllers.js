@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ["kendo.directives"])
-  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'localStorage', function($log, $scope, $timeout, alphabet, careersAPI, localStorage) {
+  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'd3Scales', 'localStorage', function($log, $scope, $timeout, alphabet, careersAPI, d3Scales, localStorage) {
     //variables
     $scope.alphabet = alphabet;
     $scope.selectedCareersData = [];
