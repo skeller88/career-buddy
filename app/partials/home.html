@@ -13,10 +13,8 @@
         <!-- </div> -->
         <!-- <div class="sk-tooltip-selector-parent"> -->
             <div class="sk-button-container sk-table-cell">
-                <button id="chartTip" k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
-                <!-- temporary fix until legend added to d3 chart -->
-                <!-- {{selectedCareerNames.length < 2 && selectedCareerNames.length > 20}} -->
-                <button k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="chartLegend.center().open()">Legend</button>
+                <button id="chartTip" class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
+                <button class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="chartLegend.center().open()">Legend</button>
                 <!-- uncomment below when browse functionality exists --> 
                 <!-- &nbsp; &nbsp; -->
                 <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
