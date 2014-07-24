@@ -30,7 +30,7 @@ module.exports = function() {
     return knex.select().from('careers')
     .whereIn('career_name', careerNames)
     .then(function(matchedCareers) {
-      return matchedCareers;
+        return matchedCareers;
     });
   }
 

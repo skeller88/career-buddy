@@ -3,9 +3,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var console = require('console');
+var careers = require('./models/careers');
 var dbHelpers = require('./util/dbHelpers');
-var nearCache = require('./server/nearCache.js');
-
 var app = express();
 // var knex = dbHelpers.connectToDB();
 
@@ -22,28 +21,31 @@ function sendWithJSONProtection(req, res, next) {
   next();
 }
 
-function getCareerNames(req,res, next) {
+function getCareerNames(req, res, next) {
   console.time('careerNames');
 
-  nearCache.get('careerNames', dbHelpers.queryCareerNames)
-    .then(function(names) {
+  careers.getAllCareerNames().then(function(careerNames) {
       console.timeEnd('careerNames');
-      res.send(names);
-    });
+      res.send(careerNames);
+  }, function(err) {
+      console.timeEnd('careerData');
+      res.send(404);
+  })
 };
 
 //expects a 'careers' param whose value is an array of career names
 function getCareerData(req, res) {
   console.time('careerData');
 
-  var careerNames = JSON.parse(req.query.careers);
-  var careerQueryKey = careerNames.sort().join('');
+  var careerNames = req.query.careers;
 
-  nearCache.get(careerQueryKey, dbHelpers.queryCareerData, careerNames)
-    .then(function(careers) {
+  careers.findByCareerNames(careerNames).then(function(careerData) {
       console.timeEnd('careerData');
-      res.send(careers);
-    });
+      res.send(careerData);
+  }, function(err) {
+      console.timeEnd('careerData');
+      res.send(404);
+  });
 }
 
 app.set('port', process.env.PORT || 3000);
