@@ -7,8 +7,7 @@ angular.module('myApp.controllers', ["kendo.directives"])
     //variables
     $scope.alphabet = alphabet;
     $scope.selectedCareersData = [];
-    $scope.isShowChart = false;
-    $scope.selectedCareerNames = localStorage.get('careerNames');
+    $scope.selectedCareerNames = [];
     $scope.showWelcomeTip = false;
     $scope.showChartTip = false;
     var isStubbedD3 = false;
@@ -18,7 +17,7 @@ angular.module('myApp.controllers', ["kendo.directives"])
 
     //kendo widgets
     $scope.selectOptions = {    
-        placeholder: "Click or type in this box to start browsing careers...",
+        placeholder: "Select at least two careers to compare.",
         dataTextField: "career_name",
         dataValueField: "career_name",
         autoBind: false,
@@ -29,8 +28,14 @@ angular.module('myApp.controllers', ["kendo.directives"])
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {
             $log.debug('getCareerNames success', data);
-            $scope.names = data;
             dataSource.data(data);
+            //ensures that multiselect widget only fades in when career names have been loaded
+            $scope.careerNamesLength = data.length;
+            $scope.selectedCareerNames = localStorage.get('careerNames') || [];
+
+            if($scope.selectedCareerNames.length > 1) {
+                $scope.compare();
+            }
         }).error(function(err) {
             $log.error('getCareerNames error: ', err);
         });
@@ -41,7 +46,6 @@ angular.module('myApp.controllers', ["kendo.directives"])
             .success(function(data) {
             $log.debug('getDataAndShowChart success', data);
             $scope.selectedCareersData = data;
-            $scope.isShowChart = true;    
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
         });
@@ -65,17 +69,12 @@ angular.module('myApp.controllers', ["kendo.directives"])
                 $scope.showChartTip = true;
                 $timeout(function() {
                     $scope.showChartTip = false;
-                }, 3000);
-            }, 3000);
+                }, 7000);
+            }, 7000);
         }, 1000);
     }
 
     if(isStubbedD3) {
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
-
-    if($scope.selectedCareerNames.length > 1) {
-        $scope.compare();
-    }
-
   }]);

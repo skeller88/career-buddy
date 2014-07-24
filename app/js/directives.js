@@ -76,8 +76,8 @@ angular.module('myApp.directives', ['kendo.directives']).
               var yLegendP = 35;
 
               var xlabel = "Projected Job Growth: 2012-2022 (%)";
-              var ylabel = "Median Annual Salary: 2012 ($1000s)";
-              var rlabel = "Number Employeed: 2012 (1k)";
+              var ylabel = "Median Annual Salary: 2012 (thousands)";
+              var rlabel = "# Employed: 2012 (thousands)";
               var legendText = "Legend";
 
               /* SCALES */
@@ -109,10 +109,10 @@ angular.module('myApp.directives', ['kendo.directives']).
 
                     return '<h4 class="sk-career-name">' + d.career_name + '</h4>' +
                         '<div >' +
-                            '<span class="sk-tooltip-label">People employed (thousands): </span><span class="sk-tooltip-data">' + d.career_2012_emp + '</span>' +
+                            '<span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">' + d.career_2012_emp + ' (thousands)</span>' +
                         '</div>' +
                         '<div class="sk-emp-change">' +
-                            '<span class="sk-tooltip-label">Expected change in demand : </span><span class="sk-tooltip-data">' + d.career_percent_emp_change + '%</span>' +
+                            '<span class="sk-tooltip-label">Expected change in demand: </span><span class="sk-tooltip-data">' + d.career_percent_emp_change + '%</span>' +
                         '</div>' +
                         '<div>' +
                             '<span class="sk-tooltip-label">Annual wage: </span><span class="sk-tooltip-data">$' + d.career_med_ann_wage + '</span>' +
@@ -200,7 +200,7 @@ angular.module('myApp.directives', ['kendo.directives']).
                 labels.enter().append('text')
                     .classed('careerBubbleLabel', true)
                     .attr('text-anchor', 'middle')
-                    .text(function(d, i){ console.log(i); return alphabet[i]; })
+                    .text(function(d, i){ return alphabet[i]; })
                     .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
                     //2 is arbitrary distance to provide space between bubble and label 
                     .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - d3Scales.bubbleRadiusScale(d.career_2012_emp) - 2; })
@@ -209,6 +209,8 @@ angular.module('myApp.directives', ['kendo.directives']).
                       .delay(function(d, i) { return i * 100; })
                       .duration(1000)
                       .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp)});
+
+                labels.text(function(d, i){ return alphabet[i]; })
 
                 circles.exit().transition()
                     .duration(500)

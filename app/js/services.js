@@ -23,8 +23,9 @@ angular.module('myApp.services', [])
         url:'/careers',
         method: 'GET',
         params: {
-          careers: JSON.stringify(careers)
-        }
+          careers: careers
+        },
+        cache: true
       })
     }
 
@@ -43,7 +44,7 @@ angular.module('myApp.services', [])
 
       var bubbleOpacityScale = d3.scale.log()
           .domain([.4,145355])
-          .range([1,.1]);
+          .range([1,.3]);
 
       return {
         bubbleRadiusScale: bubbleRadiusScale,
@@ -67,11 +68,11 @@ angular.module('myApp.services', [])
               //coerce into type Array
               if(key === 'careerNames') {
                   var careerNames = $window.localStorage.getItem(key);
-                  return careerNames.split(',');
+                  return !!careerNames ? careerNames.split(',') : [];
               //coerce into type Boolean
               } else if(key === 'showTooltips') {
                   var showTooltips = $window.localStorage.getItem(key);
-                  return showTooltips === 'true' ? true : false;
+                  return showTooltips === 'true' || !!!showTooltips ? true : false;
               }
           }
       }

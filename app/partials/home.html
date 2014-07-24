@@ -1,5 +1,5 @@
 <!-- choose career -->
-<section class="sk-career-selector">
+<section class="sk-career-selector sk-fade" ng-class="{'sk-in': careerNamesLength}">
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
     <div class="sk-career-selector-content">
@@ -15,13 +15,14 @@
             <div class="sk-button-container sk-table-cell">
                 <button id="chartTip" k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
                 <!-- temporary fix until legend added to d3 chart -->
+                <!-- {{selectedCareerNames.length < 2 && selectedCareerNames.length > 20}} -->
                 <button k-button class="k-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="chartLegend.center().open()">Legend</button>
                 <!-- uncomment below when browse functionality exists --> 
                 <!-- &nbsp; &nbsp; -->
                 <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
             </div>
             <div class="sk-table-cell sk-multi-select-error" ng-show="selectedCareerNames.length > 20">
-                Please select less than 20 careers. That many careers won't look good on the chart!
+                Please select less than 20 careers. Too many careers won't look good on the chart!
             </div>
         <!-- </div> -->
             
@@ -55,8 +56,8 @@
 
 
 <!-- chart results --> 
-<section class="sk-career-visualizer-container">
-    <div sk-ep-chart selected-careers-data="selectedCareersData" ng-show="isShowChart" class="sk-career-visualizer">
+<section class="sk-career-visualizer-container sk-fade" ng-class="{'sk-in': selectedCareersData.length}">
+    <div sk-ep-chart selected-careers-data="selectedCareersData" class="sk-career-visualizer">
     </div>  
 </section>
 <!-- 

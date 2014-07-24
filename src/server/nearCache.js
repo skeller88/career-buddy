@@ -10,7 +10,6 @@ module.exports = function(Promise) {
           //handle lookup of arrays in nearCache
           if(Array.isArray(key)) {
               var cacheKey = key.sort().join(',');
-              console.log(cacheKey, cache[cacheKey]);
           } else {
               var cacheKey = key;
           }
