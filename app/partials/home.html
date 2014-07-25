@@ -5,11 +5,11 @@
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
     <div class="sk-career-selector-content">
-        <div class="sk-multi-select-container sk-table-cell" kendo-tooltip="welcomeTourIntro" k-options="welcomeTourIntroOptions">
-                <div class="sk-overflow-table-cell">
-                    <!-- Multi-select -->
-                    <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
-                </div>
+        <div class="sk-multi-select-container sk-table-cell">
+            <div class="sk-overflow-table-cell" kendo-tooltip="welcomeTourIntro" k-options="welcomeTourIntroOptions">
+                <!-- Multi-select -->
+                <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
+            </div>
         </div>
         <div class="sk-button-container sk-table-cell">
             <button id="chartTip" class="sk-button" kendo-tooltip="welcomeTourChart" k-options="welcomeTourChartOptions" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
@@ -19,9 +19,11 @@
             <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
         </div>
         <div class="sk-button-container sk-table-cell">
-            <button class="sk-button" kendo-tooltip="welcomeTourMoney" k-options="welcomeTourMoneyOptions" ng-click="clearSelected()">Clear</button>
+            <button class="sk-button" kendo-tooltip="welcomeTourClear" k-options="welcomeTourClearOptions" ng-click="clearSelected()">Clear</button>
+        </div>
+        <div class="sk-button-container sk-table-cell">
             <button class="sk-button" kendo-tooltip="welcomeTourMoney" k-options="welcomeTourMoneyOptions" ng-click="compareTopPaying()">Money</button>
-            <button class="sk-button" kendo-tooltip="welcomeTourMoney" k-options="welcomeTourMoneyOptions" ng-click="compareFastestGrowing()">Growth</button>
+            <button class="sk-button" kendo-tooltip="welcomeTourGrowth" k-options="welcomeTourGrowthOptions" ng-click="compareFastestGrowing()">Growth</button>
         </div>
     </div>
     <div class="sk-tooltip-selector-parent">

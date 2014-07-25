@@ -19,12 +19,48 @@ angular.module('myApp.controllers', ['kendo.directives'])
     });
 
     //kendo widgets
+
+    //tooltips for tour functionality - must be in reverse order of their appearance in tour
+    $scope.welcomeTourClearOptions = {
+        content: 'clear all currently selected careers,',
+        autoHide: false,
+        showOn: 'focus',
+        hide: function() {
+            $scope.welcomeTourClear.destroy();
+            $scope.welcomeTourMoney.show();
+        },
+        position: 'top'
+    }
+
+    $scope.welcomeTourMoneyOptions = {
+        content: 'select and compare the highest paying careers,',
+        autoHide: false,
+        showOn: 'focus',
+        hide: function() {
+            $scope.welcomeTourMoney.destroy();
+            $scope.welcomeTourGrowth.show();
+        },
+        position: 'left'
+    }
+
+    $scope.welcomeTourGrowthOptions = {
+        content: 'and select and compare the fastest growing careers. Have fun!',
+        autoHide: false,
+        showOn: 'focus',
+        hide: function() {
+            $scope.welcomeTourGrowth.destroy();
+        },
+        position: 'bottom'
+    }
+
     $scope.welcomeTourLegendOptions = {
-        content: 'Click the "Legend" button for help interpreting the results.',
+        content: 'You can also interpret the results,',
         autoHide: false,
         hide: function() {
             $scope.welcomeTourLegend.destroy();
-        }
+            $scope.welcomeTourClear.show();
+        },
+        showOn: 'focus'
     }
 
     $scope.welcomeTourChartOptions = {
@@ -33,7 +69,8 @@ angular.module('myApp.controllers', ['kendo.directives'])
         hide: function() {
             $scope.welcomeTourChart.destroy();
             $scope.welcomeTourLegend.show();
-        }
+        },
+        showOn: 'focus',
     }
 
     $scope.welcomeTourIntroOptions = {
@@ -42,7 +79,9 @@ angular.module('myApp.controllers', ['kendo.directives'])
         hide: function() {
             $scope.welcomeTourIntro.destroy();
             $scope.welcomeTourChart.show();
-        }
+        },
+        position: 'bottom',
+        showOn: 'focus'
     }
 
     $scope.selectOptions = {    
@@ -110,14 +149,11 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
 
+    localStorage.set('showTour', true);
     $timeout(function() {
         if(localStorage.get('showTour')) {
             localStorage.set('showTour', false);
             $scope.welcomeTourIntro.show();
-        } else {
-            $scope.welcomeTourLegend.destroy();
-            $scope.welcomeTourChart.destroy();
-            $scope.welcomeTourIntro.destroy();
         }
-    }, 500);
+    }, 1000);
   }]);
