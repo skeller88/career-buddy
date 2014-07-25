@@ -3,7 +3,7 @@
 /* Directives */
 
 angular.module('myApp.directives', ['kendo.directives']).
-  directive('skLegendBubbles', ['d3Scales', function(d3Scales) {
+  directive('skLegendBubbles', ['$filter', 'd3Scales', function($filter, d3Scales) {
       return {
           restrict: 'EA',
           link: function(scope, element, attrs) {
@@ -59,12 +59,12 @@ angular.module('myApp.directives', ['kendo.directives']).
                   .attr('y', function(d, i){ return labelsHeight += (bpy + d3Scales.bubbleRadiusScale(d)*2); })
                   //svg:text baseline is 'bottom' by default
                   .attr('dominant-baseline', 'middle')
-                  .text(function(d){ return d; })
+                  .text(function(d){ return $filter('number')(d); })
                   ;
           }
       }
   }]).
-  directive('skEpChart', ['$window', 'alphabet', 'd3Scales', function($window, alphabet, d3Scales) {
+  directive('skEpChart', ['$filter', '$window', 'alphabet', 'd3Scales', function($filter, $window, alphabet, d3Scales) {
     return {
       restrict: 'EA',
       scope: {
@@ -145,13 +145,13 @@ angular.module('myApp.directives', ['kendo.directives']).
 
                     return '<h4 class="sk-career-name">' + d.career_name + '</h4>' +
                         '<div >' +
-                            '<span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">' + d.career_2012_emp + ' (thousands)</span>' +
+                            '<span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">' + $filter('number')(d.career_2012_emp) + ' (thousands)</span>' +
                         '</div>' +
                         '<div class="sk-emp-change">' +
                             '<span class="sk-tooltip-label">Expected change in demand: </span><span class="sk-tooltip-data">' + d.career_percent_emp_change + '%</span>' +
                         '</div>' +
                         '<div>' +
-                            '<span class="sk-tooltip-label">Annual wage: </span><span class="sk-tooltip-data">$' + d.career_med_ann_wage + '</span>' +
+                            '<span class="sk-tooltip-label">Annual wage: </span><span class="sk-tooltip-data">$' + $filter('number')(d.career_med_ann_wage) + '</span>' +
                         '</div>'
                   })
 
