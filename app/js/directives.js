@@ -3,31 +3,64 @@
 /* Directives */
 
 angular.module('myApp.directives', ['kendo.directives']).
-  directive('skBubbleLegend', ['d3Scales', function(d3Scales) {
+  directive('skLegendBubbles', ['d3Scales', function(d3Scales) {
       return {
           restrict: 'EA',
           link: function(scope, element, attrs) {
-              var bubbleSizes = [10000, 1000000, 10000000];
+              var bubbleSizes = [10, 100, 1000, 10000];
+
               var sh = element.height();
               var sw = element.width();
 
-              var margin = {top: 5, right: 5, bottom: 5, left: 5};
+              var margin = {top: 25, right: 5, bottom: 5, left: 25};
               var w = sw - margin.left - margin.right;
               var h = sh - margin.top - margin.bottom;
 
+              var bubblesHeight = 0;
+              var labelsHeight = 0;
+
+              var legendHeader = "# Employed: 2012 (thousands)";
+
+              //bubble paddding
+              var bpx = 5;
+              var bpy = 10;
+
+              //label padding
+              var lpx = 30;
+
               var svg = d3.select(element[0])
                 .append('svg')
-                .attr('class', 'sk-chart-svg');
+                .attr('class', 'sk-chart-svg sk-legend-bubbles-content');
 
               var outerChart = svg.append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+              outerChart.append('text')
+                  .classed('sk-legend-header', true)
+                  .text(legendHeader);
+
               var circles = outerChart.selectAll('circle')
+                  .data(bubbleSizes);
+
+              var labels = outerChart.selectAll('circle')
                   .data(bubbleSizes);
 
               circles.enter().append('circle')
                   .attr('class', 'sk-data-point')
+                  .attr('cx', bpx)
+                  .attr('cy', function(d, i){ return bubblesHeight += (bpy + d3Scales.bubbleRadiusScale(d)*2); })
                   .attr('r', function(d){ return d3Scales.bubbleRadiusScale(d); })
+                  .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d); })
+                  ;
+
+              labels.enter().append('text')
+                  .attr('class', 'sk-legend-bubble-label')
+                  .attr('x', lpx)
+                  .attr('y', function(d, i){ return labelsHeight += (bpy + d3Scales.bubbleRadiusScale(d)*2); })
+                  //svg:text baseline is 'bottom' by default
+                  .attr('dominant-baseline', 'middle')
+                  .text(function(d){ return d; })
+                  ;
           }
       }
   }]).
@@ -38,13 +71,16 @@ angular.module('myApp.directives', ['kendo.directives']).
         selectedCareersData: '='
       },
       link: function(scope, element, attrs) {
+          // var svg = d3.select(element[0])
+          //       .append('svg')
+          //       .attr('class', 'sk-chart-svg');
 
           drawChart();
 
           d3.select($window).on('resize', drawChart);
 
           function drawChart() {
-              if(d3.select('svg')) d3.select('svg').remove();
+              if(d3.select('svg.sk-career-chart')) d3.select('svg.sk-career-chart').remove();
 
               /* DIMENSIONS */
 
@@ -89,7 +125,7 @@ angular.module('myApp.directives', ['kendo.directives']).
 
               //career_med_ann_wage in $1000s
               var yScale = d3.scale.linear()
-                           .domain([15, 175])
+                           .domain([15, 190])
                            .range([ih, 0]);
 
               var xAxis = d3.svg.axis()
@@ -121,7 +157,7 @@ angular.module('myApp.directives', ['kendo.directives']).
 
               var svg = d3.select(element[0])
                 .append('svg')
-                .attr('class', 'sk-chart-svg');
+                .classed('sk-chart-svg sk-career-chart', true);
 
               svg.call(tip);
               

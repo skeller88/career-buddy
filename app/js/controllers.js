@@ -24,6 +24,10 @@ angular.module('myApp.controllers', ["kendo.directives"])
         dataSource: dataSource
     };
 
+    $scope.tabStripOptions = {
+        animation: false
+    }
+
     //get career data 
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {

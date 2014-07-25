@@ -1,4 +1,6 @@
 <!-- choose career -->
+<!-- <div sk-legend-bubbles style="min-height:300px;">
+</div> -->
 <section class="sk-career-selector sk-fade" ng-class="{'sk-in': careerNamesLength}">
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
@@ -31,11 +33,11 @@
     </div>
     <div class="sk-legend-wrapper">
         <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-on-close="chartLegendVisible = false">
-            <div class="sk-legend-content k-content" kendo-tab-strip>
+            <div class="sk-legend-content k-content" kendo-tab-strip k-options="tabStripOptions">
                 <!-- tab list -->
                 <ul>
                   <li class="k-state-active">Career Names</li>
-                  <li>Bubble Sizes</li>
+                  <li>Bubbles</li>
                 </ul>
                <div class="sk-legend-careers">
                    <ul>
@@ -44,7 +46,7 @@
                      </div>
                    </ul>
                 </div>
-                <div sk-bubble-legend>
+                <div sk-legend-bubbles class="sk-legend-bubbles">
                 </div>
            </div>
         </div>

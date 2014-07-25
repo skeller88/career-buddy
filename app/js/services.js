@@ -38,13 +38,17 @@ angular.module('myApp.services', [])
       var rmin = 4;
       var rmax = 15;
 
+      //max and min for 'careers' table column 'career_2012_emp'
+      var minNumEmp = 0.4;
+      var maxNumEmp = 145355;
+
       var bubbleRadiusScale = d3.scale.log()
-          .domain([.4,145355])
+          .domain([minNumEmp,maxNumEmp])
           .range([rmin, rmax]);
 
       var bubbleOpacityScale = d3.scale.log()
-          .domain([.4,145355])
-          .range([1,.3]);
+          .domain([minNumEmp,maxNumEmp])
+          .range([1,.5]);
 
       return {
         bubbleRadiusScale: bubbleRadiusScale,
@@ -65,21 +69,16 @@ angular.module('myApp.services', [])
 
       function get(key) {
           if($window.localStorage) {
-              //coerce into type Array
-              if(key === 'careerNames') {
-                  var careerNames = $window.localStorage.getItem(key);
-                  return !!careerNames ? careerNames.split(',') : [];
-              //coerce into type Boolean
-              } else if(key === 'showTooltips') {
-                  var showTooltips = $window.localStorage.getItem(key);
-                  return showTooltips === 'true' || !!!showTooltips ? true : false;
-              }
+              var value = $window.localStorage.getItem(key);
+              return value && JSON.parse(value);
           }
       }
 
       function set(key, value) {
+          //localStorage stores all values as strings, and the app needs localStorage
+          //to store arrays
           if($window.localStorage){
-              $window.localStorage.setItem(key, value);
+              $window.localStorage.setItem(key, JSON.stringify(value));
               localStorageKeys[key] = true;
           }
       }
