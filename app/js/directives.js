@@ -193,24 +193,6 @@ angular.module('myApp.directives', ['kendo.directives']).
               var legend = innerChart.append('g')
                 .attr('transform', 'translate(' + (iw - xLegendP) + ',' + (yLegendP) + ')')
 
-              // var legendDiv = legend.append('foreignObject')
-              //   .attr('width', 200)
-              //   .attr('height', 200)
-              // .append('xhtml:div')
-              //   .style('fill', 'red');
-                // .style("stroke-width", 2).style("stroke", "black");
-
-              // legendDiv.append('rect')
-              //   .attr('width', xLegendP)
-              //   .attr('height', yLegendP)
-              //   .attr('id', 'sk-legend-border');
-
-              // legend.append('text')
-              //   .attr('id', 'sk-legend-link')
-              //   .text(legendText);
-
-              // d3.select("#sk-legend-link").on("click", showLegend);
-
               function updateGraph() {
                 //add data
                 var circles = innerChart.selectAll('circle')
@@ -266,30 +248,6 @@ angular.module('myApp.directives', ['kendo.directives']).
                   updateGraph();
               });
           }
-
-          // svg.append('svg:text')
-          //   .attr('transform', 'rotate(90)')
-          //   .attr('class', 'y-label label')
-          //   .attr('text-anchor', 'end')
-          //   .attr('transform', 'translate(' + (w - xp) + ',' + (h + lpx) + ')')
-          //   // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
-          //   .text(ylabel);
-
-          // svg.append('svg:text')
-          //   .attr('class', 'y-label label')
-          //   .attr('text-anchor', 'end')
-          //   .attr('transform', 'translate(' + (w - xp) + ',' + (h + 4*lpx) + ')')
-          //   // .attr('transform', 'translate(' + (h/2) + ',' + (0 - lpy) + ')')
-          //   .text(ylabel);
-
-          // add <p> elements to our infobox. later we will enter our crime data there
-          // var infobox = d3.select(".infobox");
-          // infobox.append("p")
-          //   .attr("class", "state" );
-          // infobox.append("p")
-          //   .attr("class", "xdata" );
-          // infobox.append("p")
-          //   .attr("class", "ydata" );
       }
     }
   }]);

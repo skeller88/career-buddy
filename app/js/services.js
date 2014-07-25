@@ -85,11 +85,9 @@ angular.module('myApp.services', [])
 
       //initialize
       if($window.localStorage) {
-          var careerNames = get('careerNames');
-          var showTooltips = get('showTooltips');
-          if(!careerNames) set('careerNames', []);
-          //showTooltips can === false
-          if(showTooltips === undefined) set('showTooltips', true);
+          if(!get('careerNames')) set('careerNames', []);
+          //account for undefined and false values 
+          if(!get('showTour') && !(typeof get('showTour') === 'boolean')) set('showTour', true);
       }
 
       return {

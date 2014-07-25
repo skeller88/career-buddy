@@ -5,27 +5,22 @@
     <!-- <h3>Finding a good career is hard.</h3> -->
     <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
     <div class="sk-career-selector-content">
-        <!-- <div class="sk-tooltip-selector-parent"> -->
-            <div class="sk-multi-select-container sk-table-cell">
-                    <div class="sk-overflow-table-cell">
-                        <!-- Multi-select -->
-                        <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
-                    </div>
-            </div>
-        <!-- </div> -->
-        <!-- <div class="sk-tooltip-selector-parent"> -->
-            <div class="sk-button-container sk-table-cell">
-                <button id="chartTip" class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
-                <button class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="showLegend = true; chartLegend.center().open()">Legend</button>
-                <!-- uncomment below when browse functionality exists --> 
-                <!-- &nbsp; &nbsp; -->
-                <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
-            </div>
-            <div class="sk-table-cell sk-multi-select-error" ng-show="selectedCareerNames.length > 20">
-                Please select less than 20 careers. Too many careers won't look good on the chart!
-            </div>
-        <!-- </div> -->
-            
+        <div class="sk-multi-select-container sk-table-cell" kendo-tooltip="welcomeTourIntro" k-options="welcomeTourIntroOptions">
+                <div class="sk-overflow-table-cell">
+                    <!-- Multi-select -->
+                    <select kendo-multi-select k-options="selectOptions" k-ng-model="selectedCareerNames"></select>
+                </div>
+        </div>
+        <div class="sk-button-container sk-table-cell">
+            <button id="chartTip" class="sk-button" kendo-tooltip="welcomeTourChart" k-options="welcomeTourChartOptions" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
+            <button class="sk-button" kendo-tooltip="welcomeTourLegend" k-options="welcomeTourLegendOptions" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="showLegend = true; chartLegend.center().open()">Legend</button>
+            <!-- uncomment below when browse functionality exists --> 
+            <!-- &nbsp; &nbsp; -->
+            <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
+        </div>
+        <div class="sk-table-cell sk-multi-select-error" ng-show="selectedCareerNames.length > 20">
+            Please select less than 20 careers. Too many careers won't look good on the chart!
+        </div>
     </div>
     <div class="sk-tooltip-selector-parent">
         <div class="sk-tooltip-selector" ng-show="showWelcomeTip">Welcome to Career Buddy, the app that helps you find the perfect career for you.</div>
