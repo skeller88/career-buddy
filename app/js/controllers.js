@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['kendo.directives'])
-  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'd3Scales', 'localStorage', function($log, $scope, $timeout, alphabet, careersAPI, d3Scales, localStorage) {
+  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'd3Scales', 'localStorage', 'savedCareers', function($log, $scope, $timeout, alphabet, careersAPI, d3Scales, localStorage, savedCareers) {
     //variables
     $scope.alphabet = alphabet;
     $scope.selectedCareersData = [];
@@ -75,8 +75,8 @@ angular.module('myApp.controllers', ['kendo.directives'])
     }
 
     $scope.getDataAndShowChart = function() {
-        careersAPI.getCareerData($scope.selectedCareerNames)
-            .success(function(data) {
+        console.log($scope.selectedCareerNames);
+        careersAPI.getCareerData($scope.selectedCareerNames).success(function(data) {
             $scope.selectedCareersData = data;
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
@@ -84,11 +84,25 @@ angular.module('myApp.controllers', ['kendo.directives'])
     }
 
     //event handlers
+    $scope.clearSelected = function() {
+        $scope.selectedCareerNames = [];
+    }
+
     $scope.compare = function() {
         localStorage.set('careerNames', $scope.selectedCareerNames);
 
         $scope.getDataAndShowChart();
     };
+
+    $scope.compareTopPaying = function() {
+        $scope.selectedCareerNames = savedCareers.topPayingCareers;
+        $scope.compare(); 
+    }
+
+    $scope.compareFastestGrowing = function() {
+        $scope.selectedCareerNames = savedCareers.fastestGrowingCareers; 
+        $scope.compare();
+    }
 
     $scope.getCareerNames();
 
