@@ -230,16 +230,6 @@ html, body {
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
-.xsk-tooltip-selector:before {
-    display: inline;
-    font-size: 10px;
-    width: 100%;
-    line-height: 1;
-    color: black;
-    content: "\25B2";
-    position: absolute;
-    text-align: center;
-}
 .sk-tooltip-label {
     opacity: 0.8;
 }
@@ -276,6 +266,7 @@ html, body {
     width: 400px;
 }
 .sk-legend-careers {
+    max-height: 250px;
     overflow: auto;
 }
 .sk-legend-career-id {

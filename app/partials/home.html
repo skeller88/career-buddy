@@ -16,7 +16,7 @@
         <!-- <div class="sk-tooltip-selector-parent"> -->
             <div class="sk-button-container sk-table-cell">
                 <button id="chartTip" class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="compare()">Chart</button>
-                <button class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="chartLegend.center().open()">Legend</button>
+                <button class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 20" ng-click="showLegend = true; chartLegend.center().open()">Legend</button>
                 <!-- uncomment below when browse functionality exists --> 
                 <!-- &nbsp; &nbsp; -->
                 <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
@@ -31,7 +31,7 @@
         <div class="sk-tooltip-selector" ng-show="showWelcomeTip">Welcome to Career Buddy, the app that helps you find the perfect career for you.</div>
         <div class="sk-tooltip-selector" ng-show="showChartTip">When you've selected at least 2 careers, click the "Chart" button to compare them.</div>
     </div>
-    <div class="sk-legend-wrapper">
+    <div class="sk-legend-wrapper" ng-show="showLegend">
         <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-on-close="chartLegendVisible = false">
             <div class="sk-legend-content k-content" kendo-tab-strip k-options="tabStripOptions">
                 <!-- tab list -->

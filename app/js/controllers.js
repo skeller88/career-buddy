@@ -8,6 +8,8 @@ angular.module('myApp.controllers', ["kendo.directives"])
     $scope.alphabet = alphabet;
     $scope.selectedCareersData = [];
     $scope.selectedCareerNames = [];
+    //prevents flicker of kendo window widget 
+    $scope.showLegend = false;
     $scope.showWelcomeTip = false;
     $scope.showChartTip = false;
     var isStubbedD3 = false;

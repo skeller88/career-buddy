@@ -89,7 +89,7 @@ angular.module('myApp.directives', ['kendo.directives']).
               var sw = element.width();
 
               //chart
-              var margin = {top: 15, right: 15, bottom: 15, left: 15};
+              var margin = {top: 20, right: 15, bottom: 15, left: 15};
               var padding = {top: 0, right: 0, bottom: 40, left: 50};
 
               var w = sw - margin.left - margin.right;
