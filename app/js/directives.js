@@ -195,9 +195,6 @@ angular.module('myApp.directives', ['kendo.directives']).
                 var circles = innerChart.selectAll('circle')
                     .data(scope.selectedCareersData, function(d) { return d.career_name; })
 
-                var labels = innerChart.selectAll('text.sk-career-bubble-label')
-                    .data(scope.selectedCareersData, function(d) { return d.career_name; })
-
                 circles.enter().append('circle')
                   .classed('sk-data-point', true)
                   //must prepend existing classes
@@ -214,31 +211,36 @@ angular.module('myApp.directives', ['kendo.directives']).
                     .attr('r', function(d) { return d3Scales.bubbleRadiusScale(d.career_2012_emp); })
                     .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp); });
 
-                labels.enter().append('text')
-                    .classed('sk-career-bubble-label', true)
-                    .attr('text-anchor', 'middle')
-                    .text(function(d, i){ return alphabet[i]; })
-                    .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
-                    //2 is arbitrary distance to provide space between bubble and label 
-                    .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - d3Scales.bubbleRadiusScale(d.career_2012_emp) - 2; })
-                    .attr('opacity', 0)
-                    .transition()
-                      .delay(function(d, i) { return i * 100; })
-                      .duration(1000)
-                      .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp)});
+                //Eliminating the labels removes chart clutter for now. May add the labels back at some point 
+                //if the labels could be set to the first few letters of the career name without cluttering the chart. 
 
-                labels.text(function(d, i){ return alphabet[i]; })
+                // var labels = innerChart.selectAll('text.sk-career-bubble-label')
+                //     .data(scope.selectedCareersData, function(d) { return d.career_name; })
+
+                // labels.enter().append('text')
+                //     .classed('sk-career-bubble-label', true)
+                //     .attr('text-anchor', 'middle')
+                //     .text(function(d, i){ return alphabet[i]; })
+                //     .attr('x', function(d) { return xScale(d.career_percent_emp_change); })
+                //     //2 is arbitrary distance to provide space between bubble and label 
+                //     .attr('y', function(d) { return yScale(d.career_med_ann_wage/1000) - d3Scales.bubbleRadiusScale(d.career_2012_emp) - 2; })
+                //     .attr('opacity', 0)
+                //     .transition()
+                //       .delay(function(d, i) { return i * 100; })
+                //       .duration(1000)
+                //       .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp)});
+
+                // labels.text(function(d, i){ return alphabet[i]; })
+              
+                // labels.exit().transition()
+                //     .duration(500)
+                //     .attr('opacity', 0)
+                //     .remove();
 
                 circles.exit().transition()
                     .duration(500)
                     .attr('r', 0)
                     .remove();
-
-                labels.exit().transition()
-                    .duration(500)
-                    .attr('opacity', 0)
-                    .remove();
-
               }
 
               updateGraph();

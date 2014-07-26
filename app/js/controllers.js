@@ -60,18 +60,6 @@ angular.module('myApp.controllers', ['kendo.directives'])
         animation: false
     }
 
-    $scope.windowOptions = {
-        open: function() {
-            console.log('open');
-            $('.k-window').on('click', function() {
-                console.log(this.className);
-                var careerNum = $.grep(this.className.split(" "), function(v, i){
-                       return v.indexOf('btn') === 0;
-                   }).join();
-            })
-        }
-    }
-
     //get career data 
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {

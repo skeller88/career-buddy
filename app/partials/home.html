@@ -22,7 +22,7 @@
             <button class="sk-button" ng-click="resetSelected()">Reset</button>
         </div>
         <div class="sk-button-container sk-table-cell">
-            <button class="sk-button" kendo-tooltip="moneyTip" k-options="moneyTipOptions" ng-click="compareTopPaying()">Money</button>
+            <button class="sk-button" kendo-tooltip="moneyTip" k-options="moneyTipOptions" ng-click="compareTopPaying()">Salary</button>
             <button class="sk-button" kendo-tooltip="growthTip" k-options="growthTipOptions" ng-click="compareFastestGrowing()">Growth</button>
         </div>
     </div>
@@ -34,17 +34,29 @@
         Please select less than 5 careers. Too many careers won't look good on the chart!
     </div>
     <div class="sk-legend-wrapper" ng-show="showLegend">
-        <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-options="windowOptions" k-on-close="chartLegendVisible = false">
+        <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-on-close="chartLegendVisible = false">
             <div class="sk-legend-content k-content" kendo-tab-strip k-options="tabStripOptions">
                 <!-- tab list -->
                 <ul>
                   <li class="k-state-active">Career Names</li>
                   <li>Bubbles</li>
                 </ul>
-               <div class="sk-legend-careers">
+                <div class="sk-legend-careers">
                    <ul>
-                     <div class="sk-legend-career" ng-class="{'sk-highlight-career': highlightCareer}" career-num="{{careerNum}}" ng-mouseover="addHighlight(careerNum); highlightCareer = true;" ng-mouseout="removeHighlight(careerNum); highlightCareer = false;" ng-repeat="(careerNum, career) in selectedCareersData">
-                        <span class="sk-legend-career-id">{{alphabet[careerNum]}}: </span><span class="sk-legend-career-name">{{career.career_name}}</span>
+                     <div class="sk-legend-career" ng-class="{'sk-highlight-career': highlightCareer}" career-num="{{careerNum}}" ng-mouseover="addHighlight(careerNum); showCareerInfo = true; highlightCareer = true;" ng-mouseout="removeHighlight(careerNum); showCareerInfo = false; highlightCareer = false;" ng-repeat="(careerNum, career) in selectedCareersData">
+                        <!-- <span class="sk-legend-career-id">{{alphabet[careerNum]}}: </span> -->
+                        <span class="sk-legend-career-name">{{career.career_name}}</span>
+                        <div class="sk-legend-career-info" ng-show="showCareerInfo">
+                            <div>
+                                <span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data"> {{career.career_2012_emp | number}} (thousands)</span>
+                            </div>
+                            <div>
+                                <span class="sk-tooltip-label">Expected change in demand: </span><span class="sk-tooltip-data"> {{career.career_percent_emp_change}}%</span>
+                            </div>
+                            <div>
+                                <span class="sk-tooltip-label">Annual wage: </span><span class="sk-tooltip-data">${{career.career_med_ann_wage | number}} </span>
+                            </div>
+                        </div>
                      </div>
                    </ul>
                 </div>
