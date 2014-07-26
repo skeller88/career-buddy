@@ -190,8 +190,13 @@ html, body {
     /* american flag blue */
     fill: #00348c;
 }
+/* use a class name in cases where unable to add pseudo selector to an element using d3.select(),
+but want the effect of doing so */
 .sk-data-point:hover {
     fill: #0ca4e0;
+}
+.sk-data-point-selected {
+    fill: red;
 }
 .sk-career-bubble-label {
     font-size: 0.8rem;
@@ -302,6 +307,9 @@ html, body {
 }
 .sk-legend-bubbles-content {
     padding: 10px;
+}
+.sk-highlight-career {
+    background-color: rgba(255,0,0,0.2);
 }
 /* ANIMATIONS
 ============================================================================= */

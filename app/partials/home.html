@@ -34,7 +34,7 @@
         Please select less than 5 careers. Too many careers won't look good on the chart!
     </div>
     <div class="sk-legend-wrapper" ng-show="showLegend">
-        <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-on-close="chartLegendVisible = false">
+        <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-options="windowOptions" k-on-close="chartLegendVisible = false">
             <div class="sk-legend-content k-content" kendo-tab-strip k-options="tabStripOptions">
                 <!-- tab list -->
                 <ul>
@@ -43,7 +43,7 @@
                 </ul>
                <div class="sk-legend-careers">
                    <ul>
-                     <div class="sk-legend-career" ng-repeat="(careerNum, career) in selectedCareersData">
+                     <div class="sk-legend-career" ng-class="{'sk-highlight-career': highlightCareer}" career-num="{{careerNum}}" ng-mouseover="addHighlight(careerNum); highlightCareer = true;" ng-mouseout="removeHighlight(careerNum); highlightCareer = false;" ng-repeat="(careerNum, career) in selectedCareersData">
                         <span class="sk-legend-career-id">{{alphabet[careerNum]}}: </span><span class="sk-legend-career-name">{{career.career_name}}</span>
                      </div>
                    </ul>
@@ -62,4 +62,3 @@
     <div sk-ep-chart selected-careers-data="selectedCareersData" class="sk-career-visualizer">
     </div>  
 </section>
-<!-- 

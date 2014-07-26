@@ -60,6 +60,18 @@ angular.module('myApp.controllers', ['kendo.directives'])
         animation: false
     }
 
+    $scope.windowOptions = {
+        open: function() {
+            console.log('open');
+            $('.k-window').on('click', function() {
+                console.log(this.className);
+                var careerNum = $.grep(this.className.split(" "), function(v, i){
+                       return v.indexOf('btn') === 0;
+                   }).join();
+            })
+        }
+    }
+
     //get career data 
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {
@@ -113,6 +125,17 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.disableLegendButton = false;
         $scope.resetSelected();
         $scope.getDataAndShowChart(savedCareers.fastestGrowingCareers);
+    }
+
+    $scope.addHighlight = function(careerNum) {
+        
+        d3.select('.sk-data-point-num-' + careerNum)
+            .classed({'sk-data-point-selected': true, 'sk-data-point': false})
+    }
+
+    $scope.removeHighlight = function(careerNum) {
+        d3.select('.sk-data-point-num-' + careerNum)
+            .classed({'sk-data-point-selected': false, 'sk-data-point': true})
     }
 
     $scope.getCareerNames();

@@ -5,23 +5,23 @@
 Precondition: No careers entered
 Postcondition: empty multiselect, no chart
 
-Precondition: 1 career entered
+Precondition: 1 career entered, chart button clicked
 Postcondition: multiselect with 1 career, no chart
 
-Precondition: 2 careers
+Precondition: 2 careers, chart button clicked
 Postcondition: multiselect with 2 careers, chart
 
-Precondition: 21 careers
+Precondition: 21 careers, chart button clicked
 Postcondition: multiselect with 21 careers, no chart, error message
 
 ####After app loaded
-Precondition: 1 career entered
+Precondition: 1 career entered, chart button clicked
 Postcondition: multiselect with 1 career, no chart
 
-Precondition: 2 careers entered
+Precondition: 2 careers entered, chart button clicked
 Postcondition: multiselect with 2 careers, chart
 
-Precondition: 21 careers entered
+Precondition: 21 careers entered, chart button clicked
 Postcondition: multiselect with 21 careers, no chart, error message
 
 Precondition: 2 careers previously entered, 1 career deleted
