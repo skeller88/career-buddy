@@ -18,13 +18,9 @@
             <button class="sk-button" ng-click="resetSelected()">Reset</button>
         </div>
         <div class="sk-button-container sk-table-cell">
-            <button class="sk-button" kendo-tooltip="moneyTip" k-options="moneyTipOptions" ng-click="compareTopPaying()">Salary</button>
-            <button class="sk-button" kendo-tooltip="growthTip" k-options="growthTipOptions" ng-click="compareFastestGrowing()">Growth</button>
+            <button class="sk-button" kendo-tooltip="moneyTip" k-options="moneyTipOptions" ng-click="compareTopPaying()">Highest Paying Careers</button>
+            <button class="sk-button" kendo-tooltip="growthTip" k-options="growthTipOptions" ng-click="compareFastestGrowing()">Fastest Growing Careers</button>
         </div>
-    </div>
-    <div class="sk-tooltip-selector-parent">
-        <div class="sk-tooltip-selector" ng-show="showWelcomeTip">Welcome to Career Buddy, the app that helps you find the perfect career for you.</div>
-        <div class="sk-tooltip-selector" ng-show="showChartTip">When you've selected at least 2 careers, click the "Chart" button to compare them.</div>
     </div>
     <div class="sk-multi-select-error" ng-show="selectedCareerNames.length > 5">
         Please select less than 5 careers.
@@ -43,13 +39,13 @@
                         <span class="sk-legend-career-name">{{career.career_name}}</span>
                         <div class="sk-legend-career-info" ng-show="showCareerInfo">
                             <div>
-                                <span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data"> {{career.career_2012_emp | number}} (thousands)</span>
+                                <span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">{{career.career_2012_emp*1000 | number}}</span>
                             </div>
                             <div>
-                                <span class="sk-tooltip-label">Expected change in demand: </span><span class="sk-tooltip-data"> {{career.career_percent_emp_change}}%</span>
+                                <span class="sk-tooltip-label">Expected change in demand: </span><span class="sk-tooltip-data">{{career.career_percent_emp_change}}%</span>
                             </div>
                             <div>
-                                <span class="sk-tooltip-label">Annual wage: </span><span class="sk-tooltip-data">${{career.career_med_ann_wage | number}} </span>
+                                <span class="sk-tooltip-label">Annual wage: </span><span class="sk-tooltip-data">${{career.career_med_ann_wage | number}}</span>
                             </div>
                         </div>
                      </div>

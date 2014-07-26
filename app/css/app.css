@@ -467,3 +467,19 @@ but want the effect of doing so. Color should match the color for '.sk-highlight
         -webkit-transform: translateX(-100%);
     }
 }
+
+/* ABOUT PAGE
+============================================================================= */
+.sk-powered-by-header {
+    /* override h3 styling */
+    margin-bottom: 0;
+}
+.sk-powered-by-image {
+    padding: 0 20px;
+    max-width: 150px;
+    max-height: 250px;
+}
+
+.sk-powered-by-image:first-child {
+    padding-left: 0;
+}
