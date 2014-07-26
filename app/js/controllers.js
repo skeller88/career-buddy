@@ -3,18 +3,14 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['kendo.directives'])
-  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'alphabet', 'careersAPI', 'd3Scales', 'localStorage', 'savedCareers', function($log, $scope, $timeout, alphabet, careersAPI, d3Scales, localStorage, savedCareers) {
+  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'careersAPI', 'd3Scales', 'localStorage', 'savedCareers', function($log, $scope, $timeout, careersAPI, d3Scales, localStorage, savedCareers) {
     //variables
-    $scope.alphabet = alphabet;
     $scope.selectedCareersData = [];
     $scope.selectedCareerNames = [];
     $scope.savedCareers = savedCareers;
     //prevents flicker of kendo window widget 
     $scope.showLegend = false;
     $scope.disableLegendButton = true;
-    $scope.showWelcomeTip = false;
-    $scope.showChartTip = false;
-    $scope.welcomeTourIntro = 'uninitialized';
     var isStubbedD3 = false;
     var dataSource = new kendo.data.DataSource({
         data: []
@@ -30,7 +26,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
         hide: function() {
             $timeout(function() {
                 $scope.moneyTip.destroy();
-            }, 1000)
+            }, 3000)
         },
         position: 'top'
     }
@@ -41,7 +37,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
         hide: function() {
             $timeout(function() {
                 $scope.growthTip.destroy();
-            }, 1000)
+            }, 3000)
         },
         position: 'bottom'
     }
@@ -63,7 +59,6 @@ angular.module('myApp.controllers', ['kendo.directives'])
     //get career data 
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {
-            console.log(data);
             dataSource.data(data);
             //ensures that multiselect widget only fades in when career names have been loaded
             $scope.careerNamesLength = data.length;

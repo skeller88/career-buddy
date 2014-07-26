@@ -1,9 +1,5 @@
 <!-- choose career -->
-<!-- <div sk-legend-bubbles style="min-height:300px;">
-</div> -->
 <section class="sk-career-selector sk-fade" ng-class="{'sk-in': careerNamesLength}">
-    <!-- <h3>Finding a good career is hard.</h3> -->
-    <!-- <h4>Let Career Buddy help choose the best career for you.</h4> -->
     <div class="sk-career-selector-content">
         <div class="sk-multi-select-container sk-table-cell">
             <div class="sk-overflow-table-cell">
@@ -31,7 +27,7 @@
         <div class="sk-tooltip-selector" ng-show="showChartTip">When you've selected at least 2 careers, click the "Chart" button to compare them.</div>
     </div>
     <div class="sk-multi-select-error" ng-show="selectedCareerNames.length > 5">
-        Please select less than 5 careers. Too many careers won't look good on the chart!
+        Please select less than 5 careers.
     </div>
     <div class="sk-legend-wrapper" ng-show="showLegend">
         <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-on-close="chartLegendVisible = false">
@@ -43,8 +39,7 @@
                 </ul>
                 <div class="sk-legend-careers">
                    <ul>
-                     <div class="sk-legend-career" ng-class="{'sk-highlight-career': highlightCareer}" career-num="{{careerNum}}" ng-mouseover="addHighlight(careerNum); showCareerInfo = true; highlightCareer = true;" ng-mouseout="removeHighlight(careerNum); showCareerInfo = false; highlightCareer = false;" ng-repeat="(careerNum, career) in selectedCareersData">
-                        <!-- <span class="sk-legend-career-id">{{alphabet[careerNum]}}: </span> -->
+                     <div class="sk-legend-career" ng-class="{'sk-highlight-career': highlightCareer}" career-num="{{careerNum}}" ng-mouseover="addHighlight(careerNum); showCareerInfo = true; highlightCareer = true;" ng-mouseout="removeHighlight(careerNum); showCareerInfo = false; highlightCareer = false;" ng-repeat="(careerNum, career) in selectedCareersData | orderBy:'career_name'">
                         <span class="sk-legend-career-name">{{career.career_name}}</span>
                         <div class="sk-legend-career-info" ng-show="showCareerInfo">
                             <div>
@@ -66,8 +61,6 @@
         </div>
     </div>
 </section>
-
-
 
 <!-- chart results --> 
 <section class="sk-career-visualizer-container sk-fade" ng-class="{'sk-in': selectedCareersData.length}">
