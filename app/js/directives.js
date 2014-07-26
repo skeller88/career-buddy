@@ -196,9 +196,7 @@ angular.module('myApp.directives', ['kendo.directives']).
                     .data(scope.selectedCareersData, function(d) { return d.career_name; })
 
                 circles.enter().append('circle')
-                  .classed('sk-data-point', true)
-                  //must prepend existing classes
-                  .attr("class", function(d, i) { return d3.select(this).attr("class") + " " + 'sk-data-point-num-' + i; })
+                  .attr("class", function(d, i) { return 'sk-data-point' + ' ' + 'sk-data-point-num-' + i; })
                   .attr('cx', function(d) { return xScale(d.career_percent_emp_change); })
                   .attr('cy', function(d) { return yScale(d.career_med_ann_wage/1000); })
                   .attr('r', 0)
@@ -231,6 +229,8 @@ angular.module('myApp.directives', ['kendo.directives']).
                 //       .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp)});
 
                 // labels.text(function(d, i){ return alphabet[i]; })
+                circles
+                    .attr("class", function(d, i) { return 'sk-data-point' + ' ' + 'sk-data-point-num-' + i; })
               
                 // labels.exit().transition()
                 //     .duration(500)

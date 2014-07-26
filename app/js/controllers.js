@@ -64,7 +64,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
             $scope.careerNamesLength = data.length;
             $scope.selectedCareerNames = localStorage.get('careerNames') || [];
 
-            if($scope.selectedCareerNames.length > 1 && $scope.selectedCareerNames.length < 20) {
+            if($scope.selectedCareerNames.length > 1 && $scope.selectedCareerNames.length < 5) {
                 $scope.compare();
             }
         }).error(function(err) {
@@ -75,7 +75,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.getDataAndShowChart = function(careerNames) {
         var careerNames = careerNames || $scope.selectedCareerNames;
         careersAPI.getCareerData(careerNames).success(function(data) {
-            $scope.selectedCareersData = data;
+            $scope.selectedCareersData = data.sort(function(a, b) { return a.career_name > b.career_name; });
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
         });
@@ -127,7 +127,6 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
 
-    localStorage.set('showTooltips', true);
     $timeout(function() {
         if(localStorage.get('showTooltips')) {
             localStorage.set('showTooltips', false);
