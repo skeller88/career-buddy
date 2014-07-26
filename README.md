@@ -1,12 +1,6 @@
 # Career Buddy
 
-# Notes on the data
-
-### Descriptive Stats
-career_2012_emp
-- min: 0
-- max: 22470
-
+Career Buddy helps people find the best career for them by helping them explore the latest employment projections from the Bureau of Labor Statistics. Users can visualize the highest paying careers, the fastest growing careers, or their own custom set of careers.  
 
 ## Getting Started - developers 
 
@@ -14,37 +8,26 @@ To get you started you can simply clone the career-buddy repository and install 
 
 ### Prerequisites
 
-You need git to clone the angular-seed repository. You can get it from
-[https://github.com/skeller88/career-buddy](https://github.com/skeller88/career-buddy).
+Clone the career-buddy repository from [https://github.com/skeller88/career-buddy](https://github.com/skeller88/career-buddy).
 
-Install node.js, its package manager (npm), and bower.  You can get them from [http://nodejs.org/](http://nodejs.org/) and [http://bower.io/](http://bower.io/).
+Install node.js, its package manager (npm), and bower, from [http://nodejs.org/](http://nodejs.org/) and [http://bower.io/](http://bower.io/).
 
 ### Install Dependencies
 
-We have two kinds of dependencies in this project: tools and angular framework code.  The tools help us manage and test the application.
+There are two kinds of dependencies in this project: tools and angular framework code.  The tools help manage and test the application.
 
-* We get the tools we depend upon via `npm`, the [node package manager][npm].
-* We get the angular code via `bower`, a [client-side code package manager][bower].
-
-We have preconfigured `npm` to automatically run `bower` so we can simply do:
+ `npm` is preconfigured to automatically run `bower` so after cloning the repo, run the following command:
 
 ```
 npm install
 ```
 
-Behind the scenes this will also call `bower install`.  You should find that you have two new folders in your project.
+Behind the scenes this will also call `bower install`.  After runing `npm install` the project should have two new folders.
 
 * `node_modules` - contains the npm packages for the tools we need
 * `app/bower_components` - contains the angular framework files
 
 *Note that the `bower_components` folder would normally be installed in the root folder but angular-seed changes this location through the `.bowerrc` file.  Putting it in the app folder makes it easier to serve the files by a webserver.*
-
-### Data Cleaning
-Excel insert statements used. 
-
-8 entries with career_med_ann_wage = '>=$187,200' changed to '$187,200'.
-
-entries with career_edu containing "'" changed to "''"
 
 ### Run the Application
 
@@ -60,25 +43,18 @@ nodemon src/server.js
 
 Now browse to the app at `http://localhost:3000/#/`.
 
+### Run Tests
 
-## Updating Angular
 
-Previously we recommended that you merge in changes to angular-seed into your own fork of the project.
-Now that the angular framework library code and tools are acquired through package managers (npm and
-bower) you can use these tools instead to update the dependencies.
-
-You can update the tool dependencies by running:
+## Updating Dependencies
+To find the latest versions that match the version ranges specified in the `package.json` file, run: 
 
 ```
 npm update
 ```
 
-This will find the latest versions that match the version ranges specified in the `package.json` file.
-
-You can update the Angular dependencies by running:
+To find the latest versions that match the version ranges specified in the `bower.json` file, including Angular, run:
 
 ```
 bower update
 ```
-
-This will find the latest versions that match the version ranges specified in the `bower.json` file.
