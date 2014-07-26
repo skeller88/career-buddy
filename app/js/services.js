@@ -60,7 +60,6 @@ angular.module('myApp.services', [])
       var localStorageKeys = {};
 
       angular.element($window).on('storage', function(event) {
-          console.log(event.key);
           //avoid unnecessary triggers of digest cycle for any localStorage change
           if (event.key in localStorageKeys) {
               $rootScope.$apply();
@@ -87,7 +86,7 @@ angular.module('myApp.services', [])
       if($window.localStorage) {
           if(!get('careerNames')) set('careerNames', []);
           //account for undefined and false values 
-          if(!get('showTour') && !(typeof get('showTour') === 'boolean')) set('showTour', true);
+          if(!get('showTooltips') && !(typeof get('showTooltips') === 'boolean')) set('showTooltips', true);
       }
 
       return {
@@ -95,12 +94,71 @@ angular.module('myApp.services', [])
           set: set
       };
   }])
+  //Was used at one point to generate bubble labels. No longer used. Keeping for several 
+  //more app versions in case user feedback is in favor of bubble labels. 
   .factory('alphabet', [function() {
       //20 may be too many
       return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   }])
+  .factory('mergeSort', [function() {
+      //implementation used: https://github.com/millermedeiros/amd-utils/blob/master/src/array/sort.js
+      return (function () {
+
+          /**
+           * Merge sort (http://en.wikipedia.org/wiki/Merge_sort)
+           * @version 0.1.0 (2012/05/23)
+           */
+          function mergeSort(arr, compareFn) {
+              if (arr.length < 2) {
+                  return arr;
+              }
+
+              if (compareFn == null) {
+                  compareFn = defaultCompare;
+              }
+
+              var mid, left, right;
+
+              mid   = ~~(arr.length / 2);
+              left  = mergeSort( arr.slice(0, mid), compareFn );
+              right = mergeSort( arr.slice(mid, arr.length), compareFn );
+
+              return merge(left, right, compareFn);
+          }
+
+          function defaultCompare(a, b) {
+              return a < b ? -1 : (a > b? 1 : 0);
+          }
+
+          function merge(left, right, compareFn) {
+              var result = [];
+
+              while (left.length && right.length) {
+                  if (compareFn(left[0], right[0]) <= 0) {
+                      // if 0 it should preserve same order (stable)
+                      result.push(left.shift());
+                  } else {
+                      result.push(right.shift());
+                  }
+              }
+
+              if (left.length) {
+                  result.push.apply(result, left);
+              }
+
+              if (right.length) {
+                  result.push.apply(result, right);
+              }
+
+              return result;
+          }
+
+          return mergeSort;
+      })();
+  }])
   .factory('savedCareers', [function() {
       var fastestGrowingCareers = [
+      //10 vs 11
           'Industrial-organizational psychologists',
           'Personal care aides',
           'Home health aides',
@@ -111,8 +169,8 @@ angular.module('myApp.services', [])
           'Physical therapist assistants',
           'Physical therapist aides',
           'Skincare specialists',
-          'Physician assistants',
           'Segmental pavers',
+          'Physician assistants',
           'Helpers--electricians',
           'Information security analysts',
           'Occupational therapy aides',

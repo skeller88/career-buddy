@@ -142,7 +142,7 @@ angular.module('myApp.directives', ['kendo.directives']).
 
                     return '<h4 class="sk-career-name">' + d.career_name + '</h4>' +
                         '<div >' +
-                            '<span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">' + $filter('number')(d.career_2012_emp) + ' (thousands)</span>' +
+                            '<span class="sk-tooltip-label">People employed: </span><span class="sk-tooltip-data">' + $filter('number')(d.career_2012_emp*1000) + '</span>' +
                         '</div>' +
                         '<div class="sk-emp-change">' +
                             '<span class="sk-tooltip-label">Expected change in demand: </span><span class="sk-tooltip-data">' + d.career_percent_emp_change + '%</span>' +
@@ -209,6 +209,16 @@ angular.module('myApp.directives', ['kendo.directives']).
                     .attr('r', function(d) { return d3Scales.bubbleRadiusScale(d.career_2012_emp); })
                     .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp); });
 
+                  circles
+                    .attr("class", function(d, i) { return 'sk-data-point' + ' ' + 'sk-data-point-num-' + i; })
+                
+
+                  circles.exit().transition()
+                    .duration(500)
+                    .attr('r', 0)
+                    .remove();
+              }
+
                 //Eliminating the labels removes chart clutter for now. May add the labels back at some point 
                 //if the labels could be set to the first few letters of the career name without cluttering the chart. 
 
@@ -229,19 +239,11 @@ angular.module('myApp.directives', ['kendo.directives']).
                 //       .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp)});
 
                 // labels.text(function(d, i){ return alphabet[i]; })
-                circles
-                    .attr("class", function(d, i) { return 'sk-data-point' + ' ' + 'sk-data-point-num-' + i; })
-              
+
                 // labels.exit().transition()
                 //     .duration(500)
                 //     .attr('opacity', 0)
                 //     .remove();
-
-                circles.exit().transition()
-                    .duration(500)
-                    .attr('r', 0)
-                    .remove();
-              }
 
               updateGraph();
 

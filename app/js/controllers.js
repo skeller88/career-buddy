@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['kendo.directives'])
-  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'careersAPI', 'd3Scales', 'localStorage', 'savedCareers', function($log, $scope, $timeout, careersAPI, d3Scales, localStorage, savedCareers) {
+  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'careersAPI', 'd3Scales', 'localStorage', 'mergeSort', 'savedCareers', function($log, $scope, $timeout, careersAPI, d3Scales, localStorage, mergeSort, savedCareers) {
     //variables
     $scope.selectedCareersData = [];
     $scope.selectedCareerNames = [];
@@ -75,7 +75,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.getDataAndShowChart = function(careerNames) {
         var careerNames = careerNames || $scope.selectedCareerNames;
         careersAPI.getCareerData(careerNames).success(function(data) {
-            $scope.selectedCareersData = data.sort(function(a, b) { return a.career_name > b.career_name; });
+            $scope.selectedCareersData = mergeSort(data, function(a, b) { return a.career_name > b.career_name; });
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
         });
@@ -131,8 +131,10 @@ angular.module('myApp.controllers', ['kendo.directives'])
         if(localStorage.get('showTooltips')) {
             localStorage.set('showTooltips', false);
         } else {
-            $scope.moneyTip.destroy();
-            $scope.growthTip.destroy();
+            if($scope.moneyTip && $scope.growthTip) {
+                $scope.moneyTip.destroy();
+                $scope.growthTip.destroy();
+            }
         }
     }, 1000);
   }]);
