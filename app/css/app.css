@@ -193,6 +193,9 @@ html, body {
 .sk-data-point:hover {
     fill: #0ca4e0;
 }
+.sk-career-bubble-label {
+    font-size: 0.8rem;
+}
 /* TOOLTIPS
 ============================================================================= */
 
@@ -285,7 +288,7 @@ html, body {
 }
 .sk-legend-careers {
     max-height: 250px;
-    overflow: auto;
+    overflow: scroll;
 }
 .sk-legend-career-id {
     font-weight: bold;

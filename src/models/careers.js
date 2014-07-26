@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var dbHelpers = require('../util/dbHelpers.js');
 var nearCache = require('../server/nearCache.js');
 var Promise = require('bluebird');
@@ -7,6 +8,7 @@ module.exports = function(dbHelpers, nearCache, Promise) {
         return new Promise(function(resolve, reject) {
             nearCache.get('careerNames', dbHelpers.queryCareerNames)
             .then(function(careerNames) {
+                //for faster lookup of career names in multiselect widget on client side
                 resolve(careerNames);
             }, function(err) {
                 reject(err);

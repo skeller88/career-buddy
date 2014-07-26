@@ -97,7 +97,7 @@ angular.module('myApp.services', [])
   }])
   .factory('alphabet', [function() {
       //20 may be too many
-      return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'];
+      return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   }])
   .factory('savedCareers', [function() {
       var fastestGrowingCareers = [
@@ -120,7 +120,12 @@ angular.module('myApp.services', [])
           'Medical secretaries',
           'Physical therapists',
           'Orthotists and prosthetists',
-          'Brickmasons and blockmasons'
+          'Brickmasons and blockmasons',
+          'Nursing instructors and teachers, postsecondary',
+          'Nurse practitioners',
+          'Audiologists',
+          'Dental hygienists',
+          'Meeting, convention, and event planners'
       ];
 
       var topPayingCareers = [

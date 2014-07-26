@@ -71,9 +71,6 @@ angular.module('myApp.directives', ['kendo.directives']).
         selectedCareersData: '='
       },
       link: function(scope, element, attrs) {
-          // var svg = d3.select(element[0])
-          //       .append('svg')
-          //       .attr('class', 'sk-chart-svg');
 
           drawChart();
 
@@ -198,7 +195,7 @@ angular.module('myApp.directives', ['kendo.directives']).
                 var circles = innerChart.selectAll('circle')
                     .data(scope.selectedCareersData, function(d) { return d.career_name; })
 
-                var labels = innerChart.selectAll('text.careerBubbleLabel')
+                var labels = innerChart.selectAll('text.sk-career-bubble-label')
                     .data(scope.selectedCareersData, function(d) { return d.career_name; })
 
                 circles.enter().append('circle')
@@ -216,7 +213,7 @@ angular.module('myApp.directives', ['kendo.directives']).
                     .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp); });
 
                 labels.enter().append('text')
-                    .classed('careerBubbleLabel', true)
+                    .classed('sk-career-bubble-label', true)
                     .attr('text-anchor', 'middle')
                     .text(function(d, i){ return alphabet[i]; })
                     .attr('x', function(d) { return xScale(d.career_percent_emp_change); })

@@ -8,8 +8,10 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.alphabet = alphabet;
     $scope.selectedCareersData = [];
     $scope.selectedCareerNames = [];
+    $scope.savedCareers = savedCareers;
     //prevents flicker of kendo window widget 
     $scope.showLegend = false;
+    $scope.disableLegendButton = true;
     $scope.showWelcomeTip = false;
     $scope.showChartTip = false;
     $scope.welcomeTourIntro = 'uninitialized';
@@ -21,75 +23,36 @@ angular.module('myApp.controllers', ['kendo.directives'])
     //kendo widgets
 
     //tooltips for tour functionality - must be in reverse order of their appearance in tour
-    $scope.welcomeTourClearOptions = {
-        content: 'clear all currently selected careers,',
-        autoHide: false,
-        showOn: 'focus',
+
+    $scope.moneyTipOptions = {
+        autohide: false,
+        content: 'Select and compare the highest paying careers.',
         hide: function() {
-            $scope.welcomeTourClear.destroy();
-            $scope.welcomeTourMoney.show();
+            $timeout(function() {
+                $scope.moneyTip.destroy();
+            }, 1000)
         },
         position: 'top'
     }
 
-    $scope.welcomeTourMoneyOptions = {
-        content: 'select and compare the highest paying careers,',
-        autoHide: false,
-        showOn: 'focus',
+    $scope.growthTipOptions = {
+        autohide: false,
+        content: 'Select and compare the fastest growing careers.',
         hide: function() {
-            $scope.welcomeTourMoney.destroy();
-            $scope.welcomeTourGrowth.show();
-        },
-        position: 'left'
-    }
-
-    $scope.welcomeTourGrowthOptions = {
-        content: 'and select and compare the fastest growing careers. Have fun!',
-        autoHide: false,
-        showOn: 'focus',
-        hide: function() {
-            $scope.welcomeTourGrowth.destroy();
+            $timeout(function() {
+                $scope.growthTip.destroy();
+            }, 1000)
         },
         position: 'bottom'
     }
 
-    $scope.welcomeTourLegendOptions = {
-        content: 'You can also interpret the results,',
-        autoHide: false,
-        hide: function() {
-            $scope.welcomeTourLegend.destroy();
-            $scope.welcomeTourClear.show();
-        },
-        showOn: 'focus'
-    }
-
-    $scope.welcomeTourChartOptions = {
-        content: 'When you\'ve selected at least two careers, click the "Chart" button to generate a comparison.',
-        autoHide: false,
-        hide: function() {
-            $scope.welcomeTourChart.destroy();
-            $scope.welcomeTourLegend.show();
-        },
-        showOn: 'focus',
-    }
-
-    $scope.welcomeTourIntroOptions = {
-        content: 'Welcome to Career Buddy, the app that helps you find the best career for you.',
-        autoHide: false,
-        hide: function() {
-            $scope.welcomeTourIntro.destroy();
-            $scope.welcomeTourChart.show();
-        },
-        position: 'bottom',
-        showOn: 'focus'
-    }
-
     $scope.selectOptions = {    
-        placeholder: "Select at least two careers to compare.",
+        autoBind: false,
         dataTextField: "career_name",
         dataValueField: "career_name",
-        autoBind: false,
-        dataSource: dataSource
+        dataSource: dataSource,
+        placeholder: 'Select at least two careers to compare.',
+        filter: 'contains'
     };
 
     //prevents flicker of overflow scrollbar
@@ -100,6 +63,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     //get career data 
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {
+            console.log(data);
             dataSource.data(data);
             //ensures that multiselect widget only fades in when career names have been loaded
             $scope.careerNamesLength = data.length;
@@ -113,9 +77,9 @@ angular.module('myApp.controllers', ['kendo.directives'])
         });
     }
 
-    $scope.getDataAndShowChart = function() {
-        console.log($scope.selectedCareerNames);
-        careersAPI.getCareerData($scope.selectedCareerNames).success(function(data) {
+    $scope.getDataAndShowChart = function(careerNames) {
+        var careerNames = careerNames || $scope.selectedCareerNames;
+        careersAPI.getCareerData(careerNames).success(function(data) {
             $scope.selectedCareersData = data;
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
@@ -123,24 +87,32 @@ angular.module('myApp.controllers', ['kendo.directives'])
     }
 
     //event handlers
-    $scope.clearSelected = function() {
+    $scope.resetSelected = function() {
         $scope.selectedCareerNames = [];
+        localStorage.set('careerNames', $scope.selectedCareerNames);
     }
 
     $scope.compare = function() {
         localStorage.set('careerNames', $scope.selectedCareerNames);
 
+        /* necessary to reset 'disableLegendButton' flag in case user no longer
+        uses buttons that generate predetermined comparisons and instead
+        enters their own comparisons */ 
+        $scope.disableLegendButton = true;
         $scope.getDataAndShowChart();
     };
 
     $scope.compareTopPaying = function() {
-        $scope.selectedCareerNames = savedCareers.topPayingCareers;
-        $scope.compare(); 
+        //will be disabled otherwise because $scope.selectedCareerNames === []
+        $scope.disableLegendButton = false;
+        $scope.resetSelected();
+        $scope.getDataAndShowChart(savedCareers.topPayingCareers);
     }
 
     $scope.compareFastestGrowing = function() {
-        $scope.selectedCareerNames = savedCareers.fastestGrowingCareers; 
-        $scope.compare();
+        $scope.disableLegendButton = false;
+        $scope.resetSelected();
+        $scope.getDataAndShowChart(savedCareers.fastestGrowingCareers);
     }
 
     $scope.getCareerNames();
@@ -149,11 +121,13 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
 
-    localStorage.set('showTour', true);
+    localStorage.set('showTooltips', true);
     $timeout(function() {
-        if(localStorage.get('showTour')) {
-            localStorage.set('showTour', false);
-            $scope.welcomeTourIntro.show();
+        if(localStorage.get('showTooltips')) {
+            localStorage.set('showTooltips', false);
+        } else {
+            $scope.moneyTip.destroy();
+            $scope.growthTip.destroy();
         }
     }, 1000);
   }]);
