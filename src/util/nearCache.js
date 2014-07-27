@@ -8,7 +8,7 @@ module.exports = function(Promise) {
     function get(key, missHandler) {
 
       var params = Array.prototype.slice.call(arguments, 2);
-      
+
       return new Promise(function(resolve, reject) {
           //handle lookup of arrays in nearCache
           if(Array.isArray(key)) {
@@ -20,7 +20,7 @@ module.exports = function(Promise) {
               resolve(cache[cacheKey]);
           } else {
               if(!missHandler) {
-                  reject('no missHandler');
+                  reject(new Error('no missHandler'));
               }
               missHandler.apply(undefined, params).then(function(result) {
                   set(key, result);

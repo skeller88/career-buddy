@@ -14,7 +14,7 @@ function missHandler(key) {
         if(data[key]){ 
             resolve(data[key]);
         } else {
-            reject(key + ' ' + 'not found.');
+            reject(new Error(key + ' ' + 'not found.'));
         }
     });
 }
@@ -48,6 +48,6 @@ describe('nearCache.get', function() {
 
     it('rejects a promise when missing the miss handler param and when a property is not in the cache', function() {
         var nearCacheGet = nearCache.get('foo');
-        return assert.eventually.fail(nearCacheGet, 'no missHandler', 'function promise was not rejected');
+        return assert.isRejected(nearCacheGet, 'function promise was not rejected');
     });
 });
