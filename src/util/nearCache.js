@@ -1,9 +1,9 @@
-var Promise = require('promise.js');
+var Promise = require('./promise.js');
 
 module.exports = function(Promise) {
     var cache = {};
 
-    //missHandler returns a promise
+    //missHandler should be a promise
     function get(key, missHandler) {
 
       return new Promise(function(resolve, reject) {

@@ -1,12 +1,10 @@
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
-var _ = require('underscore');
 var console = require('console');
 var careers = require('./models/careers');
 var dbHelpers = require('./util/dbHelpers');
 var app = express();
-// var knex = dbHelpers.connectToDB();
 
 function sendWithJSONProtection(req, res, next) {
     var padding = ')]}\',\n';

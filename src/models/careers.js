@@ -1,7 +1,6 @@
-var _ = require('underscore');
 var dbHelpers = require('../util/dbHelpers.js');
-var nearCache = require('../server/nearCache.js');
-var Promise = require('bluebird');
+var nearCache = require('../util/nearCache.js');
+var Promise = require('../util/promise.js');
 
 module.exports = function(dbHelpers, nearCache, Promise) {
     function getAllCareerNames() {
