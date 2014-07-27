@@ -4,8 +4,11 @@ module.exports = function(Promise) {
     var cache = {};
 
     //missHandler should be a promise
+    //additional params can be included and will be passed to miss handler
     function get(key, missHandler) {
 
+      var params = Array.prototype.slice.call(arguments, 2);
+      
       return new Promise(function(resolve, reject) {
           //handle lookup of arrays in nearCache
           if(Array.isArray(key)) {
@@ -19,7 +22,7 @@ module.exports = function(Promise) {
               if(!missHandler) {
                   reject('no missHandler');
               }
-              missHandler.call(undefined, key).then(function(result) {
+              missHandler.apply(undefined, params).then(function(result) {
                   set(key, result);
                   resolve(result);
               }, function(err) {

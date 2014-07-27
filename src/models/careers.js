@@ -5,7 +5,7 @@ var Promise = require('../util/promise.js');
 module.exports = function(dbHelpers, nearCache, Promise) {
     function getAllCareerNames() {
         return new Promise(function(resolve, reject) {
-            nearCache.get('careerNames', dbHelpers.queryCareerNames)
+            nearCache.get('careerNames', dbHelpers.queryCareerNames, 'careerNames')
             .then(function(careerNames) {
                 //for faster lookup of career names in multiselect widget on client side
                 resolve(careerNames);
@@ -20,7 +20,7 @@ module.exports = function(dbHelpers, nearCache, Promise) {
         return new Promise(function(resolve, reject) {
             var careerQueryKey = careerNames.sort();
 
-            nearCache.get(careerQueryKey, dbHelpers.queryCareerData)
+            nearCache.get(careerQueryKey, dbHelpers.queryCareerData, careerQueryKey)
             .then(function(careers) {
                 resolve(careers);
             }, function(err) {

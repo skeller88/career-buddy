@@ -60,14 +60,25 @@ Chart bubbles transition in and out.
 
 
 ###Server
+Routes
+- when requested all career names, responds with array of career names
+- when requested career data for specific careers, responds 
+
+Performance
+- handles x # of requests per x
+- when # of requests exceeds server capacity, does z 
+
+###Util 
 Near cache 
+- retrieves correct data for requests that have already been made:
+  - all career names
+  - career data for specific careers
+- retrieves correct data for requests that have not been made before, and stores the new data in the cache:
+  - all career names
+  - career data for specific careers
 - subsequent requests for a resource to take <5ms 
 - stores x requests in memory
 - when memory exceeded, does y
-
-Server
-- handles x # of requests per x
-- when # of requests exceeds server capacity, does z 
 
 ###Database
 - has a backup database if it fails

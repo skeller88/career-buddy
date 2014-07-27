@@ -75,6 +75,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.getDataAndShowChart = function(careerNames) {
         var careerNames = careerNames || $scope.selectedCareerNames;
         careersAPI.getCareerData(careerNames).success(function(data) {
+            console.log(data);
             $scope.selectedCareersData = mergeSort(data, function(a, b) { return a.career_name > b.career_name; });
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
