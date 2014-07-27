@@ -26,7 +26,7 @@ function getCareerNames(req, res, next) {
       console.timeEnd('careerNames');
       res.send(careerNames);
   }, function(err) {
-      console.timeEnd('careerData');
+      console.timeEnd('careerNames');
       res.send(404);
   })
 };

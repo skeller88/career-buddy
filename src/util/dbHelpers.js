@@ -1,7 +1,7 @@
 module.exports = function() {
 
   //must be invoked before any other db helper functions can query database
-  var knex = function() {
+  var dbConnectionObj = function() {
     //production
     // var pgConnectionString = process.env.DATABASE_URL || "postgres://dniqjxtclfosxv:CNS2zKW_NvlDy41DBFEsl0NzMt@ec2-54-225-101-164.compute-1.amazonaws.com:5432/daubvob22clj7l?ssl=true";
     //development
@@ -15,26 +15,8 @@ module.exports = function() {
     return knex;
   }();
 
-  function queryCareerNames() {
-    return knex
-    .select('career_name')
-    .from('careers')
-    .then(function(names) {
-      return names;
-    });
-  }
-
-  function queryCareerData(careerNames) {
-    return knex.select().from('careers')
-    .whereIn('career_name', careerNames)
-    .then(function(matchedCareers) {
-        return matchedCareers;
-    });
-  }
-
   return {
-    queryCareerNames: queryCareerNames,
-    queryCareerData: queryCareerData
+    dbConnectionObj: dbConnectionObj
   }
 }();
 
