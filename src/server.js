@@ -24,6 +24,7 @@ function getCareerNames(req, res, next) {
 
   careers.getAllCareerNames().then(function(careerNames) {
       console.timeEnd('careerNames');
+      console.log(careerNames);
       res.send(careerNames);
   }, function(err) {
       console.timeEnd('careerNames');
@@ -58,4 +59,6 @@ app.get('/careers', getCareerData);
 http.createServer(app).listen(app.get('port'), function() {
   console.info('Server now listening on port ' + app.get('port'));
 });
+
+exports.app = app;
 

@@ -1,22 +1,17 @@
-var assert = require('assert');
+var chai = require('chai');
 var dbHelpers = require('../src/util/dbHelpers.js');
+var productionConnectionString = 'postgres://ridycrnekqeenm:36ijB7sOymHbWMgmuRLVOBLofq@ec2-54-221-243-6.compute-1.amazonaws.com:5432/d1eb2fbft5f994?ssl=true';
 
-describe('dbHelpers.queryCareerNames', function() {
-    it('retrieves all career names from the database', function(done) {
-        dbHelpers.queryCareerNames().then(function(careerNames) {
-            assert.equal(careerNames.length, 1074, 'query did not select correct number of careers');
-            done();
-        });
+var assert = chai.assert;
+
+describe('dbHelpers.dbConnectionObj', function() {
+    it('connects to production database', function() {
+        assert.equal(dbHelpers.dbConnectionObj.client.connectionSettings, productionConnectionString, 'not connected to production database');
     });
-});
 
-describe('dbHelpers.queryCareerData', function() {
-    it('retrieves all data for given career names', function(done) {
-        dbHelpers.queryCareerData(['Mathematicians', 'Nurse practitioners', 'Physician assistants']).then(function(matchedCareers) {
-            var careerKeys = Object.keys(matchedCareers[0]);
-            assert.equal(careerKeys.length, 12, 'query did not select correct number of columns');
-            assert.equal(matchedCareers.length, 3, 'query did not select correct number of careers');
-            done();
-        });
+    it('has SQL squery methods', function() {
+        assert.property(dbHelpers.dbConnectionObj, 'from', 'no "from" property');
+        assert.property(dbHelpers.dbConnectionObj, 'select', 'no "select" property');
+        assert.property(dbHelpers.dbConnectionObj, 'where', 'no "where" property');
     });
 });

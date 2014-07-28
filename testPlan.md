@@ -61,8 +61,8 @@ Chart bubbles transition in and out.
 
 ###Server
 Routes
-- when requested all career names, responds with array of career names
-- when requested career data for specific careers, responds 
+- when requested all career names, responds with an array of {career_name: [name]} 
+- when requested career data for specific careers, responds with an array of {career_name: [name], career_2012_emp: [emp], ...}
 
 Performance
 - handles x # of requests per x
@@ -76,7 +76,7 @@ Near cache
 - retrieves correct data for requests that have not been made before, and stores the new data in the cache:
   - all career names
   - career data for specific careers
-- subsequent requests for a resource to take <5ms 
+- requests for a cached resource take <5ms 
 - stores x requests in memory
 - when memory exceeded, does y
 
