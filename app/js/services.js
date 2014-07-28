@@ -135,7 +135,8 @@ angular.module('myApp.services', [])
 
       var topPayingCareers = [
           'Oral and maxillofacial surgeons',
-          'Physicians and surgeons, all other',
+          //previously was 'Physicians and surgeons, all other', but that doesn't match any career_name in database
+          'Physicians and surgeons',
           'Surgeons',
           'Obstetricians and gynecologists',
           'Internists, general',
