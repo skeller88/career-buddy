@@ -1,5 +1,7 @@
 #Test Plan
 
+* = automated
+
 ###End to end
 ####When app loaded
 Precondition: No careers entered
@@ -55,30 +57,30 @@ Buttons disabled when < 2 careers || > 20 careers entered in multiselect, and en
 
 Chart bubbles transition in and out. 
 
-
 ###Models
-
+careers.js
+- retrieves all career names
+- retrieves career data for specific careers
 
 ###Server
-Routes
+server.js
 - when requested all career names, responds with an array of {career_name: [name]} 
 - when requested career data for specific careers, responds with an array of {career_name: [name], career_2012_emp: [emp], ...}
 
-Performance
-- handles x # of requests per x
+- handles x # of requests per y ms
 - when # of requests exceeds server capacity, does z 
 
 ###Util 
-Near cache 
-- retrieves correct data for requests that have already been made:
-  - all career names
-  - career data for specific careers
-- retrieves correct data for requests that have not been made before, and stores the new data in the cache:
-  - all career names
-  - career data for specific careers
+nearCache.js
+* retrieves correct data for requests that have already been made
+* retrieves correct data for requests that have not been made before, and stores the new data in the cache
 - requests for a cached resource take <5ms 
 - stores x requests in memory
 - when memory exceeded, does y
+
+dbHelpers.js
+* connects to correct database
+* connection object has orm methods
 
 ###Database
 - has a backup database if it fails
