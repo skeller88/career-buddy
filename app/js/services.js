@@ -96,65 +96,12 @@ angular.module('myApp.services', [])
   }])
   //Was used at one point to generate bubble labels. No longer used. Keeping for several 
   //more app versions in case user feedback is in favor of bubble labels. 
-  .factory('alphabet', [function() {
+  .value('alphabet', [function() {
       //20 may be too many
       return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   }])
-  .factory('mergeSort', [function() {
-      //implementation used: https://github.com/millermedeiros/amd-utils/blob/master/src/array/sort.js
-      return (function () {
-
-          /**
-           * Merge sort (http://en.wikipedia.org/wiki/Merge_sort)
-           * @version 0.1.0 (2012/05/23)
-           */
-          function mergeSort(arr, compareFn) {
-              if (arr.length < 2) {
-                  return arr;
-              }
-
-              if (compareFn == null) {
-                  compareFn = defaultCompare;
-              }
-
-              var mid, left, right;
-
-              mid   = ~~(arr.length / 2);
-              left  = mergeSort( arr.slice(0, mid), compareFn );
-              right = mergeSort( arr.slice(mid, arr.length), compareFn );
-
-              return merge(left, right, compareFn);
-          }
-
-          function defaultCompare(a, b) {
-              return a < b ? -1 : (a > b? 1 : 0);
-          }
-
-          function merge(left, right, compareFn) {
-              var result = [];
-
-              while (left.length && right.length) {
-                  if (compareFn(left[0], right[0]) <= 0) {
-                      // if 0 it should preserve same order (stable)
-                      result.push(left.shift());
-                  } else {
-                      result.push(right.shift());
-                  }
-              }
-
-              if (left.length) {
-                  result.push.apply(result, left);
-              }
-
-              if (right.length) {
-                  result.push.apply(result, right);
-              }
-
-              return result;
-          }
-
-          return mergeSort;
-      })();
+  .factory('mergeSort', ['$window', function($window) {
+      return $window.mergeSort;
   }])
   .factory('savedCareers', [function() {
       var fastestGrowingCareers = [
