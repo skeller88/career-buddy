@@ -12,9 +12,16 @@ var app = server.app;
 var data = {'foo': 'dataBar'};
 
 describe('routes', function() {
-    it('get all career names', function(done) {
+    it('getCareerNames - get all career names', function(done) {
         request(app)
             .get('careers/names')
+            .expect('Content-Type', /json/)
+            .expect(200, done);
+    });
+
+    it('getCareerData - get relevant career data', function(done) {
+        request(app)
+            .get('careers/')
             .expect('Content-Type', /json/)
             .expect(200, done);
     });

@@ -9,7 +9,7 @@ describe('dbHelpers.dbConnectionObj', function() {
         assert.equal(dbHelpers.dbConnectionObj.client.connectionSettings, productionConnectionString, 'not connected to production database');
     });
 
-    it('has SQL squery methods', function() {
+    it('has SQL query methods', function() {
         assert.property(dbHelpers.dbConnectionObj, 'from', 'no "from" property');
         assert.property(dbHelpers.dbConnectionObj, 'select', 'no "select" property');
         assert.property(dbHelpers.dbConnectionObj, 'where', 'no "where" property');
