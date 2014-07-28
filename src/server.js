@@ -7,16 +7,36 @@ var dbHelpers = require('./util/dbHelpers');
 var app = express();
 
 function sendWithJSONProtection(req, res, next) {
-    var padding = ')]}\',\n';
-    var send = res.send; // save the existing res.send()
+    var originalSend = res.send;
 
-    res.send = function (object) { // override res.send()
-        // var body = string instanceof Buffer ? string.toString() : string;
-        var body = object instanceof Object ? JSON.stringify(object) : object; 
-        send.call(this, padding + body); // call the original res.send()
+    res.send = function () { // override res.send()
+        if (arguments.length == 1 && (typeof arguments[0]) == "number") {
+            originalSend.call(this, arguments[0]);
+        } else {
+            var status, body;
+            if (arguments.length == 2) {
+                status = arguments[0];
+                body = arguments[1];
+            }
+            else {
+                body = arguments[0];
+            }
+            var newBody;
+            if (body instanceof Object) {
+                newBody = JSON.stringify(body);
+            } else {
+                newBody = body;
+            }
+            var padding = ')]}\',\n'; // https://docs.angularjs.org/api/ng/service/$http
+            if (arguments.length == 2) {
+                originalSend.call(this, status, padding + newBody);
+            } else {
+                originalSend.call(this, padding + newBody);
+            }
+        }
     };
 
-  next();
+    next();
 }
 
 function getCareerNames(req, res, next) {
