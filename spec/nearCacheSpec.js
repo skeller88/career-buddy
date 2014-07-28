@@ -19,15 +19,15 @@ function missHandler(key) {
     });
 }
 
-describe('nearCache.set', function() {
-    it('sets a new property', function(done) {
-        nearCache.set('foo', 'bar');
-        nearCache.get('foo').then(function(key) {
-            assert.equal(key, 'bar', 'nearCache.set() did not set the property correctly');
-            done();
-        });
+function falsyMissHandler(key) {
+    return new Promise(function(resolve, reject) {
+        if(data[key]){ 
+            resolve(false);
+        } else {
+            reject(new Error(key + ' ' + 'not found.'));
+        }
     });
-});
+}
 
 describe('nearCache.get', function() {
 
@@ -35,13 +35,20 @@ describe('nearCache.get', function() {
         nearCache.set('foo', null);
     })
 
-    it('retrieves a property that is already in the cache', function() {
+    it('returns a value for a key that is already in the cache', function() {
         nearCache.set('foo', 'bar');
         var nearCacheGet = nearCache.get('foo');
         return assert.eventually.equal(nearCacheGet, 'bar', 'nearCache.get("foo") did not return the proper value');
     });
 
-    it('uses a miss handler to set a property that is not in the cache', function() {
+    it('does not call the miss handler when retrieving a key that is already in the cache', function() {
+        nearCache.set('foo', 'bar');
+        var nearCacheGet = nearCache.get('foo', falsyMissHandler);
+        return assert.ok(nearCacheGet, 'bar', 'falsyMissHandler was called');
+    });
+
+
+    it('sets the value of a key not in the cache, and returns that value', function() {
         var nearCacheGet = nearCache.get('foo', missHandler, 'foo');
         return assert.eventually.equal(nearCacheGet, 'dataBar', 'miss handler did not return the proper value');
     });
