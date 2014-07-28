@@ -205,7 +205,7 @@ angular.module('myApp.directives', ['kendo.directives']).
                   .on('mouseout', tip.hide)
                   .transition()
                     .delay(function(d, i) { return i * 100; })
-                    .duration(1000)
+                    .duration(500)
                     .attr('r', function(d) { return d3Scales.bubbleRadiusScale(d.career_2012_emp); })
                     .attr('opacity', function(d) { return d3Scales.bubbleOpacityScale(d.career_2012_emp); });
 

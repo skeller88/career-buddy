@@ -9,7 +9,7 @@
         </div>
         <div class="sk-button-container sk-table-cell">
             <button id="chartTip" class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 5" ng-click="compare()">Chart</button>
-            <button class="sk-button" ng-disabled="disableLegendButton && (selectedCareerNames.length < 2 || selectedCareerNames.length > 5)" ng-click="showLegend = true; chartLegend.center().open()">Legend</button>
+            <button class="sk-button" ng-disabled="isLegendButtonDisabled && (selectedCareerNames.length < 2 || selectedCareerNames.length > 5)" ng-click="isLegendShown = true; chartLegend.center().open()">Legend</button>
             <!-- uncomment below when browse functionality exists --> 
             <!-- &nbsp; &nbsp; -->
             <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
@@ -26,7 +26,7 @@
     <div class="sk-multi-select-error" ng-show="selectedCareerNames.length > 5">
         Please select less than 5 careers.
     </div>
-    <div class="sk-legend-wrapper" ng-show="showLegend">
+    <div class="sk-legend-wrapper" ng-show="isLegendShown">
         <div kendo-window="chartLegend" k-title="'Legend'" k-visible="false" k-on-open="chartLegendVisible = true" k-on-close="chartLegendVisible = false">
             <div class="sk-legend-content k-content" kendo-tab-strip k-options="tabStripOptions">
                 <!-- tab list -->

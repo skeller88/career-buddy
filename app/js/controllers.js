@@ -9,8 +9,8 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.selectedCareerNames = [];
     $scope.savedCareers = savedCareers;
     //prevents flicker of kendo window widget 
-    $scope.showLegend = false;
-    $scope.disableLegendButton = true;
+    $scope.isLegendShown = false;
+    $scope.isLegendButtonDisabled = true;
     var isStubbedD3 = false;
     var dataSource = new kendo.data.DataSource({
         data: []
@@ -91,34 +91,33 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.compare = function() {
         localStorage.set('careerNames', $scope.selectedCareerNames);
 
-        /* necessary to reset 'disableLegendButton' flag in case user no longer
+        /* necessary to reset 'isLegendButtonDisabled' flag in case user no longer
         uses buttons that generate predetermined comparisons and instead
         enters their own comparisons */ 
-        $scope.disableLegendButton = true;
+        $scope.isLegendButtonDisabled = true;
         $scope.getDataAndShowChart();
     };
 
     $scope.compareTopPaying = function() {
         //will be disabled otherwise because $scope.selectedCareerNames === []
-        $scope.disableLegendButton = false;
+        $scope.isLegendButtonDisabled = false;
         $scope.resetSelected();
         $scope.getDataAndShowChart(savedCareers.topPayingCareers);
     }
 
     $scope.compareFastestGrowing = function() {
-        $scope.disableLegendButton = false;
+        $scope.isLegendButtonDisabled = false;
         $scope.resetSelected();
         $scope.getDataAndShowChart(savedCareers.fastestGrowingCareers);
     }
 
     $scope.compareRandom = function() {
-        $scope.disableLegendButton = false;
+        $scope.isLegendButtonDisabled = false;
         $scope.resetSelected();
 
         var randomCareers = (function() {
             var randomCareerNames = [];
             var careersNamesChosen = {};
-            debugger;
 
             //number 10 chosen to provide optimal UI. More user feedback will provide insight on a better number, if there is one.
             for(var i = 0; i < 10; i++) {

@@ -1,6 +1,6 @@
 # Career Buddy
 
-Career Buddy helps people find the best career for them by helping them explore the latest employment projections from the Bureau of Labor Statistics. Users can visualize the highest paying careers, the fastest growing careers, or their own custom set of careers.  
+Career Buddy helps people find their best career by enabling them to explore the latest employment projections from the Bureau of Labor Statistics. Users can visualize the highest paying careers, the fastest growing careers, or their own custom set of careers.  
 
 ## Getting Started - developers 
 
