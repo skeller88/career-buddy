@@ -44,6 +44,10 @@ nodemon src/server.js
 Now browse to the app at `http://localhost:3000/#/`.
 
 ### Run Tests
+`mocha spec` runs tests for `src/`
+`karma start my.conf.js` will run tests for `app/` (not ready yet)
+
+
 
 
 ## Updating Dependencies
