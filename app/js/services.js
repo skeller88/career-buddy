@@ -69,7 +69,7 @@ angular.module('myApp.services', [])
       function get(key) {
           if($window.localStorage) {
               var value = $window.localStorage.getItem(key);
-              return value && JSON.parse(value);
+              if(value) return JSON.parse(value);
           }
       }
 
