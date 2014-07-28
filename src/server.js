@@ -47,7 +47,7 @@ function getCareerNames(req, res, next) {
       res.send(careerNames);
   }, function(err) {
       console.timeEnd('careerNames');
-      res.send(404);
+      res.send(400);
   })
 };
 
@@ -62,7 +62,7 @@ function getCareerData(req, res) {
       res.send(careerData);
   }, function(err) {
       console.timeEnd('careerData');
-      res.send(404);
+      res.send(400);
   });
 }
 

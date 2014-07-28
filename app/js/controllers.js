@@ -60,6 +60,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.getCareerNames = function() {
         careersAPI.getCareerNames().success(function(data) {
             dataSource.data(data);
+            $scope.careerNames = data;
             //ensures that multiselect widget only fades in when career names have been loaded
             $scope.careerNamesLength = data.length;
             $scope.selectedCareerNames = localStorage.get('careerNames') || [];
@@ -108,6 +109,32 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.disableLegendButton = false;
         $scope.resetSelected();
         $scope.getDataAndShowChart(savedCareers.fastestGrowingCareers);
+    }
+
+    $scope.compareRandom = function() {
+        $scope.disableLegendButton = false;
+        $scope.resetSelected();
+
+        var randomCareers = (function() {
+            var randomCareerNames = [];
+            var careersNamesChosen = {};
+            debugger;
+
+            //number 10 chosen to provide optimal UI. More user feedback will provide insight on a better number, if there is one.
+            for(var i = 0; i < 10; i++) {
+                var randomCareerInd = Math.floor(Math.random() * $scope.careerNamesLength);
+                var randomCareer = $scope.careerNames[randomCareerInd].career_name;
+
+                if(!(randomCareer in careersNamesChosen)) {
+                    randomCareerNames.push(randomCareer);
+                    careersNamesChosen[randomCareer] = true;
+                }
+            }
+
+            return randomCareerNames;
+        })();
+
+        $scope.getDataAndShowChart(randomCareers);
     }
 
     $scope.addHighlight = function(careerNum) {

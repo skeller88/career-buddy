@@ -18,8 +18,9 @@
             <button class="sk-button" ng-click="resetSelected()">Reset</button>
         </div>
         <div class="sk-button-container sk-table-cell">
-            <button class="sk-button" kendo-tooltip="moneyTip" k-options="moneyTipOptions" ng-click="compareTopPaying()">Highest Paying Careers</button>
-            <button class="sk-button" kendo-tooltip="growthTip" k-options="growthTipOptions" ng-click="compareFastestGrowing()">Fastest Growing Careers</button>
+            <button class="sk-button" kendo-tooltip="moneyTip" k-options="moneyTipOptions" ng-click="compareTopPaying()">Highest Paying</button>
+            <button class="sk-button" kendo-tooltip="growthTip" k-options="growthTipOptions" ng-click="compareFastestGrowing()">Fastest Growing</button>
+            <button class="sk-button" ng-click="compareRandom()">I Feel Lucky</button>
         </div>
     </div>
     <div class="sk-multi-select-error" ng-show="selectedCareerNames.length > 5">
