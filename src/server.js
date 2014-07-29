@@ -27,11 +27,11 @@ function sendWithJSONProtection(req, res, next) {
             } else {
                 newBody = body;
             }
-            var padding = ')]}\',\n'; // https://docs.angularjs.org/api/ng/service/$http
+            exports.padding = ')]}\',\n'; // https://docs.angularjs.org/api/ng/service/$http
             if (arguments.length == 2) {
-                originalSend.call(this, status, padding + newBody);
+                originalSend.call(this, status, exports.padding + newBody);
             } else {
-                originalSend.call(this, padding + newBody);
+                originalSend.call(this, exports.padding + newBody);
             }
         }
     };
