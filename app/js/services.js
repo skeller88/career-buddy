@@ -8,8 +8,8 @@
 angular.module('myApp.services', [])
   .value('version', '0.1')
 
-  .factory('careersAPI', ['$http', function($http) {
-    function getCareerNames() {
+  .factory('careersService', ['$http', function($http) {
+    function getCareer}Names() {
       return $http({
         url: '/careers/names',
         method: 'GET',

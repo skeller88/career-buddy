@@ -3,6 +3,7 @@
 
 module.exports = function(config) {
   config.set({
+    autoWatch: true,
 
     // base path, that will be used to resolve files and exclude
     basePath: '',
@@ -14,6 +15,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'app/bower_components/angular/angular.js',
+      'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/angular-animate/angular-animate.js',
+      'app/bower_components/angular-resource/angular-resource.js',
+      'app/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'app/bower_components/jquery/dist/jquery.js',
+      'app/bower_components/kendo-ui-core/js/kendo.core.min.js',
+      'app/lib/angular-kendo.js',
+      'app/bower_components/d3/d3.min.js',
+      'app/js/**',
       'spec/app/*'
     ],
 

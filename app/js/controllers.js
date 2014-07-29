@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['kendo.directives'])
-  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'careersAPI', 'd3Scales', 'localStorage', 'mergeSort', 'savedCareers', function($log, $scope, $timeout, careersAPI, d3Scales, localStorage, mergeSort, savedCareers) {
+  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'careersService', 'd3Scales', 'localStorage', 'mergeSort', 'savedCareers', function($log, $scope, $timeout, careersService, d3Scales, localStorage, mergeSort, savedCareers) {
     //variables
     $scope.selectedCareersData = [];
     $scope.selectedCareerNames = [];
@@ -58,7 +58,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
 
     //get career data 
     $scope.getCareerNames = function() {
-        careersAPI.getCareerNames().success(function(data) {
+        careersService.getCareerNames().success(function(data) {
             dataSource.data(data);
             $scope.careerNames = data;
             //ensures that multiselect widget only fades in when career names have been loaded
@@ -75,7 +75,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
 
     $scope.getDataAndShowChart = function(careerNames) {
         var careerNames = careerNames || $scope.selectedCareerNames;
-        careersAPI.getCareerData(careerNames).success(function(data) {
+        careersService.getCareerData(careerNames).success(function(data) {
             $scope.selectedCareersData = mergeSort(data, function(a, b) { return a.career_name > b.career_name; });
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);

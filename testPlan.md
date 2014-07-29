@@ -116,7 +116,7 @@ directives.js
 - handles enter, update, and remove selections
 
 services.js
-'careersAPI'
+'careersService'
 - getCareerNames(), getCareerData() - return expected data, cache data that has already been retrieved
 
 'd3Scales'

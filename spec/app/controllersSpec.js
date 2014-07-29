@@ -1,19 +1,50 @@
-describe('Unit: HomeCtrl', function() {
-    beforeEach(module('myApp'));
+describe('Unit: myApp.services', function() {
+    var careersService, $rootScope, createController, $httpBackend;
 
-    var ctrl, $scope;
+    beforeEach(module('myApp'), [
+        'ngAnimate',
+        'ui.router',
+        'ngResource',
+        'myApp.services',
+        'myApp.directives',
+        'myApp.controllers'
+    ]);
 
-    beforeEach(inject(function($controller, _$httpBackend_, $rootScope) {
-        // Create a new scope that's a child of the $rootScope
-        scope = $rootScope.$new();
-        // Create the controller
-        ctrl = $controller('HomeCtrl', {
-            $scope: scope
+    beforeEach(inject(function($injector) {
+        $httpBackend = $injector.get('$httpBackend');
+
+        $httpBackend.whenGET('/careers/names').respond({
+            data: [
+                {career_name: 'nurse'}, 
+                {career_name: 'doctor'}, 
+                {career_name: 'lawyer'}
+            ]
         });
+
+        careersService = $injector.get('careersService');
+        $rootScope = $injector.get('$rootScope');
+        var $controller = $injector.get('$controller');
+        createController = function() {
+            return $controller('HomeCtrl', {'$scope' : $rootScope });
+        };
     }));
 
-    it('should get career names', function() {
-        scope.getCareerNames();
-        assert.equal(scope.careerNamesLength, 1074)
-    })
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('getCareerNames() - should get all career names', function() {
+        $httpBackend.expectGET('/careers/names');
+        var controller = createController();
+        $httpBackend.flush();
+    });
+
+    it('getCareerNames - returns an array of objects with a career_name property', function() {
+        careersService.getCareerNames().then(function(names) {
+            assert.equal(names.length, 3);
+            assert.equal(names[0].career_name, 'nurse');
+        });
+        $httpBackend.flush();
+    });
 })
