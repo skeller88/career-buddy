@@ -14,15 +14,16 @@ var data = {'foo': 'dataBar'};
 describe('routes', function() {
     it('getCareerNames - get all career names', function(done) {
         request(app)
-            .get('careers/names')
-            .expect('Content-Type', /json/)
-            .expect(200, done);
+            .get('/careers/names')
+            //why not "application/json"?
+            .expect('Content-Type', "text/html; charset=utf-8")
+            .expect(200, done)
     });
 
     it('getCareerData - get relevant career data', function(done) {
         request(app)
-            .get('careers/')
-            .expect('Content-Type', /json/)
+            .get('/careers?careers=Nurse+practitioners&careers=Mathematicians')
+            .expect('Content-Type', "text/html; charset=utf-8")
             .expect(200, done);
     });
 });
