@@ -9,19 +9,18 @@
         </div>
         <div class="sk-button-container sk-table-cell">
             <button id="chartTip" class="sk-button" ng-disabled="selectedCareerNames.length < 2 || selectedCareerNames.length > 5" ng-click="compare()">Chart</button>
-            <button class="sk-button" ng-disabled="isLegendButtonDisabled && (selectedCareerNames.length < 2 || selectedCareerNames.length > 5)" ng-click="isLegendShown = true; chartLegend.center().open()">Legend</button>
+            <button class="sk-button" ng-disabled="selectedCareerNames.length < 1" ng-click="resetSelected()">Reset</button>
             <!-- uncomment below when browse functionality exists --> 
             <!-- &nbsp; &nbsp; -->
             <!-- <button k-button class="k-button" ng-click="browse()">Browse</button> -->
         </div>
-        <div id="sk-table-cell-right-border"class="sk-button-container sk-table-cell">
-            <button class="sk-button" ng-click="resetSelected()">Reset</button>
-        </div>
-        <div id="sk-table-cell-right-border"class="sk-table-cell">
-        </div>
         <div class="sk-button-container sk-table-cell">
-            <button class="sk-button" kendo-tooltip="moneyTip" k-options="moneyTipOptions" ng-click="compareTopPaying()">Highest Paying</button>
-            <button class="sk-button" kendo-tooltip="growthTip" k-options="growthTipOptions" ng-click="compareFastestGrowing()">Fastest Growing</button>
+            <button class="sk-button" kendo-tooltip="legendTip" k-options="legendTipOptions" ng-disabled="isLegendButtonDisabled && (selectedCareerNames.length < 2 || selectedCareerNames.length > 5)" ng-click="isLegendShown = true; chartLegend.center().open()">Legend</button>
+        </div>
+        <div class="sk-button-container sk-preselected-searches sk-table-cell" kendo-tooltip="preselectedTip" k-options="preselectedTipOptions">
+            <!-- <span class="sk-preselected-searches-header">Preselected Searches</span> -->
+            <button class="sk-button" ng-click="compareTopPaying()">Highest Paying</button>
+            <button class="sk-button" ng-click="compareFastestGrowing()">Fastest Growing</button>
             <button class="sk-button" ng-click="compareRandom()">I Feel Lucky</button>
         </div>
     </div>

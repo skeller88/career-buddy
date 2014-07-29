@@ -11,6 +11,8 @@ angular.module('myApp.controllers', ['kendo.directives'])
     //prevents flicker of kendo window widget 
     $scope.isLegendShown = false;
     $scope.isLegendButtonDisabled = true;
+    var preselectedTipCounter = 0;
+    var legendTipCounter = 0;
     var isStubbedD3 = false;
     var dataSource = new kendo.data.DataSource({
         data: []
@@ -20,26 +22,31 @@ angular.module('myApp.controllers', ['kendo.directives'])
 
     //tooltips for tour functionality - must be in reverse order of their appearance in tour
 
-    $scope.moneyTipOptions = {
+    $scope.preselectedTipOptions = {
         autohide: false,
-        content: 'Select and compare the highest paying careers.',
+        content: 'In addition to custom searches, you can compare any of the above preselected groups of careers.',
         hide: function() {
-            $timeout(function() {
-                $scope.moneyTip.destroy();
-            }, 3000)
-        },
-        position: 'top'
-    }
-
-    $scope.growthTipOptions = {
-        autohide: false,
-        content: 'Select and compare the fastest growing careers.',
-        hide: function() {
-            $timeout(function() {
-                $scope.growthTip.destroy();
-            }, 3000)
+            //only show tooltip 3 times
+            if(++preselectedTipCounter > 3) {
+                $timeout(function() {
+                    $scope.preselectedTip.destroy();
+                }, 3000)
+            }
         },
         position: 'bottom'
+    }
+
+    $scope.legendTipOptions = {
+        autohide: false,
+        content: 'Use the legend to interpret information displayed on the chart.',
+        hide: function() {
+            if(++legendTipCounter > 3) {
+                $timeout(function() {
+                    $scope.legendTip.destroy();
+                }, 3000)
+            }
+        },
+        position: 'top'
     }
 
     $scope.selectOptions = {    
@@ -77,6 +84,8 @@ angular.module('myApp.controllers', ['kendo.directives'])
         var careerNames = careerNames || $scope.selectedCareerNames;
         careersService.getCareerData(careerNames).success(function(data) {
             $scope.selectedCareersData = mergeSort(data, function(a, b) { return a.career_name > b.career_name; });
+
+            if($scope.legendTip) $scope.legendTip.show();
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
         });
@@ -94,7 +103,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
         /* necessary to reset 'isLegendButtonDisabled' flag in case user no longer
         uses buttons that generate predetermined comparisons and instead
         enters their own comparisons */ 
-        $scope.isLegendButtonDisabled = true;
+        $scope.isLegendButtonDisabled = false;
         $scope.getDataAndShowChart();
     };
 
@@ -153,13 +162,14 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
 
+    //need to wait until kendo tooltips have been added to the DOM before invoking callback function 
     $timeout(function() {
         if(localStorage.get('showTooltips')) {
             localStorage.set('showTooltips', false);
         } else {
-            if($scope.moneyTip && $scope.growthTip) {
-                $scope.moneyTip.destroy();
-                $scope.growthTip.destroy();
+            if($scope.preselectedTip && $scope.legendTip) {
+                $scope.preselectedTip.destroy();
+                $scope.legendTip.destroy();
             }
         }
     }, 1000);

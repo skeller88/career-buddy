@@ -145,8 +145,8 @@ html, body {
 .sk-button:disabled {
     opacity: 0.2;
 }
-#sk-table-cell-right-border {
-    border-right: 5px solid #085E80;
+.sk-preselected-searches {
+    background-color: lightgrey;
 }
 /* CHART
 ============================================================================= */
@@ -271,6 +271,13 @@ but want the effect of doing so. Color should match the color for '.sk-highlight
     text-align: center;
     color: rgb(145, 219, 145);
 }
+
+/* modify kendo tooltip */
+.k-tooltip.k-widget {
+    background-color: white;
+    color: black;
+}
+
 /* LEGEND
 ============================================================================= */
 
