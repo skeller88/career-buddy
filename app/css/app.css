@@ -145,6 +145,9 @@ html, body {
 .sk-button:disabled {
     opacity: 0.2;
 }
+#sk-table-cell-right-border {
+    border-right: 5px solid #085E80;
+}
 /* CHART
 ============================================================================= */
 

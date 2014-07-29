@@ -9,7 +9,7 @@ angular.module('myApp.services', [])
   .value('version', '0.1')
 
   .factory('careersService', ['$http', function($http) {
-    function getCareer}Names() {
+    function getCareerNames() {
       return $http({
         url: '/careers/names',
         method: 'GET',

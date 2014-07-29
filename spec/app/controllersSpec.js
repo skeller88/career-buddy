@@ -3,8 +3,10 @@ describe('Unit: myApp.services', function() {
 
     beforeEach(module('myApp'), [
         'ngAnimate',
+        'ngMock',
         'ui.router',
         'ngResource',
+        'kendo.directives',
         'myApp.services',
         'myApp.directives',
         'myApp.controllers'
@@ -13,13 +15,13 @@ describe('Unit: myApp.services', function() {
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');
 
-        $httpBackend.whenGET('/careers/names').respond({
-            data: [
+        $httpBackend.expectGET('/careers/names').respond(
+            [
                 {career_name: 'nurse'}, 
                 {career_name: 'doctor'}, 
                 {career_name: 'lawyer'}
             ]
-        });
+        );
 
         careersService = $injector.get('careersService');
         $rootScope = $injector.get('$rootScope');
@@ -35,16 +37,17 @@ describe('Unit: myApp.services', function() {
     });
 
     it('getCareerNames() - should get all career names', function() {
-        $httpBackend.expectGET('/careers/names');
         var controller = createController();
-        $httpBackend.flush();
+        $httpBackend.flush(); 
     });
 
     it('getCareerNames - returns an array of objects with a career_name property', function() {
-        careersService.getCareerNames().then(function(names) {
+        careersService.getCareerNames().then(function(response) {
+            var names = response.data;
             assert.equal(names.length, 3);
             assert.equal(names[0].career_name, 'nurse');
         });
+
         $httpBackend.flush();
     });
 })
