@@ -85,7 +85,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
         careersService.getCareerData(careerNames).success(function(data) {
             $scope.selectedCareersData = mergeSort(data, function(a, b) { return a.career_name > b.career_name; });
 
-            if($scope.legendTip) $scope.legendTip.show();
+            if(localStorage.get('showTooltips')) $scope.legendTip.show();
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
         });
@@ -167,10 +167,10 @@ angular.module('myApp.controllers', ['kendo.directives'])
         if(localStorage.get('showTooltips')) {
             localStorage.set('showTooltips', false);
         } else {
-            if($scope.preselectedTip && $scope.legendTip) {
-                $scope.preselectedTip.destroy();
-                $scope.legendTip.destroy();
-            }
+            //destroying tooltips removes their event handlers, but still can
+            //invoke their .show() and .hide() methods from within controller
+            $scope.preselectedTip.destroy();
+            $scope.legendTip.destroy();
         }
     }, 1000);
   }]);
