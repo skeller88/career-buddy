@@ -1,7 +1,7 @@
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
-var nearCache = require('../src/util/nearCache.js');
-var Promise = require('../src/util/promise.js');
+var nearCache = require('../../src/util/nearCache.js');
+var Promise = require('../../src/util/promise.js');
 
 chai.use(chaiAsPromised);
 var assert = chai.assert;

@@ -1,6 +1,6 @@
 var request = require('supertest');
-var server = require('../src/server.js');
-var Promise = require('../src/util/promise.js');
+var server = require('../../src/server.js');
+var Promise = require('../../src/util/promise.js');
 var app = server.app;
 
 function returnPadding(text) {

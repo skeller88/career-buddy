@@ -3,8 +3,6 @@
 
 module.exports = function(config) {
   config.set({
-    autoWatch: true,
-
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
