@@ -20,7 +20,7 @@ describe('Unit: myApp.services', function() {
                 {career_name: 'nurse'}, 
                 {career_name: 'doctor'}, 
                 {career_name: 'lawyer'}
-            ]
+            ] 
         );
 
         careersService = $injector.get('careersService');

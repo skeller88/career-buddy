@@ -44,11 +44,10 @@ nodemon src/server.js
 Now browse to the app at `http://localhost:3000/#/`.
 
 ### Run Tests
-`mocha spec` runs tests for `src/`
-`karma start my.conf.js` will run tests for `app/` (not ready yet)
 
+`grunt test` to run tests once
 
-
+`grunt watch` to rerun tests whenever any .js files in spec/, src/, or app/ are changed. 
 
 ## Updating Dependencies
 To find the latest versions that match the version ranges specified in the `package.json` file, run: 
