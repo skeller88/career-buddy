@@ -1,7 +1,7 @@
 describe('Unit: myApp.services', function() {
     var careersService, $rootScope, createController, $httpBackend;
 
-    beforeEach(module('myApp'), [
+    beforeEach(angular.mock.module('myApp'), [
         'ngAnimate',
         'ngMock',
         'ui.router',
@@ -28,7 +28,7 @@ describe('Unit: myApp.services', function() {
         var $controller = $injector.get('$controller');
         createController = function() {
             return $controller('HomeCtrl', {'$scope' : $rootScope });
-        };
+        }; 
     }));
 
     afterEach(function() {

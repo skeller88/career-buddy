@@ -137,7 +137,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
                     randomCareerNames.push(randomCareer);
                     careersNamesChosen[randomCareer] = true;
                 }
-            }
+            } 
 
             return randomCareerNames;
         })();
