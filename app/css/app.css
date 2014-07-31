@@ -109,7 +109,7 @@ html, body {
     min-width: 450px;
 }
 .sk-button-container, .sk-multi-select-error {
-    padding-left: 0.5rem;
+    padding: 0.5rem;
 }
 .sk-multi-select-error {
     color: red;
