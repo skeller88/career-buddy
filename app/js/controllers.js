@@ -77,13 +77,20 @@ angular.module('myApp.controllers', ['kendo.directives'])
             }
         }).error(function(err) {
             $log.error('getCareerNames error: ', err);
-        });
+        }); 
     }
 
     $scope.getDataAndShowChart = function(careerNames) {
         var careerNames = careerNames || $scope.selectedCareerNames;
         careersService.getCareerData(careerNames).success(function(data) {
-            $scope.selectedCareersData = mergeSort(data, function(a, b) { return a.career_name > b.career_name; });
+            $scope.selectedCareersData = data.sort(function(a, b) {
+                if (a.career_name > b.career_name)
+                   return 1;
+                if (a.career_name < b.career_name)
+                   return -1;
+                // a must be equal to b
+                return 0;
+            })
 
             if(localStorage.get('showTooltips')) $scope.legendTip.show();
         }).error(function(data, status) {
@@ -174,3 +181,20 @@ angular.module('myApp.controllers', ['kendo.directives'])
         }
     }, 1000);
   }]);
+
+var a = [
+    {name: 'a'},
+    {name: 'b'},
+    {name: 'c'},
+    {name: 'd'},
+    {name: 'e'},
+    {name: 'f'},
+    {name: 'g'},
+    {name: 'h'},
+    {name: 'i'},
+    {name: 'j'},
+    {name: 'k'},
+    {name: 'l'},
+]
+
+a.sort(function(a, b) { return a.name > b.name; });
