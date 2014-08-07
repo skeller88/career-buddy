@@ -126,21 +126,8 @@ html, body {
     color: white;
     vertical-align: middle;
     @include border-radius(8px);
-//    -webkit-border-radius: 8px;
-//    -moz-border-radius: 8px;
-//    -ms-border-radius: 8px;
-//    -o-border-radius: 8px;
-//    border-radius: 8px;
-    -webkit-box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
-    -moz-box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
-    -ms-box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
-    -o-box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
-    box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
-    -webkit-text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    -moz-text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    -ms-text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    -o-text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    @include box-shadow(rgba(212, 197, 197, 1) 0 1px 0);
+    @include text-shadow(rgba(0, 0, 0, .4) 0 1px 0);
   }
   .sk-button:hover:enabled {
     background: $sk-button-hover;
@@ -204,7 +191,26 @@ html, body {
   }
   /* TOOLTIPS
   ============================================================================= */
-
+.sk-tooltip-chart {
+  width: 400px;
+  line-height: 1;
+  padding: 12px;
+  background: #f8f8f8;
+  border: 2px solid #6D6D6D;
+  color: black;
+  @include box-shadow(1px 1px 2px #808080);
+  @include border-radius(10px);
+}
+.sk-tooltip-chart:after {
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: black;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
   .sk-tooltip-selector-parent {
     position: relative;
     height: 100%;
@@ -217,17 +223,9 @@ html, body {
     padding: 12px;
     background: white;
     border: 2px solid #6D6D6D;
-    -webkit-box-shadow: 1px 1px 2px #808080;
-    -moz-box-shadow: 1px 1px 2px #808080;
-    -ms-box-shadow: 1px 1px 2px #808080;
-    -o-box-shadow: 1px 1px 2px #808080;
-    box-shadow: 1px 1px 2px #808080;
     color: black;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
+    @include box-shadow(1px 1px 2px #808080);
+    @include border-radius(10px);
   }
   .sk-tooltip-label {
     opacity: 0.8;
