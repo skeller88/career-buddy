@@ -1,5 +1,7 @@
 /* MIXINS
 ============================================================================= */
+// Third-party
+@import "font-sizes";
 @import "compass/css3";
 
 /* VARIABLES
@@ -13,5 +15,6 @@ $sk-button-active: #085E80;
 $sk-bubble-color: #00348c;
 /* sea green */
 $sk-bubble-hover-color: rgb(145, 219, 145);
+$sk-legend-hover-background: rgba(145, 219, 145, 0.2);
 
 $sk-font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;

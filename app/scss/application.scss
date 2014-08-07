@@ -287,19 +287,21 @@ html, body {
   .sk-legend-header {
     display: block;
     text-align: center;
-    /* override h4 margin settings in font-sizes.css */
+    /* override h4 margin settings in font-sizes.scss */
     margin: 0.5rem 0;
   }
   .sk-legend-bubbles-content {
     padding: 10px;
   }
   .sk-highlight-career {
-    background-color: $sk-bubble-hover-color;
+    background: $sk-legend-hover-background;
+
   }
   .sk-legend-career-info {
     font-size: 1rem;
     padding: 0.5rem 0;
   }
+
   /* ANIMATIONS
   ============================================================================= */
 
