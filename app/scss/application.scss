@@ -1,13 +1,11 @@
 /* app css stylesheet */
 
+/* MIXINS
+============================================================================= */
+@import "base";
+
 /* BASIC
 ============================================================================= */
-/* teal */
-$sk-navigation-color: #0ca4e0;
-/* american flag blue */
-$sk-bubble-color: #00348c;
-/* sea green */
-$sk-bubble-hover-color: rgb(145, 219, 145);
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
@@ -15,7 +13,7 @@ $sk-bubble-hover-color: rgb(145, 219, 145);
 html, body {
   width: 100%;
   height: 100%;
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-family: $sk-font-family;
 }
 .sk-container {
   margin: 0 20px;
@@ -80,7 +78,7 @@ html, body {
       line-height: 20px;
     }
     > a:hover {
-      background-color: #eee;
+      background-color: $sk-navigation-hover;
     }
   }
 }
@@ -127,11 +125,12 @@ html, body {
     background: $sk-navigation-color;
     color: white;
     vertical-align: middle;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
-    border-radius: 8px;
+    @include border-radius(8px);
+//    -webkit-border-radius: 8px;
+//    -moz-border-radius: 8px;
+//    -ms-border-radius: 8px;
+//    -o-border-radius: 8px;
+//    border-radius: 8px;
     -webkit-box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
     -moz-box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
     -ms-box-shadow: rgba(212, 197, 197, 1) 0 1px 0;
@@ -144,10 +143,10 @@ html, body {
     text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
   }
   .sk-button:hover:enabled {
-    background: #0678A5;
+    background: $sk-button-hover;
   }
   .sk-button:active:enabled {
-    background: #085E80;
+    background: $sk-button-active;
   }
   .sk-button:disabled {
     opacity: 0.2;
@@ -179,7 +178,7 @@ html, body {
     text-anchor: middle;
   }
   .axis text, .label {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: $sk-font-family;
     font-size: 14px;
   }
   .grid .tick {

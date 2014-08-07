@@ -12,6 +12,10 @@ Clone the career-buddy repository from [https://github.com/skeller88/career-budd
 
 Install node.js, its package manager (npm), and bower, from [http://nodejs.org/](http://nodejs.org/) and [http://bower.io/](http://bower.io/).
 
+Install [Ruby](https://www.ruby-lang.org/en/downloads/) and [RVM](https://rvm.io/rvm/install)
+
+Install the Ruby gems. `gem install compass` should install both Compass and Sass.
+
 ### Install Dependencies
 
 There are two kinds of dependencies in this project: tools and angular framework code.  The tools help manage and test the application.
