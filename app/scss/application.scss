@@ -377,7 +377,7 @@ html, body {
   @-webkit-keyframes fadeInFromRight {
     0% {
       opacity: 0;
-      -webkit-transform: translateX(100%);
+      @include transform(translateX(100%));
     }
     100% {
       opacity: 1;
@@ -386,7 +386,7 @@ html, body {
   @-moz-keyframes fadeInFromRight {
     0% {
       opacity: 0;
-      -webkit-transform: translateX(100%);
+      @include transform(translateX(100%));
     }
     100% {
       opacity: 1;
@@ -395,7 +395,7 @@ html, body {
   @-ms-keyframes fadeInFromRight {
     0% {
       opacity: 0;
-      -webkit-transform: translateX(100%);
+      @include transform(translateX(100%));
     }
     100% {
       opacity: 1;
@@ -404,7 +404,7 @@ html, body {
   @-o-keyframes fadeInFromRight {
     0% {
       opacity: 0;
-      -webkit-transform: translateX(100%);
+      @include transform(translateX(100%));
     }
     100% {
       opacity: 1;
@@ -413,7 +413,7 @@ html, body {
   @keyframes fadeInFromRight {
     0% {
       opacity: 0;
-      -webkit-transform: translateX(100%);
+      @include transform(translateX(100%));
     }
     100% {
       opacity: 1;
@@ -423,31 +423,31 @@ html, body {
   @-webkit-keyframes fadeOutToLeft {
     0% {} 100% {
             opacity: 0;
-            -webkit-transform: translateX(-100%);
+            @include transform(translateX(-100%));
           }
   }
   @-moz-keyframes fadeOutToLeft {
     0% {} 100% {
             opacity: 0;
-            -webkit-transform: translateX(-100%);
+            @include transform(translateX(-100%));
           }
   }
   @-ms-keyframes fadeOutToLeft {
     0% {} 100% {
             opacity: 0;
-            -webkit-transform: translateX(-100%);
+            @include transform(translateX(-100%));
           }
   }
   @-o-keyframes fadeOutToLeft {
     0% {} 100% {
             opacity: 0;
-            -webkit-transform: translateX(-100%);
+            @include transform(translateX(-100%));
           }
   }
   @keyframes fadeOutToLeft {
     0% {} 100% {
             opacity: 0;
-            -webkit-transform: translateX(-100%);
+            @include transform(translateX(-100%));
           }
   }
 
