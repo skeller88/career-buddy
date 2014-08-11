@@ -4,9 +4,9 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         clean: {
-            build: [
-                'build'
-            ]
+            build: {
+                src: ['dist']
+            }
         },
 
         compass: {
@@ -102,5 +102,5 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('default', ['build', 'watch']);
     grunt.registerTask('test', ['mochaTest', 'karma']);
-    grunt.registerTask('deployProduction', ['clean:build', 'build']);
+    grunt.registerTask('deployProduction', ['clean', 'build']);
 }
