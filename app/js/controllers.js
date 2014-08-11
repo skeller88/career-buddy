@@ -181,20 +181,3 @@ angular.module('myApp.controllers', ['kendo.directives'])
         }
     }, 1000);
   }]);
-
-var a = [
-    {name: 'a'},
-    {name: 'b'},
-    {name: 'c'},
-    {name: 'd'},
-    {name: 'e'},
-    {name: 'f'},
-    {name: 'g'},
-    {name: 'h'},
-    {name: 'i'},
-    {name: 'j'},
-    {name: 'k'},
-    {name: 'l'},
-]
-
-a.sort(function(a, b) { return a.name > b.name; });

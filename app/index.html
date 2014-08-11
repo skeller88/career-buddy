@@ -11,7 +11,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- normalize -->
-  <link href="bower_components/normalize-css/normalize.css" rel="stylesheet">
+    <!-- build:css css/normalize.min.css -->
+    <link href="bower_components/normalize-css/normalize.css" rel="stylesheet">
+  <!-- endbuild -->
 
   <!-- modernizr -->
   <!-- // <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script> -->
@@ -25,9 +27,12 @@
   <!-- <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.min.css"> -->
   <!-- <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.dataviz.default.min.css"> -->
 
+
   <!-- custom stylesheets -->
   <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css" />
+    <!-- build:css css/application.min.css -->
   <link rel="stylesheet" href="css/application.css"/>
+    <!-- endbuild -->
 </head>
 <body>
   <nav class="sk-navbar-background" role="navigation">
@@ -53,27 +58,33 @@
 
   </section> <!-- /container -->
 
-  <!-- jQuery --> 
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <!-- Libs - development and production -->
 
-  <!-- kendo -->
-  <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.all.min.js"></script>
+  <!-- build:js js/jquery.min.js -->
+  <!-- jQuery -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- endbuild -->
+
+
+  <!-- "kendo.all.min.js" causes grunt uglify task to hang. Therefore, cdn used instead. -->
+  <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
+
+  <!-- build:js js/lib.min.js -->
 
   <!-- d3 -->
-  <script src="bower_components/d3/d3.min.js" charset="utf-8"></script>
-  <script src="bower_components/d3-tip/index.js" charset="utf-8"></script>
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/d3-tip/index.js"></script>
 
   <!-- angular -->
-  <!-- In production use: -->
-  <!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script> -->
- 
- <!-- In development: -->
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-resource/angular-resource.min.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="bower_components/angular-animate/angular-animate.min.js"></script>
   <script src="lib/angular-kendo.js"></script>
 
+  <!-- endbuild -->
+
+  <!-- build:js js/app.min.js -->
   <!-- app -->
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
@@ -91,5 +102,14 @@
     ga('send', 'pageview');
 
   </script>
+
+    <!-- hello message -->
+    <script>
+        console.log('Like the app? Have suggestions? Head to the "Contact" page and let me know what you think!');
+    </script>
+  <!--endbuild -->
+
+  <!-- kendo -->
+
 </body>
 </html>

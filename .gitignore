@@ -1,3 +1,6 @@
+.tmp/
+dist/
+
 app/css/**
 .sass-cache/
 
