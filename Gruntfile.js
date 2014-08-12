@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
         clean: {
             build: {
-                src: ['dist']
+                src: ['dist/']
             }
         },
 
@@ -29,14 +29,31 @@ module.exports = function(grunt) {
         copy: {
             dist: {
                 files: [
-                    {src: 'app/index.html', dest: 'dist/index.html'},
+                    {expand: true, cwd: 'app', src: 'index.html', dest: 'dist'},
                     {expand: true, cwd: 'app', src: 'partials/*', dest: 'dist'},
                     {expand: true, cwd: 'app', src: 'img/*', dest: 'dist'}
                 ]
             }
         },
 
-        //TODO - add cache busting with grunt-hashres: http://davidtucker.net/articles/automating-with-grunt/#workflowClean or grunt-filerev: https://github.com/yeoman/grunt-filerev
+        hashres: {
+            options: {
+                encoding: 'utf8',
+                fileNameFormat: '${hash}.${name}.cache.${ext}',
+                renameFiles: true
+            },
+            prod: {
+                src: [
+                    'dist/css/*.css',
+                    'dist/img/*.{png,gif,jpg,svg}',
+                    'dist/js/*.js'
+                ],
+                dest: [
+                    'dist/index.html',
+                    'dist/partials/*.html'
+                ]
+            }
+        },
 
         karma: {
           unit: {
@@ -57,7 +74,7 @@ module.exports = function(grunt) {
         useminPrepare: {
             html: 'app/index.html',
             options: {
-                dest: 'dist'
+                dest: 'dist/'
             }
         },
 
@@ -86,6 +103,8 @@ module.exports = function(grunt) {
         }
     });
 
+//    grunt.loadNpmTasks('grunt-filerev');
+    grunt.loadNpmTasks('grunt-hashres');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-usemin');
@@ -98,9 +117,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('build', [
-        'compass:dev', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'usemin'
+        'compass:dev', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
     ]);
     grunt.registerTask('default', ['build', 'watch']);
     grunt.registerTask('test', ['mochaTest', 'karma']);
-    grunt.registerTask('deployProduction', ['clean', 'build']);
+    grunt.registerTask('deploy', ['clean', 'build']);
 }

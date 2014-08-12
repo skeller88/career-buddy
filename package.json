@@ -16,6 +16,8 @@
     "grunt-contrib-sass": "^0.7.3",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-filerev": "^0.2.1",
+    "grunt-hashres": "^0.4.1",
     "grunt-karma": "^0.8.3",
     "grunt-mocha-test": "^0.11.0",
     "grunt-usemin": "^2.3.0",
@@ -27,7 +29,7 @@
   },
   "scripts": {
     "start": "nodemon src/server.js",
-    "postinstall": "bower install && grunt deployProduction"
+    "postinstall": "bower install && grunt deploy"
   },
   "dependencies": {
     "bluebird": "^2.1.3",
