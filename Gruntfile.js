@@ -103,7 +103,6 @@ module.exports = function(grunt) {
         }
     });
 
-//    grunt.loadNpmTasks('grunt-filerev');
     grunt.loadNpmTasks('grunt-hashres');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-mocha-test');
@@ -116,15 +115,19 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('buildProduction', [
-       'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
+    grunt.registerTask('build', [
+        'clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
     ]);
 
-    grunt.registerTask('buildDevelopment', [
-        'compass:dev', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
+    grunt.registerTask('heroku:development', [
+        'compass:dev', 'build'
     ]);
 
-    grunt.registerTask('default', ['buildDevelopment', 'watch']);
-    grunt.registerTask('deploy', ['clean', 'buildProduction']);
+    grunt.registerTask('heroku:production', [
+       'build'
+    ]);
+
+    grunt.registerTask('default', ['heroku:development', 'watch']);
+    grunt.registerTask('deploy', ['heroku:production']);
     grunt.registerTask('test', ['mochaTest', 'karma']);
 }
