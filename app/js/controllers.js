@@ -173,7 +173,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $timeout(function() {
         if(localStorage.get('showTooltips')) {
             localStorage.set('showTooltips', false);
-        } else {
+        } else if($scope.preselectedTip && $scope.legendTip) {
             //destroying tooltips removes their event handlers, but still can
             //invoke their .show() and .hide() methods from within controller
             $scope.preselectedTip.destroy();

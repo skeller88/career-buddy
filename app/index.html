@@ -60,28 +60,25 @@
 
   <!-- Libs - development and production -->
 
-  <!-- build:js js/jquery.min.js -->
+  <!-- build:js js/lib1.min.js -->
   <!-- jQuery -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <!-- endbuild -->
-
-  <!-- kendo -->
-  <!-- "kendo.all.min.js" causes grunt uglify task to hang. Therefore, cdn used instead. -->
-  <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
-
-  <!-- build:js js/lib.min.js -->
-
-  <!-- d3 -->
-  <script src="bower_components/d3/d3.js"></script>
-  <script src="bower_components/d3-tip/index.js"></script>
-
   <!-- angular -->
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-resource/angular-resource.min.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-  <script src="lib/angular-kendo.js"></script>
+  <!-- d3 -->
+  <script src="bower_components/d3/d3.js"></script>
+  <script src="bower_components/d3-tip/index.js"></script>
+  <!-- endbuild -->
 
+  <!-- kendo - must be loaded after jquery and angular -->
+  <!-- "kendo.all.min.js" causes grunt uglify task to hang. Therefore, cdn used instead. -->
+  <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
+
+  <!-- build:js js/lib2.min.js -->
+  <script src="lib/angular-kendo.js"></script>
   <!-- endbuild -->
 
   <!-- build:js js/app.min.js -->

@@ -116,10 +116,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('build', [
+    grunt.registerTask('buildProduction', [
+       'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
+    ]);
+
+    grunt.registerTask('buildDevelopment', [
         'compass:dev', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
     ]);
-    grunt.registerTask('default', ['build', 'watch']);
+
+    grunt.registerTask('default', ['buildDevelopment', 'watch']);
     grunt.registerTask('test', ['mochaTest', 'karma']);
-    grunt.registerTask('deploy', ['clean', 'build']);
+    grunt.registerTask('deploy', ['clean', 'buildProduction']);
 }
