@@ -125,6 +125,6 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('default', ['buildDevelopment', 'watch']);
-    grunt.registerTask('test', ['mochaTest', 'karma']);
     grunt.registerTask('deploy', ['clean', 'buildProduction']);
+    grunt.registerTask('test', ['mochaTest', 'karma']);
 }

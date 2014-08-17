@@ -70,10 +70,10 @@ app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded());
 
 //production
-//app.use(express.static(__dirname + '/../dist'));
+app.use(express.static(__dirname + '/../dist'));
 
 //development
-app.use(express.static(__dirname + '/../app'));
+//app.use(express.static(__dirname + '/../app'));
 
 app.use(sendWithJSONProtection);
 
