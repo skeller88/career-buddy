@@ -116,17 +116,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('build', [
-        'clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
+        'clean', 'compass:dev', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
     ]);
-
-    grunt.registerTask('development', [
-        'compass:dev', 'build'
-    ]);
-
     grunt.registerTask('heroku:production', [
        'build'
     ]);
-
-    grunt.registerTask('default', ['development', 'watch']);
+    grunt.registerTask('default', ['build', 'watch']);
     grunt.registerTask('test', ['mochaTest', 'karma']);
 }
