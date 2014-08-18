@@ -40,6 +40,6 @@
     },
     "scripts": {
         "start": "nodemon src/server.js",
-        "postinstall": "bower install && grunt deploy"
+        "postinstall": "bower install"
     }
 }

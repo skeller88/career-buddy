@@ -119,7 +119,7 @@ module.exports = function(grunt) {
         'clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
     ]);
 
-    grunt.registerTask('heroku:development', [
+    grunt.registerTask('development', [
         'compass:dev', 'build'
     ]);
 
@@ -127,7 +127,6 @@ module.exports = function(grunt) {
        'build'
     ]);
 
-    grunt.registerTask('default', ['heroku:development', 'watch']);
-    grunt.registerTask('deploy', ['heroku:production']);
+    grunt.registerTask('default', ['development', 'watch']);
     grunt.registerTask('test', ['mochaTest', 'karma']);
 }
