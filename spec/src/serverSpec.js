@@ -2,6 +2,8 @@ var request = require('supertest');
 var server = require('../../src/server.js');
 var Promise = require('../../src/util/promise.js');
 var app = server.app;
+//number of careers currently in database
+var numCareers = 1074;
 
 function returnPadding(text) {
     return text.split('').slice(0, server.padding.length).join('');
@@ -36,7 +38,7 @@ describe('routes', function() {
             var career = careerNamesArray[0];
             //1074 current number of careers in database
             if (!career.career_name) return 'didn\'t return objects with "career_name" keys';
-            if (careerNamesArray.length !== 1074) return 'should return 1074 career names';
+            if (careerNamesArray.length !== numCareers) return 'should return ' + 1074 + ' career names';
         }
 
         request(app)

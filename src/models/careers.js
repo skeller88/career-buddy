@@ -2,7 +2,7 @@ var dbHelpers = require('../util/dbHelpers.js');
 var nearCache = require('../util/nearCache.js');
 var Promise = require('../util/promise.js');
 
-module.exports = function(dbHelpers, nearCache, Promise) {
+module.exports = (function(dbHelpers, nearCache, Promise) {
     var careerTableName = 'careers';
     var dbConnectionObj = dbHelpers.dbConnectionObj;
 
@@ -16,7 +16,7 @@ module.exports = function(dbHelpers, nearCache, Promise) {
         return new Promise(function(resolve, reject) {
             nearCache.get('careerNames', queryCareerNames, 'careerNames')
             .then(function(careerNames) {
-                //for faster lookup of career names in multiselect widget on client side
+                //TODO- why?- for faster lookup of career names in multiselect widget on client side
                 resolve(careerNames);
             }, function(err) {
                 reject(err);
@@ -24,7 +24,7 @@ module.exports = function(dbHelpers, nearCache, Promise) {
         });
     }
 
-    //expects a 'careers' param whose value is an array of career names
+    //@param careerNames [array of career names]
     function findByCareerNames(careerNames) {
         function queryCareerData(careerNames) {
           return dbConnectionObj
@@ -34,9 +34,7 @@ module.exports = function(dbHelpers, nearCache, Promise) {
         }
 
         return new Promise(function(resolve, reject) {
-            var careerQueryKey = careerNames.sort();
-
-            nearCache.get(careerQueryKey, queryCareerData, careerQueryKey)
+            nearCache.get(careerNames, queryCareerData, careerQueryKey)
             .then(function(careers) {
                 resolve(careers);
             }, function(err) {
@@ -49,4 +47,4 @@ module.exports = function(dbHelpers, nearCache, Promise) {
         getAllCareerNames: getAllCareerNames,
         findByCareerNames: findByCareerNames
     }
-}(dbHelpers, nearCache, Promise);
+})(dbHelpers, nearCache, Promise);

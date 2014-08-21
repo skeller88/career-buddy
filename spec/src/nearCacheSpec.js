@@ -47,7 +47,6 @@ describe('nearCache.get', function() {
         return assert.ok(nearCacheGet, 'bar', 'falsyMissHandler was called');
     });
 
-
     it('sets the value of a key not in the cache, and returns that value', function() {
         var nearCacheGet = nearCache.get('foo', missHandler, 'foo');
         return assert.eventually.equal(nearCacheGet, 'dataBar', 'miss handler did not return the proper value');

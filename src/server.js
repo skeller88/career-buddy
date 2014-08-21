@@ -11,6 +11,7 @@ function sendWithJSONProtection(req, res, next) {
 
     res.send = function () { // override res.send()
         if (arguments.length == 1 && (typeof arguments[0]) == "number") {
+            //TODO- why is context 'this'?
             originalSend.call(this, arguments[0]);
         } else {
             var status, body;
@@ -27,6 +28,7 @@ function sendWithJSONProtection(req, res, next) {
             } else {
                 newBody = body;
             }
+            //need padding length for testing
             exports.padding = ')]}\',\n'; // https://docs.angularjs.org/api/ng/service/$http
             if (arguments.length == 2) {
                 originalSend.call(this, status, exports.padding + newBody);

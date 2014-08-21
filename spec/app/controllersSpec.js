@@ -17,8 +17,8 @@ describe('Unit: myApp.services', function() {
 
         $httpBackend.expectGET('/careers/names').respond(
             [
-                {career_name: 'nurse'}, 
-                {career_name: 'doctor'}, 
+                {career_name: 'nurse'},
+                {career_name: 'doctor'},
                 {career_name: 'lawyer'}
             ] 
         );

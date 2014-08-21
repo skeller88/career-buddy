@@ -3,7 +3,7 @@ var Promise = require('./promise.js');
 module.exports = function(Promise) {
     var cache = {};
 
-    //missHandler should be a promise
+    //@param missHandler [promise]
     //additional params can be included and will be passed to miss handler
     function get(key, missHandler) {
 
@@ -12,6 +12,7 @@ module.exports = function(Promise) {
       return new Promise(function(resolve, reject) {
           //handle lookup of arrays in nearCache
           if(Array.isArray(key)) {
+              //arrays will be stringified
               var cacheKey = key.sort().join(',');
           } else {
               var cacheKey = key;
