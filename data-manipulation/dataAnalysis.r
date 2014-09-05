@@ -86,7 +86,7 @@ cc_mean <- aggregate(cc, by=list(fit$cluster), FUN="mean")
 #cluster 6- fastest growing, 2nd highest paying 
 
 #plot results
-colors <- c('red', 'blue', 'yellow', 'orange', 'green' 'purple')
+colors <- c('green', 'purple', 'blue', 'orange', 'yellow')
 plot(ac$career_job_openings, ac$career_med_ann_wage, type="p", xlab = "job openings", ylab="wage", col=colors[cluster])
 plot(ac$career_num_emp_change, ac$career_med_ann_wage, type="p", xlab = "number of jobs added/lost", ylab="wage", col=colors[cluster])
 plot(ac$career_percent_emp_change, ac$career_med_ann_wage, type="p", xlab = "percent change in number of jobs", ylab="wage", col=colors[cluster])
