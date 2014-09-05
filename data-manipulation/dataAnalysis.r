@@ -69,7 +69,7 @@ wssplot(cc_scaled)
 #6 appears to be optimal 
 
 # K-Means Cluster Analysis
-fit <- kmeans(cc_scaled, 3) # 6 cluster solution
+fit <- kmeans(cc_scaled, 3) # 3 cluster solution
 cluster <- fit$cluster
 # get cluster means 
 #aggregate(cc_scaled,by=list(fit$cluster),FUN=mean)
