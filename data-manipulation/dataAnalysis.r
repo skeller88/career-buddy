@@ -5,46 +5,50 @@
 
 ac <- read.csv("/Users/Shane/Documents/SugarSync/career-buddy/data-manipulation/careers_maroon.csv")
 
-#descriptive statistics
-ac[0,]
-density(ac$career_med_ann_wage)
-hist(ac$career_num_emp_change)
-hist(ac$career_percent_emp_change)
-hist(ac$career_job_openings)
+#descriptive statistics - uncomment when needed
+##density(ac$career_med_ann_wage)
+##hist(ac$career_num_emp_change)
+##hist(ac$career_percent_emp_change)
+##hist(ac$career_job_openings)
+
+#explore categorical variables - uncomment when needed
+#good candidate for refactor to dummy binary variables 
+##summary(ac$career_edu)
+#has 707 None classifications; too many to be useful 
+##summary(ac$career_work_exp)
+#job training has many jobs classified as "None" which should not be. For example, software engineers get on the job training. 
+##summary(ac$career_job_training)
 
 #which rows have NA values in any column? How many?
-for(n in 1:ncol(ac))
-  print(length(which(is.na(ac[,n]))))
-#career_percent_self_emp has 219 NA values, so won't use this variable
+##for(n in 1:ncol(ac))
+##  print(length(which(is.na(ac[,n]))))
+#career_percent_self_emp has 219 NA values, so won't use that variable
 
-#explore categorical variables
-#good candidate for refactor to dummy binary variables 
-summary(ac$career_edu)
-
-#has 707 None classifications; too many to be useful 
-summary(ac$career_work_exp)
-
-#job training has many jobs classified as "None" which should not be. For example, software engineers get on the job training. 
-summary(ac$career_job_training)
-
-#eliminate duplicate 'Cashier' career row. Eliminated row with code 41-2011 and kept row with code 41-2010.
+#remove duplicate 'Cashier' career row. Eliminated row with code 41-2011 and kept row with code 41-2010.
 #difference between rows is number of employeed in 2012 and 2022. 41-2010 has higher numbers by ~20K 
 ac <- ac[-which(ac$career_name == 'Cashiers')[2],]
 
-#eliminate 'Total, all occupations' because it will skew the clusters
-ac <- ac[-which(ac$career_name == 'Total, all occupations'),]
+#remove all occupations with code ending in '0' because they are aggregates of other occupations, and will skew the cluster analysis
+ac <- ac[!grepl("0$", ac$career_occ_code),]
 
-#select all continuous variables
-c <- ac[,c('career_2012_emp', 'career_2022_emp', 'career_num_emp_change', 'career_percent_emp_change', 'career_job_openings', 'career_med_ann_wage')]
-row.names(c) <- ac$career_name
+#remove 5 rows with NA values for 'career_med_ann_wage', because they cannot be charted. All entertainment professions such as 'Dancers' and 'Actors'
+#is.na() generates a logical vector, not indexes. so "-" doesn't work. 
+ac <- ac[!is.na(ac$career_med_ann_wage),]
+
+#select all continuous variables except for 'career_percent_self_emp', which has too many rows with an NA value
+#"cc" stands for "careers with continuous variables"
+#*variables - silhouette score
+#job openings - .55
+#num change - .46
+#percent change - .38
+#percent change, job openings - .31
+#percent change, num change, job openings - .3
+cc <- ac[,c('career_med_ann_wage', 'career_job_openings')]
+row.names(cc) <- ac$career_name
   
 #analyze only certain columns in data, and eliminate rows with NA, but after clustering is done add
 #a new column to the original csv file containing the cluster number each row belongs to
 #with the rows matching up 
-
-#cleaned career data with all rows with 'NA' removed
-# cc <- c[complete.cases(c),]
-cc <- na.omit(c)
 
 #normalize variables
 cc_scaled <- scale(cc)
@@ -65,32 +69,42 @@ wssplot(cc_scaled)
 #6 appears to be optimal 
 
 # K-Means Cluster Analysis
-fit <- kmeans(cc_scaled, 6) # 6 cluster solution
+fit <- kmeans(cc_scaled, 3) # 6 cluster solution
+cluster <- fit$cluster
 # get cluster means 
 #aggregate(cc_scaled,by=list(fit$cluster),FUN=mean)
-# append cluster assignment
-cluster <- fit$cluster
-cc <- cbind(cc, cluster)
-cc <- cc[order(cc$cluster),]
-cc[1:500,]
+#ac <- cbind(ac, cluster)
 
 #examine clusters. Note that cluster assignments will not be in the same order each time clustering is run. 
-aggregate(cc, by=list(cc$cluster), mean)
+cc_mean <- aggregate(cc, by=list(fit$cluster), FUN="mean")
 
-#cluster 1 - fast growing, 2nd highest paying 
+#cluster 1 - not a standout in any category - increasing the least of the careers with positive growth, 3rd most job openings, 3rd highest wages 
 #cluster 2- highest paying
-#cluster 3- 2nd highest total amount of job openings and change in number of people employed
-#cluster 4- highest total amount of job openings and change in number of people employed
-#cluster 5- not a standout in any category - increasing the least of the careers with positive growth, 3rd most job openings, 3rd highest wages
-#cluster 6- worst career choices - decrease in employment and lowest wage
+#cluster 3- worst career choices - largest decrease in employment and lowest wage 
+#cluster 4- 2nd highest total amount of job openings and change in number of people employed 
+#cluster 5- highest total amount of job openings and change in number of people employed
+#cluster 6- fastest growing, 2nd highest paying 
 
 #plot results
-# plot(cc$height, dfc$salary, type="p", xlab = "height", ylab="salary", col=dfc$color)
+colors <- c('red', 'blue', 'yellow', 'orange', 'green' 'purple')
+plot(ac$career_job_openings, ac$career_med_ann_wage, type="p", xlab = "job openings", ylab="wage", col=colors[cluster])
+plot(ac$career_num_emp_change, ac$career_med_ann_wage, type="p", xlab = "number of jobs added/lost", ylab="wage", col=colors[cluster])
+plot(ac$career_percent_emp_change, ac$career_med_ann_wage, type="p", xlab = "percent change in number of jobs", ylab="wage", col=colors[cluster])
 
-#   Group.1 career_2012_emp career_2022_emp career_num_emp_change career_percent_emp_change career_job_openings career_med_ann_wage cluster
-# 1       1        168.9911        212.5856             43.591096                 27.189041            74.84247            45461.85       1
-# 2       2        172.3032        192.3729             20.063830                 11.273936            55.62287            89376.06       2
-# 3       3       3347.6353       3755.5804            407.949020                 13.362745          1182.28824            38090.20       3
-# 4       4       9857.8167      10897.7417           1039.916667                 11.975000          3663.34167            38871.67       4
-# 5       5        255.7901        278.0748             22.281542                  8.686207            82.53387            39623.63       5
-# 6       6        109.1610        100.9045             -8.254237                 -8.459887            24.33729            37021.58       6
+cc_mean
+#Group.1 career_med_ann_wage career_job_openings
+#1       1            38514.61            38.89099
+#2       2            86334.89            35.51978
+#3       3            33208.89           693.12593
+
+#compute silhouettes 
+library(cluster)
+#dissimilarity matrix
+dissE <- daisy(cc_scaled)
+sk <- silhouette(fit$cluster, dissE)
+plot(sk)
+
+#pam
+library(fpc)
+pamk.best <- pamk(cc_scaled)
+plot(pam(cc_scaled, pamk.best$nc))
