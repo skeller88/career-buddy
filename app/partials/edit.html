@@ -1,0 +1,12 @@
+<section class="sk-text-container">
+    <h3>Current Users</h3>
+    <p>Click on a user's email to edit their profile.</p>
+    <ul>
+        <div class="sk-legend-career" ng-class="{'sk-highlight-user': highlightUser}" ng-init="showUserInfo = false; highlightUser = false;" ng-click="showUserInfo = !showUserInfo; highlightUser = !highlightUser;" ng-repeat="user in users | orderBy:'user.user_email'">
+            <span class="sk-user-email">{{user.user_email}}</span>
+            <div class="sk-legend-user-info" ng-show="showUserInfo">
+
+            </div>
+        </div>
+    </ul>
+</section>

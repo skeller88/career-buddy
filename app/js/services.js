@@ -9,30 +9,39 @@ angular.module('myApp.services', [])
   .value('version', '0.1')
 
   .factory('careersService', ['$http', function($http) {
-    function getCareerNames() {
-      return $http({
-        url: '/careers/names',
-        method: 'GET',
-        cache: true
-      });
-    }
+      function getCareerEdLevels() {
+          return $http({
+              url: '/careers/edLevels',
+              method: 'GET',
+              cache: true
+          });
+      }
 
-    //careers is an array of career names
-    function getCareerData(careers) {
-      return $http({
-        url:'/careers',
-        method: 'GET',
-        params: {
-          careers: careers
-        },
-        cache: true
-      })
-    }
+      function getCareerNames() {
+          return $http({
+              url: '/careers/names',
+              method: 'GET',
+              cache: true
+          });
+      }
 
-    return {
-      getCareerNames: getCareerNames,
-      getCareerData: getCareerData
-    };
+      //careers is an array of career names
+      function getCareerData(careers) {
+          return $http({
+              url:'/careers',
+              method: 'GET',
+              params: {
+                careers: careers
+              },
+              cache: true
+          })
+      }
+
+      return {
+          getCareerEdLevels: getCareerEdLevels,
+          getCareerNames: getCareerNames,
+          getCareerData: getCareerData
+      };
   }])
   .factory('d3Scales', function() {
       var rmin = 4;

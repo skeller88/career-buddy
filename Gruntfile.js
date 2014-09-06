@@ -97,8 +97,9 @@ module.exports = function(grunt) {
                   'app/lib/*.js',
                   'src/**/*.js',
                   'spec/**/*.js'
-                ],
-                tasks: ['mochaTest', 'karma', 'uglify']
+                ]
+                 //todo - uncomment
+//                tasks: ['test', 'build']
               }
         }
     });

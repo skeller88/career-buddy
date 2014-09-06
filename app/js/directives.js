@@ -3,7 +3,17 @@
 /* Directives */
 
 angular.module('myApp.directives', ['kendo.directives']).
-  directive('skLegendBubbles', ['$filter', 'd3Scales', function($filter, d3Scales) {
+    directive('userSignupForm', [function() {
+        return {
+            restrict: 'EA',
+            scope: {
+                careerEdLevels: '=',
+                user: '='
+            },
+            templateUrl: 'partials/user-signup-form.html'
+        }
+    }]).
+    directive('skLegendBubbles', ['$filter', 'd3Scales', function($filter, d3Scales) {
       return {
           restrict: 'EA',
           link: function(scope, element, attrs) {
@@ -64,7 +74,7 @@ angular.module('myApp.directives', ['kendo.directives']).
           }
       }
   }]).
-  directive('skEpChart', ['$filter', '$window', 'alphabet', 'd3Scales', function($filter, $window, alphabet, d3Scales) {
+    directive('skEpChart', ['$filter', '$window', 'alphabet', 'd3Scales', function($filter, $window, alphabet, d3Scales) {
     return {
       restrict: 'EA',
       scope: {

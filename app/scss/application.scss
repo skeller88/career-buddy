@@ -59,15 +59,14 @@ html, body {
   font-size: 28px;
   line-height: 20px;
 }
-.sk-navbar-options {
+.sk-navbar-pages {
   height: 50px;
   margin: 0;
   list-style-type: none;
   display: inline-block;
 }
-.sk-navbar-options {
+.sk-navbar-pages {
   li {
-    float: left;
     padding: 15px 10px;
     font-size: 16px;
     line-height: 20px;
@@ -82,6 +81,18 @@ html, body {
     }
   }
 }
+.sk-navbar-pages-left {
+  float: left;
+  li {
+    float: left;
+  }
+}
+.sk-navbar-pages-right {
+  float: right;
+  li {
+    float: right;
+  }
+}
   .sk-navbar-link {
     text-decoration: none;
     color: $sk-navigation-color;
@@ -92,8 +103,19 @@ html, body {
   .sk-navbar-link:hover {
     text-decoration: underline;
   }
-  /* SELECTOR
-  ============================================================================= */
+
+/* SIGNUP
+============================================================================= */
+input, select {
+  display: block;
+}
+
+.sk-field {
+    margin-bottom: 10px;
+}
+
+/* SELECTOR
+============================================================================= */
 
   .sk-career-selector {
     padding: 20px 0;

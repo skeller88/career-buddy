@@ -16,13 +16,30 @@ module.exports = (function(dbHelpers, nearCache, Promise) {
         return new Promise(function(resolve, reject) {
             nearCache.get('careerNames', queryCareerNames, 'careerNames')
             .then(function(careerNames) {
-                //TODO- why?- for faster lookup of career names in multiselect widget on client side
                 resolve(careerNames);
             }, function(err) {
                 reject(err);
             });
         });
     }
+
+    function getAllEdLevels() {
+        function queryCareerEdLevels() {
+            return dbConnectionObj
+                .select('career_edu')
+                .distinct('career_edu')
+                .from(careerTableName);
+        }
+
+        return new Promise(function(resolve, reject) {
+            nearCache.get('careerEdLevels', queryCareerEdLevels, 'careerEdLevels')
+                .then(function(careerEdLevels) {
+                    resolve(careerEdLevels);
+                }, function(err) {
+                    reject(err);
+                });
+        });
+    };
 
     //@param careerNames [array of career names]
     function findByCareerNames(careerNames) {
@@ -44,7 +61,8 @@ module.exports = (function(dbHelpers, nearCache, Promise) {
     }
 
     return {
-        getAllCareerNames: getAllCareerNames,
-        findByCareerNames: findByCareerNames
+        findByCareerNames: findByCareerNames,
+        getAllEdLevels: getAllEdLevels,
+        getAllCareerNames: getAllCareerNames
     }
 })(dbHelpers, nearCache, Promise);

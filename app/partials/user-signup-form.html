@@ -1,0 +1,47 @@
+<form class="sk-text-container signup-form" name="signupForm" novalidate>
+    <fieldset>
+        <div class="sk-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" ng-model="user.email" type="email">
+        </div>
+
+        <div class="sk-field">
+            <label for="password">Password</label>
+            <input id="password" ng-model="user.password" name="password" required />
+        </div>
+
+        <div class="sk-field">
+            <label for="age">Age</label>
+            <input id="age" min="5" max="150" ng-model="user.age" name="age" required type="number" />
+        </div>
+
+        <div class="sk-field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" ng-model="user.gender">
+                <option value="male">Male</option>
+                <option value="male">Female</option>
+                <option value="male">Other</option>
+            </select>
+        </div>
+
+        <div class="sk-field">
+            <label for="education">Education</label>
+            <select id="education" name="education" ng-model="user.education" ng-options="careerEdLevelObj.career_edu for careerEdLevelObj in careerEdLevels">
+            </select>
+        </div>
+
+        <div class="sk-field">
+            <label for="curr-job">Current Job</label>
+            <select id="curr-job" kendo-multi-select k-options="currJobOptions" k-ng-model="user.currJob"></select>
+        </div>
+
+        <div class="sk-field">
+            <label for="has-liked-curr-job">Do you like your current job?</label>
+            <select id="has-liked-curr-job" name="has-liked-curr-job" ng-model="user.hasLikedCurrJob">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="indifferent">Indifferent</option>
+            </select>
+        </div>
+    </fieldset>
+</form>

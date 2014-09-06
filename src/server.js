@@ -41,30 +41,38 @@ function sendWithJSONProtection(req, res, next) {
     next();
 }
 
-function getCareerNames(req, res, next) {
-  console.time('careerNames');
+//expects a 'careers' param whose value is an array of career names
+function getCareerData(req, res) {
+    console.time('careerData');
 
-  careers.getAllCareerNames().then(function(careerNames) {
+    var careerNames = req.query.careers;
+
+    careers.findByCareerNames(careerNames).then(function(careerData) {
+        console.timeEnd('careerData');
+        res.send(careerData);
+    }, function(err) {
+        console.timeEnd('careerData');
+        res.send(400, err);
+    });
+}
+
+function getCareerEdLevels(req, res, next) {
+    careers.getAllEdLevels().then(function(careerEdLevels) {
+        res.send(careerEdLevels);
+    }, function(err) {
+        res.send(400, err);
+    });
+}
+
+function getCareerNames(req, res, next) {
+
+  console.time('careerNames');
+    careers.getAllCareerNames().then(function(careerNames) {
       console.timeEnd('careerNames');
       res.send(careerNames);
   }, function(err) {
       console.timeEnd('careerNames');
-      res.send(400);
-  })
-};
-
-//expects a 'careers' param whose value is an array of career names
-function getCareerData(req, res) {
-  console.time('careerData');
-
-  var careerNames = req.query.careers;
-
-  careers.findByCareerNames(careerNames).then(function(careerData) {
-      console.timeEnd('careerData');
-      res.send(careerData);
-  }, function(err) {
-      console.timeEnd('careerData');
-      res.send(400);
+      res.send(400, err);
   });
 }
 
@@ -72,16 +80,17 @@ app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.urlencoded());
 
 //production
-app.use(express.static(__dirname + '/../dist'));
+//app.use(express.static(__dirname + '/../dist'));
 
 //development
-//app.use(express.static(__dirname + '/../app'));
+app.use(express.static(__dirname + '/../app'));
 
 app.use(sendWithJSONProtection);
 
 //routes
-app.get('/careers/names', getCareerNames);
 app.get('/careers', getCareerData);
+app.get('/careers/edLevels', getCareerEdLevels);
+app.get('/careers/names', getCareerNames);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.info('Server now listening on port ' + app.get('port'));
