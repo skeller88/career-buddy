@@ -1,3 +1,5 @@
+'use strict';
+
 var chai = require('chai');
 var dbHelpers = require('../../src/util/dbHelpers.js');
 var productionConnectionString = 'postgres://ridycrnekqeenm:36ijB7sOymHbWMgmuRLVOBLofq@ec2-54-221-243-6.compute-1.amazonaws.com:5432/d1eb2fbft5f994?ssl=true';

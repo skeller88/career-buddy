@@ -1,3 +1,5 @@
+'use strict';
+
 var request = require('supertest');
 var server = require('../../src/server.js');
 var Promise = require('../../src/util/promise.js');
@@ -19,7 +21,7 @@ describe('routes', function() {
         function missingPadding(res) {
             var padding = returnPadding(res.text);
             //supertest API expects function to return false in order for the test to pass
-            if(padding !== server.padding) return 'missing proper response padding'; 
+            if(padding !== server.padding) return 'missing proper response padding';
         }
 
         request(app)

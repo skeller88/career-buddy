@@ -1,3 +1,5 @@
+'use strict';
+
 //must be invoked before any other db helper functions can query database
 exports.dbConnectionObj = (function() {
   //production

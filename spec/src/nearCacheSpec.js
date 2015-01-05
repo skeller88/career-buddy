@@ -1,3 +1,5 @@
+'use strict';
+
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 var nearCache = require('../../src/util/nearCache.js');
@@ -11,7 +13,7 @@ var data = {'foo': 'dataBar'};
 
 function missHandler(key) {
     return new Promise(function(resolve, reject) {
-        if(data[key]){ 
+        if(data[key]){
             resolve(data[key]);
         } else {
             reject(new Error(key + ' ' + 'not found.'));
@@ -21,7 +23,7 @@ function missHandler(key) {
 
 function falsyMissHandler(key) {
     return new Promise(function(resolve, reject) {
-        if(data[key]){ 
+        if(data[key]){
             resolve(false);
         } else {
             reject(new Error(key + ' ' + 'not found.'));

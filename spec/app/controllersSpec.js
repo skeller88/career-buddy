@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Unit: myApp.services', function() {
     var careersService, $rootScope, createController, $httpBackend;
 
@@ -20,7 +22,7 @@ describe('Unit: myApp.services', function() {
                 {career_name: 'nurse'},
                 {career_name: 'doctor'},
                 {career_name: 'lawyer'}
-            ] 
+            ]
         );
 
         careersService = $injector.get('careersService');
@@ -28,7 +30,7 @@ describe('Unit: myApp.services', function() {
         var $controller = $injector.get('$controller');
         createController = function() {
             return $controller('HomeCtrl', {'$scope' : $rootScope });
-        }; 
+        };
     }));
 
     afterEach(function() {
@@ -38,7 +40,7 @@ describe('Unit: myApp.services', function() {
 
     it('getCareerNames() - should get all career names', function() {
         var controller = createController();
-        $httpBackend.flush(); 
+        $httpBackend.flush();
     });
 
     it('getCareerNames - returns an array of objects with a career_name property', function() {

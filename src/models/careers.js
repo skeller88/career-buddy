@@ -1,3 +1,5 @@
+"use strict";
+
 var dbHelpers = require('../util/dbHelpers.js');
 var nearCache = require('../util/nearCache.js');
 var Promise = require('../util/promise.js');
