@@ -29,7 +29,7 @@ describe('routes', function() {
             //not "application/json" because sendWithJSONProtection() coerces response body into string?
             .expect('Content-Type', "text/html; charset=utf-8")
             .expect(missingPadding)
-            .expect(200, done)
+            .expect(200, done);
     });
 
     it('getCareerNames - get all career names', function(done) {
@@ -47,7 +47,7 @@ describe('routes', function() {
             .get('/careers/names')
             .expect('Content-Type', "text/html; charset=utf-8")
             .expect(missingCareerNames)
-            .expect(200, done)
+            .expect(200, done);
     });
 
     it('getCareerData - get relevant career data', function(done) {
