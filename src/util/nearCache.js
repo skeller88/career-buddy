@@ -5,11 +5,12 @@ var Promise = require('./promise.js');
 module.exports = function(Promise) {
     var cache = {};
 
+    //@param key [array] used as argument by missHandler if cache miss
+    // TODO(shane): Sometimes only a single string is needed to be used as the
+    // key. Would it make more sense to allow for a [string] to be used by the
+    // missHandler as well as an [array]?
     //@param missHandler [promise]
-    //additional params can be included and will be passed to miss handler
     function get(key, missHandler) {
-
-      var params = Array.prototype.slice.call(arguments, 2);
 
       return new Promise(function(resolve, reject) {
           //handle lookup of arrays in nearCache
@@ -25,8 +26,8 @@ module.exports = function(Promise) {
               if(!missHandler) {
                   reject(new Error('no missHandler'));
               }
-              missHandler.apply(undefined, params).then(function(result) {
-                  set(key, result);
+              missHandler.apply(undefined, key).then(function(result) {
+                  set(cacheKey, result);
                   resolve(result);
               }, function(err) {
                   reject(err);
@@ -42,5 +43,5 @@ module.exports = function(Promise) {
     return {
         get: get,
         set: set
-    }
+    };
 }(Promise);

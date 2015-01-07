@@ -17,7 +17,7 @@ function removePadding(text) {
 }
 
 describe('routes', function() {
-    it('sendWithJSONProtection - pads response', function(done) {
+    it('sendWithAngularJSONProtection - pads response', function(done) {
         function missingPadding(res) {
             var padding = returnPadding(res.text);
             //supertest API expects function to return false in order for the test to pass
@@ -26,8 +26,8 @@ describe('routes', function() {
 
         request(app)
             .get('/careers/names')
-            //not "application/json" because sendWithJSONProtection() coerces response body into string?
-            .expect('Content-Type', "text/html; charset=utf-8")
+            //not "application/json" because sendWithAngularJSONProtection() coerces response body into string?
+            .expect('Content-Type', "application/json; charset=utf-8")
             .expect(missingPadding)
             .expect(200, done);
     });
@@ -45,7 +45,7 @@ describe('routes', function() {
 
         request(app)
             .get('/careers/names')
-            .expect('Content-Type', "text/html; charset=utf-8")
+            .expect('Content-Type', "application/json; charset=utf-8")
             .expect(missingCareerNames)
             .expect(200, done);
     });
@@ -62,7 +62,7 @@ describe('routes', function() {
 
         request(app)
             .get('/careers?careers=Nurse+practitioners&careers=Mathematicians')
-            .expect('Content-Type', "text/html; charset=utf-8")
+            .expect('Content-Type', "application/json; charset=utf-8")
             .expect(missingCareerData)
             .expect(200, done);
     });

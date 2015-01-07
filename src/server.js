@@ -8,14 +8,21 @@ var careers = require('./models/careers');
 var dbHelpers = require('./util/dbHelpers');
 var app = express();
 
-function sendWithJSONProtection(req, res, next) {
+// for increased security, Angular suggests adding padding to JSON:
+// https://docs.angularjs.org/api/ng/service/$http
+function sendWithAngularJSONProtection(req, res, next) {
     var originalSend = res.send;
 
+    // overload res.send
     res.send = function () { // override res.send()
+        // send status code only (200, 400)
         if (arguments.length == 1 && (typeof arguments[0]) == "number") {
             //TODO- why is context 'this'?
             originalSend.call(this, arguments[0]);
+        // send status code and response body
         } else {
+            res.contentType('application/json');
+
             var status, body;
             if (arguments.length == 2) {
                 status = arguments[0];
@@ -31,7 +38,7 @@ function sendWithJSONProtection(req, res, next) {
                 newBody = body;
             }
             //need padding length for testing
-            exports.padding = ')]}\',\n'; // https://docs.angularjs.org/api/ng/service/$http
+            exports.padding = ')]}\',\n';
             if (arguments.length == 2) {
                 originalSend.call(this, status, exports.padding + newBody);
             } else {
@@ -52,8 +59,8 @@ function getCareerNames(req, res, next) {
   }, function(err) {
       console.timeEnd('careerNames');
       res.send(400);
-  })
-};
+  });
+}
 
 //expects a 'careers' param whose value is an array of career names
 function getCareerData(req, res) {
@@ -77,9 +84,9 @@ app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname + '/../dist'));
 
 //development
-//app.use(express.static(__dirname + '/../app'));
+// app.use(express.static(__dirname + '/../app'));
 
-app.use(sendWithJSONProtection);
+app.use(sendWithAngularJSONProtection);
 
 //routes
 app.get('/careers/names', getCareerNames);

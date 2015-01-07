@@ -16,7 +16,8 @@ module.exports = (function(dbHelpers, nearCache, Promise) {
         }
 
         return new Promise(function(resolve, reject) {
-            nearCache.get('careerNames', queryCareerNames, 'careerNames')
+            // .get() expects an array
+            nearCache.get(['careerNames'], queryCareerNames)
             .then(function(careerNames) {
                 //TODO- why?- for faster lookup of career names in multiselect widget on client side
                 resolve(careerNames);
@@ -36,17 +37,17 @@ module.exports = (function(dbHelpers, nearCache, Promise) {
         }
 
         return new Promise(function(resolve, reject) {
-            nearCache.get(careerNames, queryCareerData, careerQueryKey)
+            nearCache.get(careerNames, queryCareerData)
             .then(function(careers) {
                 resolve(careers);
             }, function(err) {
                 reject(err);
             });
-        })
+        });
     }
 
     return {
         getAllCareerNames: getAllCareerNames,
         findByCareerNames: findByCareerNames
-    }
+    };
 })(dbHelpers, nearCache, Promise);

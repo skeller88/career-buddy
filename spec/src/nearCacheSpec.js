@@ -50,12 +50,12 @@ describe('nearCache.get', function() {
     });
 
     it('sets the value of a key not in the cache, and returns that value', function() {
-        var nearCacheGet = nearCache.get('foo', missHandler, 'foo');
+        var nearCacheGet = nearCache.get(['foo'], missHandler);
         return assert.eventually.equal(nearCacheGet, 'dataBar', 'miss handler did not return the proper value');
     });
 
     it('rejects a promise when missing the miss handler param and when a property is not in the cache', function() {
-        var nearCacheGet = nearCache.get('foo');
+        var nearCacheGet = nearCache.get(['foo']);
         return assert.isRejected(nearCacheGet, 'function promise was not rejected');
     });
 });

@@ -100,7 +100,7 @@ module.exports = function(grunt) {
                   'src/**/*.js',
                   'spec/**/*.js'
                 ],
-                tasks: ['mochaTest', 'karma', 'uglify']
+                tasks: ['mochaTest', 'karma']
               }
         }
     });
