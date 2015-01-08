@@ -5,7 +5,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var console = require('console');
 var careers = require('./models/careers');
-var dbHelpers = require('./util/dbHelpers');
 var app = express();
 
 // for increased security, Angular suggests adding padding to JSON:
