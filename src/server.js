@@ -1,12 +1,15 @@
 'use strict';
 
-var http = require('http');
-var express = require('express');
 var bodyParser = require('body-parser');
-var console = require('console');
 var careers = require('./models/careers');
+var compression = require('compression');
+var console = require('console');
+var express = require('express');
+var http = require('http');
+
 var app = express();
 
+process.env.DEBUG = "compression";
 // for increased security, Angular suggests adding padding to JSON:
 // https://docs.angularjs.org/api/ng/service/$http
 function sendWithAngularJSONProtection(req, res, next) {
@@ -77,6 +80,8 @@ function getCareerData(req, res) {
 }
 
 app.set('port', process.env.PORT || 3000);
+// Determines by default if response is compressible. Also sets "Vary" header.
+app.use(compression());
 app.use(bodyParser.urlencoded());
 
 //production
