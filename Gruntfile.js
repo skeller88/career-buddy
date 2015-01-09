@@ -47,7 +47,6 @@ module.exports = function(grunt) {
             prod: {
                 src: [
                     'dist/css/*.css',
-                    'dist/img/*.{png,gif,jpg,svg}',
                     'dist/js/*.js'
                 ],
                 dest: [
