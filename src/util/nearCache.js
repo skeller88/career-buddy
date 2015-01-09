@@ -26,7 +26,7 @@ module.exports = function(Promise) {
               if(!missHandler) {
                   reject(new Error('no missHandler'));
               }
-              missHandler.apply(undefined, key).then(function(result) {
+              missHandler.call(undefined, key).then(function(result) {
                   set(cacheKey, result);
                   resolve(result);
               }, function(err) {

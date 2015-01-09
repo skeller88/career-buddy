@@ -19,7 +19,6 @@ module.exports = (function(dbHelpers, nearCache, Promise) {
             // .get() expects an array
             nearCache.get(['careerNames'], queryCareerNames)
             .then(function(careerNames) {
-                //TODO- why?- for faster lookup of career names in multiselect widget on client side
                 resolve(careerNames);
             }, function(err) {
                 reject(err);
@@ -29,6 +28,7 @@ module.exports = (function(dbHelpers, nearCache, Promise) {
 
     //@param careerNames [array of career names]
     function findByCareerNames(careerNames) {
+
         function queryCareerData(careerNames) {
           return dbConnectionObj
           .select()

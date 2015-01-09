@@ -21,7 +21,9 @@ describe('routes', function() {
         function missingPadding(res) {
             var padding = returnPadding(res.text);
             //supertest API expects function to return false in order for the test to pass
-            if(padding !== server.padding) return 'missing proper response padding';
+            if (padding !== server.padding) {
+                return 'missing proper response padding';
+            }
         }
 
         request(app)
@@ -36,11 +38,14 @@ describe('routes', function() {
         function missingCareerNames(res) {
             res.text = removePadding(res.text);
             //string needs to be parsed so it can be manipulated as an array
-            var careerNamesArray = JSON.parse(res.text);
-            var career = careerNamesArray[0];
+            var careers = JSON.parse(res.text);
+            var career = careers[0];
             //1074 current number of careers in database
-            if (!career.career_name) return 'didn\'t return objects with "career_name" keys';
-            if (careerNamesArray.length !== numCareers) return 'should return ' + 1074 + ' career names';
+            if (!career.career_name) {
+                return 'didn\'t return objects with "career_name" keys';
+            } else if (careers.length !== numCareers) {
+                return 'should return ' + 1074 + ' career names';
+            }
         }
 
         request(app)
@@ -54,10 +59,15 @@ describe('routes', function() {
         function missingCareerData(res) {
             res.text = removePadding(res.text);
             //string needs to be parsed so it can be manipulated as an array
-            var careerDataArray = JSON.parse(res.text);
-            var career = careerDataArray[0];
-            if (career.career_name !== 'Nurse practitioners' && career.career_name !== 'Mathematicians') return 'didn\'t return correct careers';
-            if (!career.career_percent_emp_change || !career.career_med_ann_wage) return 'missing "employment" and "wage" data for career in response';
+            var careers = JSON.parse(res.text);
+            var career = careers[0];
+            if (careers.length !== 2) {
+                return 'expected 2 careers, got ' + careers.length + ' career(s).';
+            } else if (career.career_name !== 'Nurse practitioners' && career.career_name !== 'Mathematicians') {
+                return 'didn\'t return correct careers';
+            } else if (!career.career_percent_emp_change || !career.career_med_ann_wage) {
+                return 'missing "employment" and "wage" data for career in response';
+            }
         }
 
         request(app)
