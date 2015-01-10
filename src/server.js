@@ -85,14 +85,14 @@ app.use(compression());
 app.use(bodyParser.urlencoded());
 
 //production
-// app.use(express.static(__dirname + '/../dist', {
-//     maxAge: 31536000
-// }));
-
-//development
-app.use(express.static(__dirname + '/../app', {
+app.use(express.static(__dirname + '/../dist', {
     maxAge: 31536000
 }));
+
+//development
+// app.use(express.static(__dirname + '/../app', {
+//     maxAge: 31536000
+// }));
 
 app.use(sendWithAngularJSONProtection);
 
