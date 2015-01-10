@@ -57,7 +57,8 @@ function getCareerNames(req, res, next) {
 
   careers.getAllCareerNames().then(function(careerNames) {
       console.timeEnd('careerNames');
-      res.setHeader('Cache-Control', 'public, max-age=31557600');
+      // Cache for 1 week
+      res.setHeader('Cache-Control', 'public, max-age=604800');
       res.send(careerNames);
   }, function(err) {
       console.timeEnd('careerNames');
@@ -73,6 +74,8 @@ function getCareerData(req, res) {
 
   careers.findByCareerNames(careerNames).then(function(careerData) {
       console.timeEnd('careerData');
+      // Cache for 1 week
+      res.setHeader('Cache-Control', 'public, max-age=604800');
       res.send(careerData);
   }, function(err) {
       console.timeEnd('careerData');
