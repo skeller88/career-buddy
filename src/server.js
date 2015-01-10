@@ -91,7 +91,8 @@ app.use(bodyParser.urlencoded());
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/../dist', {
         // Property is in ms, not s
-        maxAge: 31557600000
+        maxAge: 100
+        // maxAge: 31557600000
     }));
 } else {
     app.use(express.static(__dirname + '/../app', {
