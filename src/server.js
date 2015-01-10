@@ -57,6 +57,7 @@ function getCareerNames(req, res, next) {
 
   careers.getAllCareerNames().then(function(careerNames) {
       console.timeEnd('careerNames');
+      res.setHeader('Cache-Control', 'public, max-age=31557600');
       res.send(careerNames);
   }, function(err) {
       console.timeEnd('careerNames');
@@ -84,15 +85,16 @@ app.set('port', process.env.PORT || 3000);
 app.use(compression());
 app.use(bodyParser.urlencoded());
 
-//production
-app.use(express.static(__dirname + '/../dist', {
-    maxAge: 31536000
-}));
-
-//development
-// app.use(express.static(__dirname + '/../app', {
-//     maxAge: 31536000
-// }));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(__dirname + '/../dist', {
+        // Property is in ms, not s
+        maxAge: 31557600000
+    }));
+} else {
+    app.use(express.static(__dirname + '/../app', {
+        maxAge: 31557600000
+    }));
+}
 
 app.use(sendWithAngularJSONProtection);
 
