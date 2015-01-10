@@ -32,7 +32,6 @@ module.exports = function(grunt) {
             dist: {
                 files: [
                     {expand: true, cwd: 'app', src: 'index.html', dest: 'dist'},
-                    {expand: true, cwd: 'app', src: 'partials/*', dest: 'dist'},
                     {expand: true, cwd: 'app', src: 'img/*', dest: 'dist'}
                 ]
             }
@@ -61,6 +60,25 @@ module.exports = function(grunt) {
             configFile: 'my.conf.js',
             singleRun: true
           }
+        },
+
+        minifyHtml: {
+            dist: {
+                files: [
+                    {
+                        cwd: 'dist',
+                        dest: 'dist',
+                        expand: true,
+                        src: 'index.html'
+                    },
+                    {
+                        cwd: 'app',
+                        dest: 'dist',
+                        expand: true,
+                        src: 'partials/*'
+                    },
+                ]
+            }
         },
 
         mochaTest: {
@@ -104,10 +122,6 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-hashres');
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -115,13 +129,25 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-hashres');
+    grunt.loadNpmTasks('grunt-minify-html');
+    grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-usemin');
 
     grunt.registerTask('build', [
-        'clean', 'compass:dev', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'hashres', 'usemin'
+        'clean',
+        'compass:dev',
+        'copy',
+        'useminPrepare',
+        'concat',
+        'cssmin',
+        'uglify',
+        'hashres',
+        'usemin',
+        'minifyHtml'
     ]);
-    grunt.registerTask('heroku:production', [
-       'build'
-    ]);
+    grunt.registerTask('heroku:production', ['build']);
     grunt.registerTask('default', ['build', 'watch']);
     grunt.registerTask('test', ['mochaTest', 'karma']);
 }
