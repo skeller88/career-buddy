@@ -16,7 +16,8 @@ function removePadding(text) {
     return unpaddedText;
 }
 
-describe('routes', function() {
+describe('middleware', function() {
+
     it('sendWithAngularJSONProtection - pads response', function(done) {
         function missingPadding(res) {
             var padding = returnPadding(res.text);
@@ -33,6 +34,30 @@ describe('routes', function() {
             .expect(missingPadding)
             .expect(200, done);
     });
+
+    it('does not cache .html files', function(done) {
+        request(app)
+            .get('/index.html')
+            .expect('Cache-Control', "public, max-age=0")
+            .expect(200, done);
+    });
+
+    it('caches .js files', function(done) {
+        request(app)
+            .get('/js/app.js')
+            .expect('Cache-Control', "public, max-age=31557600000")
+            .expect(200, done);
+    });
+
+    it('caches .css files', function(done) {
+        request(app)
+            .get('/css/application.css')
+            .expect('Cache-Control', "public, max-age=31557600000")
+            .expect(200, done);
+    });
+});
+
+describe('routes', function() {
 
     it('getCareerNames - get all career names', function(done) {
         function missingCareerNames(res) {

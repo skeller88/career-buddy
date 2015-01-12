@@ -90,7 +90,6 @@ function cacheControl(res, path) {
     var re = new RegExp(".\.html");
 
     if (!re.test(path)) {
-        console.log(path);
         res.setHeader('Cache-Control', 'public, max-age=31557600000');
     }
 }
