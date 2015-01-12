@@ -6,10 +6,43 @@ var compression = require('compression');
 var console = require('console');
 var express = require('express');
 var http = require('http');
+var serveStatic = require('serve-static');
 
 var app = express();
 
 process.env.DEBUG = "compression";
+
+function getCareerNames(req, res, next) {
+  console.time('careerNames');
+
+  careers.getAllCareerNames().then(function(careerNames) {
+      console.timeEnd('careerNames');
+      // Cache for 1 week
+      res.setHeader('Cache-Control', 'public, max-age=604800');
+      res.send(careerNames);
+  }, function(err) {
+      console.timeEnd('careerNames');
+      res.send(400);
+  });
+}
+
+//expects a 'careers' param whose value is an array of career names
+function getCareerData(req, res) {
+  console.time('careerData');
+
+  var careerNames = req.query.careers;
+
+  careers.findByCareerNames(careerNames).then(function(careerData) {
+      console.timeEnd('careerData');
+      // Cache for 1 week
+      res.setHeader('Cache-Control', 'public, max-age=604800');
+      res.send(careerData);
+  }, function(err) {
+      console.timeEnd('careerData');
+      res.send(400);
+  });
+}
+
 // for increased security, Angular suggests adding padding to JSON:
 // https://docs.angularjs.org/api/ng/service/$http
 function sendWithAngularJSONProtection(req, res, next) {
@@ -52,51 +85,32 @@ function sendWithAngularJSONProtection(req, res, next) {
     next();
 }
 
-function getCareerNames(req, res, next) {
-  console.time('careerNames');
+// Cache all static files except for .html files.
+function cacheControl(res, path) {
+    var re = new RegExp(".\.html");
 
-  careers.getAllCareerNames().then(function(careerNames) {
-      console.timeEnd('careerNames');
-      // Cache for 1 week
-      res.setHeader('Cache-Control', 'public, max-age=604800');
-      res.send(careerNames);
-  }, function(err) {
-      console.timeEnd('careerNames');
-      res.send(400);
-  });
-}
-
-//expects a 'careers' param whose value is an array of career names
-function getCareerData(req, res) {
-  console.time('careerData');
-
-  var careerNames = req.query.careers;
-
-  careers.findByCareerNames(careerNames).then(function(careerData) {
-      console.timeEnd('careerData');
-      // Cache for 1 week
-      res.setHeader('Cache-Control', 'public, max-age=604800');
-      res.send(careerData);
-  }, function(err) {
-      console.timeEnd('careerData');
-      res.send(400);
-  });
+    if (!re.test(path)) {
+        console.log(path);
+        res.setHeader('Cache-Control', 'public, max-age=31557600000');
+    }
 }
 
 app.set('port', process.env.PORT || 3000);
 // Determines by default if response is compressible. Also sets "Vary" header.
 app.use(compression());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(__dirname + '/../dist', {
-        // Property is in ms, not s
-        maxAge: 100
-        // maxAge: 31557600000
+    // Don't cache dynamic .html content.
+    app.use(serveStatic(__dirname + '/../dist', {
+        'setHeaders': cacheControl
     }));
+
 } else {
-    app.use(express.static(__dirname + '/../app', {
-        maxAge: 31557600000
+    // Don't cache dynamic .html content.
+    app.use(serveStatic(__dirname + '/../app', {
+        'setHeaders': cacheControl
     }));
 }
 
