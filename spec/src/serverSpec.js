@@ -42,14 +42,14 @@ describe('middleware', function() {
             .expect(200, done);
     });
 
-    it('caches .js files', function(done) {
+    it('caches .js files for 1 year', function(done) {
         request(app)
             .get('/js/app.js')
             .expect('Cache-Control', "public, max-age=31557600000")
             .expect(200, done);
     });
 
-    it('caches .css files', function(done) {
+    it('caches .css files for 1 year', function(done) {
         request(app)
             .get('/css/application.css')
             .expect('Cache-Control', "public, max-age=31557600000")
@@ -75,6 +75,7 @@ describe('routes', function() {
 
         request(app)
             .get('/careers/names')
+            .expect('Cache-Control', "public, max-age=604800")
             .expect('Content-Type', "application/json; charset=utf-8")
             .expect(missingCareerNames)
             .expect(200, done);
@@ -97,6 +98,7 @@ describe('routes', function() {
 
         request(app)
             .get('/careers?careers=Nurse+practitioners&careers=Mathematicians')
+            .expect('Cache-Control', "public, max-age=604800")
             .expect('Content-Type', "application/json; charset=utf-8")
             .expect(missingCareerData)
             .expect(200, done);
