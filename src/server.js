@@ -10,8 +10,6 @@ var serveStatic = require('serve-static');
 
 var app = express();
 
-process.env.DEBUG = "compression";
-
 function getCareerNames(req, res, next) {
   console.time('careerNames');
 
