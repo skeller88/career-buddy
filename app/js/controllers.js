@@ -5,12 +5,12 @@
 angular.module('myApp.controllers', ['kendo.directives'])
   .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'careersService', 'd3Scales', 'localStorage', 'mergeSort', 'savedCareers', function($log, $scope, $timeout, careersService, d3Scales, localStorage, mergeSort, savedCareers) {
     //variables
-    $scope.selectedCareersData = [];
-    $scope.selectedCareerNames = [];
-    $scope.savedCareers = savedCareers;
-    //prevents flicker of kendo window widget 
+    //prevents flicker of kendo window widget
     $scope.isLegendShown = false;
     $scope.isLegendButtonDisabled = true;
+    $scope.savedCareers = savedCareers;
+    $scope.selectedCareersData = [];
+    $scope.selectedCareerNames = [];
     var preselectedTipCounter = 0;
     var legendTipCounter = 0;
     var isStubbedD3 = false;
@@ -30,11 +30,11 @@ angular.module('myApp.controllers', ['kendo.directives'])
             if(++preselectedTipCounter > 3) {
                 $timeout(function() {
                     $scope.preselectedTip.destroy();
-                }, 3000)
+                }, 3000);
             }
         },
         position: 'bottom'
-    }
+    };
 
     $scope.legendTipOptions = {
         autohide: false,
@@ -43,13 +43,13 @@ angular.module('myApp.controllers', ['kendo.directives'])
             if(++legendTipCounter > 3) {
                 $timeout(function() {
                     $scope.legendTip.destroy();
-                }, 3000)
+                }, 3000);
             }
         },
         position: 'top'
-    }
+    };
 
-    $scope.selectOptions = {    
+    $scope.selectOptions = {
         autoBind: false,
         dataTextField: "career_name",
         dataValueField: "career_name",
@@ -61,9 +61,9 @@ angular.module('myApp.controllers', ['kendo.directives'])
     //prevents flicker of overflow scrollbar
     $scope.tabStripOptions = {
         animation: false
-    }
+    };
 
-    //get career data 
+    //get career data
     $scope.getCareerNames = function() {
         careersService.getCareerNames().success(function(data) {
             dataSource.data(data);
@@ -77,8 +77,8 @@ angular.module('myApp.controllers', ['kendo.directives'])
             }
         }).error(function(err) {
             $log.error('getCareerNames error: ', err);
-        }); 
-    }
+        });
+    };
 
     $scope.getDataAndShowChart = function(careerNames) {
         var careerNames = careerNames || $scope.selectedCareerNames;
@@ -90,26 +90,26 @@ angular.module('myApp.controllers', ['kendo.directives'])
                    return -1;
                 // a must be equal to b
                 return 0;
-            })
+            });
 
             if(localStorage.get('showTooltips')) $scope.legendTip.show();
         }).error(function(data, status) {
             $log.error('getCareerData error: ', data, status);
         });
-    }
+    };
 
     //event handlers
     $scope.resetSelected = function() {
         $scope.selectedCareerNames = [];
         localStorage.set('careerNames', $scope.selectedCareerNames);
-    }
+    };
 
     $scope.compare = function() {
         localStorage.set('careerNames', $scope.selectedCareerNames);
 
         /* necessary to reset 'isLegendButtonDisabled' flag in case user no longer
         uses buttons that generate predetermined comparisons and instead
-        enters their own comparisons */ 
+        enters their own comparisons */
         $scope.isLegendButtonDisabled = false;
         $scope.getDataAndShowChart();
     };
@@ -119,13 +119,13 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.isLegendButtonDisabled = false;
         $scope.resetSelected();
         $scope.getDataAndShowChart(savedCareers.topPayingCareers);
-    }
+    };
 
     $scope.compareFastestGrowing = function() {
         $scope.isLegendButtonDisabled = false;
         $scope.resetSelected();
         $scope.getDataAndShowChart(savedCareers.fastestGrowingCareers);
-    }
+    };
 
     $scope.compareRandom = function() {
         $scope.isLegendButtonDisabled = false;
@@ -150,18 +150,18 @@ angular.module('myApp.controllers', ['kendo.directives'])
         })();
 
         $scope.getDataAndShowChart(randomCareers);
-    }
+    };
 
     $scope.addHighlight = function(careerNum) {
-        
+
         d3.select('.sk-data-point-num-' + careerNum)
-            .classed({'sk-data-point-selected': true, 'sk-data-point': false})
-    }
+            .classed({'sk-data-point-selected': true, 'sk-data-point': false});
+    };
 
     $scope.removeHighlight = function(careerNum) {
         d3.select('.sk-data-point-num-' + careerNum)
-            .classed({'sk-data-point-selected': false, 'sk-data-point': true})
-    }
+            .classed({'sk-data-point-selected': false, 'sk-data-point': true});
+    };
 
     $scope.getCareerNames();
 
@@ -169,7 +169,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
         $scope.selectedCareerNames = ['Teachers and instructors, all other', 'Software developers and programmers', 'Nurse practitioners', 'Police officers'];
     }
 
-    //need to wait until kendo tooltips have been added to the DOM before invoking callback function 
+    //need to wait until kendo tooltips have been added to the DOM before invoking callback function
     $timeout(function() {
         if(localStorage.get('showTooltips')) {
             localStorage.set('showTooltips', false);
