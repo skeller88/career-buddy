@@ -1,5 +1,17 @@
 /* app css stylesheet */
 
+/* Contents
+MIXINS
+BASIC
+NAVIGATION
+SELECTOR
+CHART
+TOOLTIPS
+LEGEND
+ANIMATIONS
+ABOUT PAGE
+*/
+
 /* MIXINS
 ============================================================================= */
 @import "base";
@@ -129,12 +141,18 @@ html, body {
     @include box-shadow(rgba(212, 197, 197, 1) 0 1px 0);
     @include text-shadow(rgba(0, 0, 0, .4) 0 1px 0);
   }
+
   .sk-button:hover:enabled {
     background: $sk-button-hover;
   }
   .sk-button:active:enabled {
     background: $sk-button-active;
   }
+
+  .sk-button-clicked {
+    background: $sk-button-active;
+  }
+
   .sk-button:disabled {
     opacity: 0.2;
   }

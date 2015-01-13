@@ -9,6 +9,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     $scope.isLegendShown = false;
     $scope.isLegendButtonDisabled = true;
     $scope.savedCareers = savedCareers;
+    $scope.selectedButton = null;
     $scope.selectedCareersData = [];
     $scope.selectedCareerNames = [];
     var preselectedTipCounter = 0;
