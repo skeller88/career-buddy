@@ -10,7 +10,10 @@ var serveStatic = require('serve-static');
 
 var app = express();
 
+// process.env.NODE_ENV = 'production';
+
 function getCareerNames(req, res, next) {
+  console.log('getCareerNames route');
   console.time('careerNames');
 
   careers.getAllCareerNames().then(function(careerNames) {
@@ -26,6 +29,7 @@ function getCareerNames(req, res, next) {
 
 //expects a 'careers' param whose value is an array of career names
 function getCareerData(req, res) {
+  console.log('getCareerData route');
   console.time('careerData');
 
   var careerNames = req.query.careers;
@@ -44,6 +48,7 @@ function getCareerData(req, res) {
 // for increased security, Angular suggests adding padding to JSON:
 // https://docs.angularjs.org/api/ng/service/$http
 function sendWithAngularJSONProtection(req, res, next) {
+    console.time('angularJSON');
     var originalSend = res.send;
 
     // overload res.send
@@ -80,19 +85,35 @@ function sendWithAngularJSONProtection(req, res, next) {
         }
     };
 
+    console.timeEnd('angularJSON');
     next();
 }
 
 // Cache all static files except for .html files.
-function cacheControl(res, path) {
-    var re = new RegExp(".\.html");
+var re = new RegExp(".html$");
 
+function cacheControl(res, path) {
+    console.time('cacheControl');
     if (!re.test(path)) {
+        console.log(path);
         res.setHeader('Cache-Control', 'public, max-age=31557600000');
     }
+    console.timeEnd('cacheControl');
 }
 
 app.set('port', process.env.PORT || 3000);
+// Simple request with no middleware
+app.use('/baseline/before-middleware', function(req, res) {
+    console.time('baseline');
+    console.timeEnd('baseline');
+    res.send(200);
+});
+
+app.use(function(req, res, next) {
+    var d = new Date();
+    res.setHeader('X-Response-Time', d.getTime());
+    next();
+});
 // Determines by default if response is compressible. Also sets "Vary" header.
 app.use(compression());
 app.use(bodyParser.json());
@@ -116,6 +137,12 @@ app.use(sendWithAngularJSONProtection);
 //routes
 app.get('/careers/names', getCareerNames);
 app.get('/careers', getCareerData);
+app.use('/baseline/after-middleware', function(req, res) {
+    var startTime = res.getHeader('X-Response-Time');
+    var endDate = new Date();
+    console.log('request took ' + startTime - endDate.getTime() + ' ms');
+    res.send(200);
+});
 
 http.createServer(app).listen(app.get('port'), function() {
   console.info('Server now listening on port ' + app.get('port'));
