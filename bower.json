@@ -5,18 +5,18 @@
   "repository": "https://github.com/skeller88/career-buddy",
   "private": true,
   "dependencies": {
-    "angular": "1.2.x",
-    "angular-route": "1.2.x",
-    "angular-loader": "1.2.x",
-    "angular-mocks": "~1.2.x",
+    "angular": "1.2.16",
+    "angular-route": "1.2.16",
+    "angular-loader": "1.2.16",
+    "angular-mocks": "1.2.16",
     "html5-boilerplate": "~4.3.0",
     "angular-ui-router": "~0.2.10",
-    "angular-animate": "~1.2.18",
-    "angular-resource": "~1.2.18",
+    "angular-animate": "1.2.16",
+    "angular-resource": "1.2.16",
     "d3": "~3.4.8",
     "normalize-css": "~3.0.1",
     "d3-tip": "~0.6.4",
-    "jquery": "~2.1.1",
-    "kendo-ui-core": "~2014.2.716"
+    "jquery": "1.9.1",
+    "kendo-ui-core": "2014.2.716"
   }
 }

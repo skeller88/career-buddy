@@ -18,7 +18,7 @@ module.exports = function(config) {
       'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
-      'app/bower_components/jquery/dist/jquery.js',
+      'app/bower_components/jquery/jquery.js',
       'app/lib/kendo.all.min.js',
       'app/lib/angular-kendo.js',
       'app/bower_components/d3/d3.min.js',

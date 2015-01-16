@@ -52,4 +52,4 @@ describe('Unit: myApp.services', function() {
 
         $httpBackend.flush();
     });
-})
+});

@@ -3,7 +3,9 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['kendo.directives'])
-  .controller('HomeCtrl', ['$log', '$scope', '$timeout', 'careersService', 'd3Scales', 'localStorage', 'mergeSort', 'savedCareers', function($log, $scope, $timeout, careersService, d3Scales, localStorage, mergeSort, savedCareers) {
+  .controller('HomeCtrl', [
+    '$log', '$scope', '$timeout', 'careersService', 'd3Scales', 'localStorage', 'mergeSort', 'savedCareers', function(
+        $log, $scope, $timeout, careersService, d3Scales, localStorage, mergeSort, savedCareers) {
     //variables
     //prevents flicker of kendo window widget
     $scope.isLegendShown = false;
@@ -55,8 +57,12 @@ angular.module('myApp.controllers', ['kendo.directives'])
         dataTextField: "career_name",
         dataValueField: "career_name",
         dataSource: dataSource,
+        filter: 'contains',
         placeholder: 'Select at least two careers to compare.',
-        filter: 'contains'
+        // Multiselect's value can be an array of primitives. Set to 'false'
+        // by default. When set to false, the multiselect's value can only be
+        // an array of objects.
+        valuePrimitive: true
     };
 
     //prevents flicker of overflow scrollbar
@@ -82,6 +88,7 @@ angular.module('myApp.controllers', ['kendo.directives'])
     };
 
     $scope.getDataAndShowChart = function(careerNames) {
+        // TODO(shane): kendo now has a multiselect widget return arrays of objects
         var careerNames = careerNames || $scope.selectedCareerNames;
         careersService.getCareerData(careerNames).success(function(data) {
             $scope.selectedCareersData = data.sort(function(a, b) {

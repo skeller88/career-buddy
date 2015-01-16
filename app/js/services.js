@@ -17,7 +17,7 @@ angular.module('myApp.services', [])
       });
     }
 
-    //careers is an array of career names
+    //@param [array of strings] careers
     function getCareerData(careers) {
       return $http({
         url:'/careers',
@@ -26,7 +26,7 @@ angular.module('myApp.services', [])
           careers: careers
         },
         cache: true
-      })
+      });
     }
 
     return {
@@ -85,7 +85,7 @@ angular.module('myApp.services', [])
       //initialize
       if($window.localStorage) {
           if(!get('careerNames')) set('careerNames', []);
-          //account for undefined and false values 
+          //account for undefined and false values
           var showTooltips = get('showTooltips');
           if(!showTooltips && !(typeof showTooltips === 'boolean')) {
               set('showTooltips', true);
@@ -97,8 +97,8 @@ angular.module('myApp.services', [])
           set: set
       };
   }])
-  //Was used at one point to generate bubble labels. No longer used. Keeping for several 
-  //more app versions in case user feedback is in favor of bubble labels. 
+  //Was used at one point to generate bubble labels. No longer used. Keeping for several
+  //more app versions in case user feedback is in favor of bubble labels.
   .value('alphabet', [function() {
       //20 may be too many
       return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
