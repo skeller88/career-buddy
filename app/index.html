@@ -52,19 +52,19 @@
 
   <!-- build:js js/lib.min.js -->
   <!-- jQuery -->
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery/jquery.js"></script>
   <!-- angular -->
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.min.js"></script>
-  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
   <!-- d3 -->
   <script src="bower_components/d3/d3.js"></script>
   <script src="bower_components/d3-tip/index.js"></script>
   <!-- endbuild -->
 
   <!-- kendo - must be loaded after jquery and angular -->
-  <!-- "kendo.all.min.js" causes grunt uglify task to hang. Therefore, cdn used instead. Otherwise lib.min.js and app.min.js would be concatenated into the same file :/. -->
+  <!-- "kendo.all.min.js" causes grunt uglify task to hang. Therefore, cdn used instead. Otherwise lib.min.js and app.min.js would be concatenated into the same file :/. Kendo must also be loaded before the js/ files. -->
   <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
 
   <!-- build:js js/app.min.js -->
