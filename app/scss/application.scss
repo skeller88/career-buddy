@@ -50,6 +50,18 @@ html, body {
   display: table-cell;
   vertical-align: middle;
 }
+
+/* KENDO
+============================================================================= */
+/* Override kendo-ui's "border-color: #f35800" */
+.k-tabstrip-items .k-state-active, .k-ie7 .k-tabstrip-items .k-state-active .k-loading {
+  border-color: white;
+}
+
+.k-state-active, .k-state-active:hover, .k-active-filter, .k-tabstrip .k-state-active  {
+  border-color: white;
+}
+
 /* NAVIGATION
 ============================================================================= */
 
