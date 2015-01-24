@@ -55,6 +55,7 @@ module.exports = function(grunt) {
             }
         },
 
+        // TODO(shane): karma task hangs; fix
         karma: {
           unit: {
             configFile: 'my.conf.js',
